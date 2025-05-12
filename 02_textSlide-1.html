@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Marquee effect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200..900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: "Noto Serif KR", serif;
+            background: #000;   
+            padding: 5% 0;
+            overflow-x:hidden;
+        }
+
+        .cover-wrap {
+            padding: 300px 0;
+            border: 1px solid #999;
+            border-radius: 250px;
+            width: 86%; height:fit-content;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .cover {
+            width:200%;
+            margin-bottom: 50px;
+            display: flex;
+            color: #000;
+        }
+
+        .cover:nth-child(1) {
+            background: rgba(255,255,255,0.3);
+            margin-top: 50px;
+            transform: rotate(-1deg) translateX(-5%);
+        }
+
+        
+        .cover:nth-child(2) {
+            transform: rotate(3deg) translateX(-5%);
+            background: rgba(255,255,255,1);
+            justify-content: flex-end; /*흘러가는 방향 반대로 처리하기 위해_translateX 반대방향*/
+        }
+
+        
+        .cover:nth-child(3) {
+            background: rgba(255,255,255,0.7);
+            transform: rotate(-4deg) translateX(-5%);
+        }
+
+        span {
+            display: flex; /*2번째 cover 교차정렬 때문에 flex요소 추가*/
+            padding: 20px 0;
+            font-size:120px;
+            font-weight: 900;
+            
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div class="cover-wrap">
+        <div class="cover">
+            <span class="first-maq"></span>
+        </div>
+        <div class="cover">
+            <span class="second-maq"></span>
+        </div>
+        <div class="cover">
+            <span class="third-maq"></span>
+        </div>
+    </div>  
+
+    <script>
+        const spanTag1 = document.querySelector('.first-maq')
+        const spanTag2 = document.querySelector('.second-maq')
+        const spanTag3 = document.querySelector('.third-maq')
+        // .split(''): 내부 한글자씩 자르기 / .split(' '):구분자(띄어쓰기로 자르기)
+        const textArr1 = 'Javascript Text Marquee effect First Line First effect Marquee Text Javascript'.split(' ');
+        const textArr2 = 'Javascript Text Marquee effect Second Line Second effect Marquee Text Javascript'.split(' ');
+        const textArr3 = 'Javascript Text Marquee effect Third Line Third effect Marquee Text Javascript Third'.split(' ');
+
+        // 각 단어를 for문으로 돌며 단어 뒤 띄어쓰기 4번 처리/ 각각의 span에 적용
+        function initTexts(element, textArray) {
+            textArray.push(...textArray)
+            for (let i = 0; i < textArray.length; i++) {
+                element.innerText += `${textArray[i]}\u00A0\u00A0\u00A0\u00A0` // '\u00A0' 자바에서 공백문자_줄바꿈안하는빈칸
+            }
+        }
+
+        //css처리
+        initTexts(spanTag1, textArr1)
+        initTexts(spanTag2, textArr2)
+        initTexts(spanTag3, textArr3)
+
+        let count1 = 0;
+        let count2 = 0;
+        let count3 = 0;
+
+        function marqueeText(count, element, direction) {
+            if (count>element.scrollWidth/2){
+                element.style.transform = `translateX(0)` 
+                count = 0;
+            }
+            element.style.transform = `translateX(${count*direction}px)`; // ``:backtick _템플릿 리터럴 '' 보다 더 간략하게 문자열 표기 (줄바꿈 간략, + 연결부호 생략, )
+            return count 
+        }
+        
+        //재귀함수_함수에서 자기자신을 다시 호출
+        function animate() {
+            count1++;
+            count2++;
+            count3++;
+
+            //translateX 함수처리 (text 사라짐 현상:속도 차이가 커서 _ 같이 돌아감-> 속도가 빠른 라인은 먼저 지나가서 빈 공백이 보임)
+            // 속도동일하게 or 텍스트 길이 조절
+            count1 = marqueeText(count1, spanTag1, -1);
+            count2 = marqueeText(count2, spanTag2, 1);
+            count3 = marqueeText(count3, spanTag3, -1);
+
+            //requestAnimationFrame(): 화면 주사율에 맞게 호출_60hz:60번/144hz:144번
+            window.requestAnimationFrame(animate);
+        }
+        animate();
+
+        //scroll함수
+        window.addEventListener('scroll', ()=>{
+            count1 += 3;
+            count2 += 30;
+            count3 += 30;
+            //더하는 값이 클수록 속도 ^ 
+        });
+</script>
+</body>
+</html>
+
+<!-- 시각적으로 부드러운 애니메이션 호출 (1000ms / 60fps) -->
+ <!-- setInterval(변수명, 1000 / 60); -->

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Btn</title>
+    <style>
+        body {background: rgba(0,0,0,0.15);}
+        button {
+            position: relative;
+            display: block;
+            margin: 50% auto;
+            padding: 1rem 5rem;
+            border-radius: 9px;
+            font-size: 1.5rem;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            background: #000;
+            overflow: hidden;
+            --ripple: initial;
+        }
+
+        button::after {
+            content: "";
+            position: absolute;
+            top:var(--top);
+            left:var(--left);
+            background:rgba(255,255,255,0.5);
+            width:var(--diameter);
+            height: var(--diameter);
+            transform: scale(0);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: var(--ripple);
+        }
+
+        @keyframes ripple-effect {
+            100%{
+                transform: scale(1);
+                background: rgba(255, 255,255,0.5);
+                opacity: 0;               
+            }
+            20%{
+                background: rgba(0,0,255,0.3);
+            }
+        }
+        /* flex=> justify-content X */
+
+        .flex-wrap {display:flex;flex-direction:column;width:80%;margin:0 auto;gap:20px;align-items:flex-end;}
+        .flex-wrap div {width:20%;border: 1px solid #fff;}
+        .flex-wrap div:nth-child(2), div:nth-child(4) {width:50%;}
+    </style>
+</head>
+<body>
+
+    <button id="btn01">Btn01</button>
+
+    <div class="flex-wrap">
+        <div>01</div>
+        <div>02</div>
+        <div>03</div>
+        <div>04</div>
+        <div>05</div>
+    </div>
+
+    <script>
+        const btn = document.getElementById('btn01')
+
+        const onClick = e => {
+            const { x, y, width, height }= btn.getBoundingClientRect();
+            // 반지름 공식
+            const radius = Math.sqrt(width * width + height * height)
+            btn.style.setProperty('--diameter', radius * 2 + 'px');
+            //:after 원 중심이 커서 중앙에 위치하기 위한 공식 
+            const { clientX, clientY } = e
+                const left = (clientX - x - radius) / width * 100 + '%';
+                const top = (clientY - y - radius) / height * 100 + '%';
+
+            // 위 데이터를 css에 전달
+            btn.style.setProperty('--left', left);
+            btn.style.setProperty('--top', top);
+            //클릭시 마다 재생 필 ->setTimeout
+            btn.style.setProperty('--ripple', '');
+            setTimeout(() => {
+                btn.style.setProperty('--ripple', 'ripple-effect 700ms linear')
+
+            }); //,2000);
+            // }, 지연시간(몇 초 후 이벤트 출력);
+        }
+
+        btn.addEventListener('click', onClick)
+
+        // $생략가능 => query X
+    </script>
+</body>
+</html>

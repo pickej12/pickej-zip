@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ripple Effect</title>
+    <style>
+        :root {
+            /*클릭 지점 뷰포트 위치에서 맞춰줘야 되기 때문에 빈값*/
+            --top: '';
+            --left: '';
+            --dianeter: '';
+            /* **intitial이 ripple-effect으로 지정된 이유 찾기 */
+            --a: 'intial'; /*해당속성 기본값 초기화(부모속성X,기본값) // inherit_부모속성 상속 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #1a1a1a;
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 50%;
+            margin: 0 auto;
+            height: 100vh;
+            text-align: center;
+        }
+
+        button {
+            position: relative;
+            display: block;
+            margin: 2rem auto;
+            padding: 1rem 5rem;
+            border-radius: 9px;
+            font-size: 1.5rem;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        button::after {
+            content: "";
+            position: absolute;
+            top: var(--top);
+            left: var(--left);
+            width: var(--dianeter);
+            height: var(--dianeter);
+            transform: scale(0);
+            border-radius: 50%;
+            pointer-events: none; /*이벤트 요소 가상요소에 적용X button에 적용하기 위함*/
+            animation: var(--a);
+        }
+
+        #btn1 {
+            background-color: #ff399c;
+        }
+
+        #btn1::after {
+            background-color: rgba(255, 185, 220, 0.4);
+        }
+
+        #btn2 {
+            background-color: transparent;
+            border: 1px solid #fff;
+        }
+
+        #btn2::after {
+            background-color: rgba(255, 185, 220, 0.4);
+        }
+
+        #btn3 {
+            color: #ff399c;
+            background-color: #fff;
+        }
+
+        #btn3::after {
+            background-color: rgba(255, 0, 128, 0.4);
+        }
+
+        @keyframes ripple-effect {
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <button id="btn1">click</button>
+        <button id="btn2" class="btn2">click</button>
+        <button id="btn3">click</button>
+    </div>
+    <script>
+        //const 선언 //querySelectorAll 요소 여러개 찾기_for문.forEach문[배열요소나열] 사용 (querySelector:1개요소)
+        const btn = document.querySelectorAll('button');
+        btn.forEach((btns) => {
+            //addEventListener 이벤트 등록->click
+            btns.addEventListener('mouseover', e => {
+                //**getBoundingClientRect 요소의 크기정보.위치정보 반환
+                const { x, y, width, height } = btns.getBoundingClientRect();
+                //Math.sqrt 제곱근 구하기
+                const radius = Math.sqrt(width * width + height * height); //가상요소 after 원의 반지름 구하기(반지름 공식)
+                //**setProperty 데이터 저장 (저장,읽어오기,출력)
+                btns.style.setProperty('--dianeter', radius * 2 + 'px');
+
+                const { clientX, clientY } = e
+                const left = (clientX - x - radius) / width * 100 + '%';
+                const top = (clientY - y - radius) / height * 100 + '%';
+
+                btns.style.setProperty('--left', left);
+                btns.style.setProperty('--top', top);
+                btns.style.setProperty('--a', '');
+                //setTimeout 클릭시 마다 재생 필요-> setTimeout으로 함수재생
+                setTimeout(() => {
+                    btns.style.setProperty('--a', 'ripple-effect 500ms linear')
+                })
+
+                console.log(radius);
+            })
+        })
+
+    </script>
+</body>
+
+</html>
