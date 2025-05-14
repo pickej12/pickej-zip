@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ej | 노출 컨텐츠 관리</title>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="./src/jquery-ui.min.js"></script>
+    <script src="./src/jquery.min.js"></script>
+    <script src="./src/Sortable.min.js"></script>
+    <script src="./src/sortable.js"></script>
+    <style scoped>
+        body {margin:0}
+        .whole_wrap {max-width:500px;margin:0 auto}
+
+        .step_header {
+            position:relative;width:100%;height:70px;
+            display:flex;justify-content:center;align-items:center
+        }
+        .step_header h3 {font-size:20px;font-weight:700}
+        .step_header .xi-close-thin {position:absolute;top:50%;right:7%;transform:translateY(-50%);font-size:20px} 
+
+        .step_body {padding:20px 25px}
+        .step_body .m_title_ex {display:block;font-size:16px;margin-bottom:36px;color:#353535}
+        .step_body h2 {font-size:20px;font-weight:bold;margin:0}
+        .step_body > p {font-size:14px;color:#646464;margin:0 0 15px}
+        .list_plus, .list_hide, .list_test {padding:0;max-height:320px;overflow:scroll}
+        .box_plus, .list_empty, .list_empty2 {
+            background:#F2F2F2;padding:17px 20px; margin-top:10px;border-radius:12px;
+            display:flex;justify-content:space-between;align-items:center
+        }
+        .list_content li:nth-child(1) {margin-top:0}
+        .box_plus h4 {margin:0;font-size:16px}
+        .box_plus p {margin:5px 0 0;font-size:14px;color:#BFBFBF}
+        .box_plus i {font-size:24px;color:#d8d8d8}
+        .box_plus.active {transform:scale(0.7);opacity:0.6;transition:0.5s}
+
+        .hide_title {color:#7F7F7F;font-weight:700}
+        .list_empty, .list_empty2 {font-size:14px;color:#b0b0b0;justify-content:center}
+        .list_hide:not(:empty) + .list_empty{display:none} /*동일요소들 끼리의 반응변화로 +로 엮어주기*/
+        .list_test:not(:empty) + .list_empty2{display:none} /*동일요소들 끼리의 반응변화로 +로 엮어주기*/
+    </style>
+</head>
+
+<body>
+    <div class="whole_wrap">
+        <div class="step_header">
+            <h3>노출 컨텐츠 관리</h3>
+            <i class="xi-close-thin"></i>
+        </div>
+        <div class="step_body">
+            <strong class="m_title_ex">
+                홈 화면에 노출할 컨텐츠를 관리해 보세요.
+            </strong>
+            <div class="list_content">
+                <h2>구역 보기</h2>
+                <p>최대 3개까지 설정 가능해요.</p>
+                <ul class="list_plus">
+                    <li class="box_plus" id="fix_item">
+                        <div class="txt">
+                            <h4>구역1</h4>
+                            <p>본사 &middot; N1234567</p>
+                        </div>
+                        <i class="xi-bars"></i>
+                    </li>
+                    <li class="box_plus">
+                        <div class="txt">
+                            <h4>구역2</h4>
+                            <p>본사 &middot; N1234567</p>
+                        </div>
+                        <i class="xi-bars"></i>
+                    </li>
+                    <li class="box_plus">
+                        <div class="txt">
+                            <h4>구역3</h4>
+                            <p>본사 &middot; N1234567</p>
+                        </div>
+                        <i class="xi-bars"></i>
+                    </li>
+                    <li class="box_plus" id="fix_item">
+                        <div class="txt">
+                            <h4>구역4</h4>
+                            <p>본사 &middot; N1234567</p>
+                        </div>
+                        <i class="xi-bars"></i>
+                    </li>
+                    <li class="box_plus">
+                        <div class="txt">
+                            <h4>구역5</h4>
+                            <p>본사 &middot; N1234567</p>
+                        </div>
+                        <i class="xi-bars"></i>
+                    </li>
+                    <li class="box_plus">
+                        <div class="txt">
+                            <h4>구역6</h4>
+                            <p>본사 &middot; N1234567</p>
+                        </div>
+                        <i class="xi-bars"></i>
+                    </li>
+                </ul>
+
+                <p class="hide_title">컨텐츠 숨김 list</p>
+                <ul class="list_hide"></ul>
+                <div class="list_empty">여기에 끌어 놓으면 홈에서 안보여요.</div>
+
+                <p class="test_title">다중 리스트 테스트</p>
+                <ul class="list_test"></ul>
+                <div class="list_empty2">3개 연동 테스트할 영역</div>
+            </div>
+    </div>
+</body>
+
+<script>
+    // sortable.js
+    const dragEl = document.querySelector('.list_plus'); //document.getElementById('');
+    const dropEl = document.querySelector('.list_hide');
+    const testEl = document.querySelector('.list_test');
+
+    new Sortable(dragEl, {
+        animation: 150, //이동시 부드러운 ani 효과
+        ghostClass:'active', // 요소 이동 중 ghostClass에 할당된 값을 active로 부여
+        group:{
+            name:'drop',
+        },
+        // group:'drop',
+        handle:'.list_plus',
+        cancel:'.fix_item',
+    })
+    new Sortable(dropEl, {
+        animation: 150, //이동시 부드러운 ani 효과
+        ghostClass:'active', // 요소 이동 중 ghostClass에 할당된 값을 active로 부여
+        group:{
+            name:'drop',
+        }, //호환할 그룹이랑 같은명 갖고 있어야함
+        // group:'drop',
+        handle:'.list_hide',
+        cancel:'.fix_item'
+    })
+    new Sortable(testEl, {
+        animation: 150, //이동시 부드러운 ani 효과
+        ghostClass:'active', // 요소 이동 중 ghostClass에 할당된 값을 active로 부여
+        group:{
+            name:'drop',
+        }, //호환할 그룹이랑 같은명 갖고 있어야함 | 그룹 다수여도 상관 없음
+        // group:'drop',
+        handle:'.list_test',//이동영역
+        cancel:''
+    })
+</script>
+</html>
