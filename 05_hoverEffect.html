@@ -1,0 +1,114 @@
+<!-- 먼저 용어 찾기 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Card Effect</title>
+    <!-- <link rel="stylesheet" href="../css/reset.css"> -->
+    <style>
+        body{
+            height:100vh;
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction:column;
+            justify-content: center;
+        }
+        h1{
+            padding:1rem 0;
+            text-align: center;
+            color:#80566f;
+        }
+        #frame{
+            margin:0 auto;
+            width:300px;
+            height:450px;
+            transition: transform 200ms;
+        }
+
+        #frame:hover{
+            transform:scale3d(1.05, 1.05, 1.05);
+        }
+
+        #card{
+            width:100%;
+            height:100%;
+            border-radius: 9px;
+            background:url(../images/sub/card_3d.png) no-repeat 0 0;
+            background-size: cover;
+            box-shadow: 0 0 10px 2px rgba(0,0,0, .1);
+            position:relative;
+            transition-duration: 250ms;
+            transition-property: transform, box-shadow;
+            transition-timing-function: ease-out;
+        }
+
+        #light{
+            position: absolute;
+            width:100%;
+            height:100%;
+            border-radius: 9px;
+        }
+    </style>
+</head>
+<body>
+    <div id="frame">
+        <div id="card"> <!-- 이미지 -->
+            <span id="light"></span> <!-- 이미지 wrap (영역) -->
+            <h1>Pink</h1>
+        </div>
+    </div>
+    <script>
+        const frame = document.getElementById('frame');
+        const card = document.getElementById('card');
+        const light = document.getElementById('light');
+
+        //x:왼쪽여백, y:위쪽여백, width:요소의너비, height:요소의높이
+        let {x, y, width, height} = frame.getBoundingClientRect(); ////**getBoundingClientRect 요소의 크기정보.위치정보 반환
+
+        function mouseMove(e){ //실시간 좌표 적용
+            //clientO : 브라우저 화면 뷰포트기준 [스크롤 무시 해당 페이지 상단을 0으로 측정] 
+            //offsetO : 이벤트 대상 기준 
+            //screenO : 모니터화면 기준 [화면에 보이는 영역 기준]
+            const left = e.clientX - x; //창 내 마우스 X 좌표 - 왼쪽 여백 = 요소 안 마우스 좌표 //
+            const top = e.clientY - y; //창 내마우스 Y 좌표 - 위쪽 여백 = 요소 안 마우스 좌표
+
+            //카드 중심을 기준으로 나눠 마우스가 얼마만큼 떨어져 있나 확인 시 필요 변수 | 카드중심(0,0)
+            const centerX = left - width/2;
+            const centerY = top - height/2;
+            //기울기효과 적용
+            const d = Math.sqrt(centerX**2 + centerY**2); //Math.sqrt 제곱근 구하기
+
+            //기본 css 존재 | 호버시 움직일때 효과 _rotate3d로 원하는 결과 확인 후 각도 맞추기
+            card.style.boxShadow = `${-centerX/10}px ${centerY/10}px 10px rgba(0,0,0,.1)`
+            card.style.transform = `rotate3d(${-centerY/100}, ${centerX/100}, 0, ${d/10}deg)` 
+            //rotate3d(x위치,y위치,z값(0 : z값 구할 수 X_ clientX.Y값만 활용 [deg 값 활용] )) 
+            // ' /100' : 09.23 여기 찾아보기 
+            light.style.backgroundImage = `radial-gradient(circle at ${left}px ${top}px, #00000010, #ffffff00, #ffffff70)`
+
+        } 
+
+        //addEventListener 이벤트 등록 방식
+        frame.addEventListener('mouseenter',()=>{
+            frame.addEventListener('mousemove', mouseMove);
+        });
+
+        frame.addEventListener('mouseleave', ()=>{
+            frame.removeEventListener('mousemove', mouseMove);
+            card.style.boxShadow = '';
+            card.style.transform = '';
+            light.style.backgroundImage = '';
+        });
+
+        //리사이징 되었을때 bounding 값 재 입력
+        window.addEventListener('resize', ()=>{
+            rect = frame.getBoundingClientRect(); //rect 사각형 패스
+            x = rect.x
+            y = rect.y
+            width = rect.width
+            height = rect.height
+        })
+    </script>
+</body>
+</html>
