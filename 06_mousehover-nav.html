@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TextEffect</title>
+    <!-- font -->
+    <link href="https://fonts.cdnfonts.com/css/helvetica-neue-55" rel="stylesheet">
+
+    <style>
+        body {
+            margin:0;
+            overflow:hidden;
+        }
+        ul {
+            list-style:none;padding:0;
+        }
+        a{
+            text-decoration:none;
+            color:#FFF;
+        }
+        p {
+            margin:0;
+        }
+
+        .wrap {
+            width:100%;height:100vh;
+            font-family: 'Helvetica';
+            background:#000;
+            color:#FFF;
+        }
+        .cont_w {
+            padding:0 100px;
+        }
+        .hide {
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            visibility: hidden;
+            font-size: 0;
+            line-height: 0;
+            text-indent: -10000px;
+        }
+        .w_50 {width:50%;}
+
+        /* top_nav */
+        .gnb_wrap {
+            display:flex;justify-content:space-between;align-items:center;
+            height:85px;
+        }
+        .logo {
+            background:url(./img/logo_w.png) no-repeat center/cover;
+            width:200px;height:24px;
+        }
+        .close {
+            background:url(./img/icon_close_w.png) no-repeat center/cover;
+            width:50px;height:50px;
+        }
+        /* top_nav end */
+
+        /* cont_nav */
+        .menu_list {
+            height:calc(100vh - 85px);
+            display:flex;justify-content:space-between;align-items:center;
+        }
+        .menu_list ul li a {
+            width:fit-content;
+            padding:24px 0;
+            border-bottom:1px solid #DDD;
+            font-weight:700;font-size:103px;
+            display:flex;align-items:flex-end;
+        }
+
+        .menu_list span {
+            cursor:pointer;
+            -webkit-text-stroke:1px #DDD;
+            background:linear-gradient(45deg, #FFF, #FFF);
+            background-clip:text;
+            color:transparent;
+            background-repeat:no-repeat;
+            transition:background-size 0.3s ease-in;
+            width:fit-content;
+        }
+        .menu_list span:hover {
+            background-size:100% 100%;
+            filter:drop-shadow(2 2 5 salmon);
+        }
+        span.list_left {
+            background-position:0% 0%;
+            background-size:0% 100%;
+        }
+        span.list_top {
+            background-position:0% 0%;
+            background-size:100% 0%;
+        }
+        span.list_center {
+            background-position:50% 50%;
+            background-size:0% 0%;
+        }
+        span.list_right {
+            background-position:100% 0%;
+            background-size:0% 100%;
+        }
+        .menu_list ul li p {
+            margin:0 0 10px 40px;font-size:38px;font-weight:300;
+        }
+
+        .nav_info {
+            text-align:right;
+            font-size:18px;
+        }
+        .nav_info strong {
+            display:block;
+            margin-bottom:42px;
+            font-weight:700;font-size:42px;
+        }
+        .nav_info p {
+            margin-bottom:18px;
+            font-weight:300;
+            line-height:1.5;
+        }
+        .nav_info .btn_box {
+            margin-top:22px;
+            border:1px solid #DDD;
+            height:50px;line-height:50px;
+            width:205px;
+            text-align:center;margin-left:auto;
+            background:#000;
+            cursor:pointer;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav_info .btn_box::after {
+            content: "";
+            position: absolute;
+            top:var(--top);
+            left:var(--left);
+            background:rgba(250, 128, 114, 0.6); /*salmon*/
+            width:var(--diameter);
+            height: var(--diameter);
+            transform: scale(0);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: var(--a);
+            animation-delay: 0.4s;
+            /*animation-iteration-count:; /*몇번 반복*/
+        }
+
+        .btn_download i {
+            display:inline-block;
+            width:16px;height:16px;
+            background:url(./img/ic_download.png) no-repeat center/cover;
+            margin-left:9px;
+        }
+
+
+        /* 다운로드 버튼 효과 */
+        :root {
+            /*클릭 지점 뷰포트 위치에서 맞춰줘야 되기 때문에 빈값*/
+            --top: '';
+            --left: '';
+            --diameter: '';
+            --a: 'intial'; /*해당속성 기본값 초기화(부모속성X,기본값) // inherit_부모속성 상속 */
+        }
+
+        @keyframes ripple-effect {
+            100%{
+                transform: scale(1);
+                background: rgba(250, 128, 114, 0.3);
+                opacity: 0;               
+            }
+            20%{
+                background:rgba(250, 128, 114, 0.8);
+            }
+        }
+
+
+        /* 마우스 커서 효과_07 */
+        #cursor {
+            position:absolute;
+            width:17px;height:17px;
+            border-radius:50%;
+            background:#FFF;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <!-- mouseCursor -->
+        <div id="cursor"></div>
+
+        <div class="gnb_wrap cont_w">
+            <a class="logo" href="#"><span class="hide">ADCAPSULE</span></a>
+            <a class="close"><span class="hide">메뉴열기</span></a>
+        </div>
+        <div class="menu_list cont_w">
+
+            <ul class="w_50">
+                <li><a href="#"><span class="list_left">ABOUT</span><p>01</p></a></li>
+                <li><a href="#"><span class="list_top" >PROJECTS</span><p>02</p></a></li>
+                <li><a href="#"><span class="list_center">NEWS</span><p>03</p></a></li>
+                <li><a href="#"><span class="list_right">WITH US</span><p>04</p></a></li>
+            </ul>
+            <div class="nav_info w_50">
+                <div class="d_only">
+                    <strong class="">Power of Value, ADCAPSULE</strong>
+                    <p class="">
+                        서울특별시 서초구 동광로 12길84<br>
+                        성산관 4~5층 (06565)
+                    </p>
+                    <p class="">
+                        M: <a href="mailto:info@adcapsule.co.kr">info@adcapsule.co.kr</a><br>
+                        T: <a href="tel:02-544-0902">02 544 0902</a><br>
+                        F: <a href="tel:070-8230-6290">070 8230 6290</a>
+                    </p>
+                </div>
+    
+                <div class="btn_box">
+                    <a class="pre btn_download" href="file/companyInfoDown">회사소개서 다운로드<i></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        // 마우스 커서 효과_07
+        const cursor = document.querySelector('#cursor')
+        let mouseX = 0, mouseY = 0, startX = 0, startY = 0
+
+        window.addEventListener('mousemove', e => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        })
+
+        function frame() {
+            requestAnimationFrame(frame)
+
+            startX = lerp(startX, mouseX, 0.05) //( , , delay값)
+            startY = lerp(startY, mouseY, 0.05)
+            cursor.style.transform = `translate(${startX}px, ${startY}px)`
+        }
+        requestAnimationFrame(frame);
+
+        function lerp(s,e,a) { 
+            return s + (e - s) * a
+        }
+
+        // 다운로드 버튼 효과_01
+        const btn = document.querySelectorAll('.btn_box');
+        btn.forEach((btns) => {
+            //addEventListener 이벤트 등록->click
+            btns.addEventListener('mouseenter', e => {
+                //**getBoundingClientRect 요소의 크기정보.위치정보 반환
+                const { x, y, width, height } = btns.getBoundingClientRect();
+                //Math.sqrt 제곱근 구하기
+                const radius = Math.sqrt(width * width + height * height); //가상요소 after 원의 반지름 구하기(반지름 공식)
+                //**setProperty 데이터 저장 (저장,읽어오기,출력)
+                btns.style.setProperty('--diameter', radius * 2 + 'px');
+
+                const { clientX, clientY } = e
+                const left = (clientX - x - radius) / width * 100 + '%';
+                const top = (clientY - y - radius) / height * 100 + '%';
+
+                btns.style.setProperty('--left', left);
+                btns.style.setProperty('--top', top);
+                btns.style.setProperty('--a', '');
+                //setTimeout 클릭시 마다 재생 필요-> setTimeout으로 함수재생
+                setTimeout(() => {
+                    btns.style.setProperty('--a', 'ripple-effect 500ms linear')
+                })
+
+                console.log(radius);
+            }, {once:false})
+        })
+
+    </script>
+</body>
+</html>

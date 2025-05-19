@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text_mousehover</title>
+    <link href="https://fonts.cdnfonts.com/css/helvetica-neue-55" rel="stylesheet">
+
+    <style>
+        body {margin:0;}
+
+        .wrap {
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            flex-direction:column;
+            width:100%;height:100vh;
+            font-family: 'Helvetica';
+            background:#2f2f2f;
+            font-size:70px;
+            font-weight:700;
+        }
+        span {
+            cursor:pointer;
+            -webkit-text-stroke:1px #f9f9f9;
+            background:linear-gradient(45deg, #f9f9f9, #f9f9f9);
+            background-clip:text;
+            color:transparent; /*background-clip:text&color:transparent 한 세트*/
+            background-repeat:no-repeat;
+            transition:background-size 0.3s ease-in;
+            width:fit-content;
+        }
+
+        span:hover {
+            background-size:100% 100%;
+            filter:drop-shadow(2 2 5 salmon); /*전체 박스영역까지-> box-shadow | 누끼 딴 듯이 요소에 적용-> drop-shadow*/
+            /* drop-shadow(x위치 y위치 blur정도 그림자색상) */
+        }
+
+        .left {
+            background-position:0% 0%;
+            background-size:0% 100%;
+        }
+
+        .right {
+            background-position:100% 0%;
+            background-size:0% 100%;
+        }
+
+        .top {
+            background-position:0% 0%;
+            background-size:100% 0%;
+        }
+
+        .bottom {
+            background-position:0% 100%;
+            background-size:100% 0%;
+        }
+
+        .center {
+            background-position:50% 50%;
+            background-size:0% 0%;
+        }
+
+        .slide {
+            background-position:100% 100%;
+            background-size:0% 32%;
+        }
+
+        /*  0%  > 100%   */
+        /*   ^          */
+        /* 100%        */
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <span class="left">LEFT</span>
+        <span class="right">RIGHT</span>
+        <span class="top">TOP</span>
+        <span class="bottom">BOTTOM</span>
+        <span class="center">CENTER</span>
+        <span class="slide">SLIDE</span>
+    </div>
+</body>
+</html>
