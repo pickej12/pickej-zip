@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lerp(Linear Interpolation)</title>
+    <link href="https://fonts.cdnfonts.com/css/helvetica-neue-55" rel="stylesheet">
+
+    <style>
+        body {margin:0; overflow:hidden;}
+
+        .wrap {
+            width:100%;height:100vh;
+            font-family: 'Helvetica';
+            background:honeydew;
+            color:#FFF;
+        }
+
+        .circle {
+            position:absolute;
+            width:50px;height:50px;
+            border-radius:50%;
+            background:salmon;
+        }
+    </style>
+</head>
+<body>
+    <!-- 선형 보간법 -->
+    <!-- P = S + (E - S)*0.3 -->
+    <!-- P = S + 0.3E - 0.3S -->
+    <!-- P = 0.7S + 0.3E -->
+    <!-- P = (1 - 0.3)S - 0.3E -->
+
+    <div class="wrap">
+        <div class="circle"></div>
+    </div>
+
+    <script>
+        const circle = document.querySelector('.circle')
+        let mouseX = 0, mouseY = 0, startX = 0, startY = 0
+
+        window.addEventListener('mousemove', e => {
+            mouseX = e.clientX
+            mouseY = e.clientY
+        })
+
+        function frame() {
+            requestAnimationFrame(frame)
+
+            startX = lerp(startX, mouseX, 0.05)
+            startY = lerp(startY, mouseY, 0.05)
+
+            // 이동
+            circle.style.transform = `translate(${startX}px, ${startY}px)`
+        }
+        requestAnimationFrame(frame);
+
+        function lerp(s,e,a) { 
+            return s + (e - s) * a
+        }
+    </script>
+</body>
+</html>
