@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triangle css_triangle table asset etc.. test</title>
+    <style>
+        * {margin:0; padding:0;}
+        .container {
+            width:100%; 
+            height:100vh;
+            text-align:center;
+            align-content:center
+        }
+        .test-1 {
+            display:flex;
+            align-items:center;
+        }
+        .test-1 .m {
+            display:block;
+            width:225px;
+            height:60px;
+            background:#0072ce;
+        }
+        .deco01 {
+            display:block;
+            width:13px;
+            height:47px;
+            background:#a0d4ff;
+            background:#0072ce;
+        }
+        .deco02 {
+            display:block;
+            width:0;
+            height:0;
+            /* border-left:6.5px solid #00ceb3;
+            border-bottom:6.5px solid transparent;
+            border-right:6.5px solid transparent;
+            border-top:6.5px solid #00ceb3; */
+            border-left:13px solid #00ceb3;
+            border-left:13px solid #0072ce;
+             border-bottom:13px solid transparent;
+            /* border-right:13px solid salmon;
+            border-top:13px solid forestgreen; */
+
+            /* x축 y축 하나의 영역이 transparent라도 영역 받치기 위해 2축 하나씩은 존재해야함. */
+        }
+        .test {
+            margin:0 auto 30px;
+            width:0;
+            height:0;
+            border-top:0px solid transparent;
+            border-bottom:60px solid #CCC;
+            border-left:100px solid transparent;
+            border-right:100px solid transparent
+        }
+        .test1 {
+            margin:0 auto 30px;
+            width:200px;height: 100px;
+            clip-path: polygon(50% 0, 100% 100%, 0 100%);
+            background:#999
+        }
+        .cir {
+            margin:auto;
+            width: 20px;
+            height:20px;
+            background:#AAA;
+            clip-path:circle(10px)
+        }
+        .house {
+            margin:0 auto 150px;
+            width: 300px;
+            height: 200px;
+            background: #EEE;
+            clip-path: polygon(50% 0%, 100% 50%, 100% 100%, 0% 100%, 0% 50%)
+        }
+        /* clip-path polygon */
+        /* 왼쪽 상단부터 시작점으로 해서 점을 찍어 이은 선들이 면적이 된다고 생각하고! */
+        /* 삼각형이면 기준점 3개 위치 조정으로 모양 만들기 [시계방향!]*/
+
+        .grid-tbl{
+            width:1020px; margin:0 auto 150px;
+            display:grid;
+            grid-gap:16px 0;
+            /* grid-template-columns: 150px 202px 202px 202px 202px; */
+            grid-template-columns: 150px repeat(4, 1fr);
+            grid-template-rows: 128px 73px 73px 50px 120px;
+            font-size:22px;
+            font-weight:bold;
+            padding-bottom:150px
+            /*grid > minmax() 최소 높이.넓이, 최대 높이.넓이 지정 가능 */
+        }
+        .grid-tbl > div {
+            background:#E8EBF4;
+            color:#333;
+            /* display:flex;
+            align-items:center;
+            justify-content: center; = */
+            display:grid;
+            place-items:center
+        }
+        .grid-tbl > div.w {
+            color:#FFF   
+        }
+        .grid-tbl > div.point {
+            color:#00549A   
+        }
+        .grid-tbl .i01 { 
+            background:transparent;
+            /* grid-column-start, end */
+        }
+        /* grid-00-end => 갯수 +1만큼 더 */
+        .grid-tbl .i02 {
+            background:#53A3EB;
+            /* grid-column-start:2;
+            grid-column-end:6; */
+            grid-column: 2/6;
+            /* grid-column: 2 /span 4; */
+            clip-path: polygon(50% 0, 100% 100%, 0 100%);
+            /* align-content: self; */
+            padding-bottom:20px;
+            /* align-items:end; = */
+            place-items:end center
+        }
+        .grid-tbl .i03 {
+            background:#4F8CEF
+        }
+        .grid-tbl .i04,.i06 {
+            grid-column: 2/6
+        }
+        .grid-tbl .i05 {
+            background:#0072CE
+        }
+        .grid-tbl .i07 {
+            background:#00549A;
+            grid-row:4/6
+        }
+        .grid-tbl .i08,.i09 {
+            grid-column: auto / span 2
+            /* 시작점 auto, 2개 영역씩 차지 */
+        }
+
+        .grid-tbl .i09,.i12 {
+            margin-left:6px;
+        }
+        .grid-tbl .i08,.i11 {
+            margin-right:6px;
+        }
+        /* 개별 gap은 X, 개별에 적용 시 margin 값 조정 */
+
+        table {
+            width: 1044px;
+            border: none;
+            color:#333;
+            font-size:22px;
+            font-weight:bold;
+            margin:0 auto;
+            border-spacing:12px 16px
+        }
+        table td {
+            background:#E8EBF4
+        }
+        table td.bg01 {
+            vertical-align: bottom;
+            background: #53A3EB;
+            clip-path: polygon(50% 0, 100% 100%, 0 100%);
+            padding-bottom: 20px;
+        }
+        table th.bg02 {
+            background:#4F8CEF
+        }
+        table th.bg03 {
+            background:#0072CE
+        }
+        table th.bg04 {
+            background:#00549A
+        }
+        table .w {
+            color:#FFF
+        }
+        table .point {
+            color:#00549A
+        }
+
+        .area_cir {
+            margin:300px auto;
+            width:1020px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            color:#333;
+            text-align:center;
+        }
+
+        .sub_cir {
+            width:150px;height:150px;
+            border:1px solid #69A4F2;
+            border-radius:50%;
+        }
+
+        .cir_wrap {
+            position:relative;
+            width:500px;height:500px;
+            border-radius:50%;
+            background:conic-gradient(#FFF 3deg, #69A4F2 3deg 45deg, #FFF 45deg 48deg, #0071CD 48deg 90deg, #FFF 90deg 93deg, #69A4F2 93deg 135deg, #FFF 135deg 138deg, #0071CD 138deg 180deg, #FFF 180deg 183deg, #69A4F2 183deg 225deg, #FFF 225deg 228deg, #0071CD 228deg 270deg, #FFF 270deg 273deg, #69A4F2 273deg 315deg, #FFF 315deg 318deg, #0071CD 318deg 360deg);
+        }
+
+        .cen_cir {
+            position:absolute;
+            top:50%;left:50%;
+            transform:translate(-50%,-50%);
+            background:#FFF;
+            width:260px;height:260px;
+            border-radius:50%;
+            align-content:center;
+        }
+        .cen_cir .point {
+            font-weight:bold;
+        }
+        .cen_cir > strong {
+            display:block;
+            color:#0072CD;
+            font-size:24px;
+            margin-bottom:12px;
+        }
+        .cen_cir ul {
+            width:fit-content;
+            margin:auto;
+            text-align:left;
+            list-style:none;
+        }
+        .cen_cir ul li strong {
+            font-size:19px;
+        }
+
+        .main_cir li {
+            color:#FFF;
+            position:absolute;
+            list-style:none;
+            font-size:26px;
+        }
+        .main_cir li:nth-child(1) {
+            top:11%; right:30%;
+        }
+        .main_cir li:nth-child(2) {
+            top:32%; right:10%;
+        }
+        .main_cir li:nth-child(3) {
+            bottom:32%; right:11%;
+        }
+        .main_cir li:nth-child(4) {
+            bottom:12%; right:32%;
+        }
+        .main_cir li:nth-child(5) {
+            bottom:12%; left:29%;
+        }
+        .main_cir li:nth-child(6) {
+            bottom:34%; left:10%;
+        }
+        .main_cir li:nth-child(7) {
+            top:31%; left:11%;
+        }
+        .main_cir li:nth-child(8) {
+            top:11%; left:32%;
+        }
+
+        .ab_test{
+            position:relative;
+            width:300px;height:300px;
+            background:conic-gradient(#FFF 3deg, #69A4F2 3deg 45deg, #FFF 45deg 48deg, #0071CD 48deg 90deg, #FFF 90deg 93deg, #69A4F2 93deg 135deg, #FFF 135deg 138deg, #0071CD 138deg 180deg, #FFF 180deg 183deg, #69A4F2 183deg 225deg, #FFF 225deg 228deg, #0071CD 228deg 270deg, #FFF 270deg 273deg, #69A4F2 273deg 315deg, #FFF 315deg 318deg, #0071CD 318deg 360deg);
+            border-radius:50%;
+            overflow:hidden;
+        }
+        .ab_test .tar span{
+               position:absolute;
+            top:0; left:0;
+            width:15px;height:100%;
+            background:#FFF;
+        }
+         .ab_test .tar span:nth-child(1) {
+             top:0;left:calc(50% - 7.5px);
+         }
+         .ab_test .tar span:nth-child(2) {
+             top:calc(50% - 7.5px);left:0;
+             width:100%;height:15px;
+         }
+         .ab_test .tar span:nth-child(3) {
+             top:0;left:calc(50% - 7.5px);
+             transform:rotate(45deg);
+          }
+         .ab_test .tar span:nth-child(4) {
+             top:0;left:calc(50% - 7.5px);
+             transform:rotate(-45deg);
+         }
+         .ab_test .tar_cen {
+             position:absolute;
+             width:120px;height:120px;
+              background:#FFF;
+              border-radius:50%;
+             top:50%;left:50%;
+             transform:translate(-50%, -50%);
+         }
+    </style>
+    </head>
+    
+    <body>
+    <div class="container">
+        <div class="test-1">
+            <div class="m"></div>
+            <div class="deco">
+                <span class="deco01"></span>
+                <span class="deco02"></span>
+            </div>
+        </div>
+        <div class="test"></div>
+        <div class="test1"></div>
+        <div class="cir"></div>
+        <div class="house"></div>
+        <!-- grid 버전 -->
+        <div class="grid-tbl">
+            <div class="i01"></div>
+            <div class="i02 w">
+                Lorem
+                <br>Lorem Ipsum is simply dummy text
+            </div>
+            <div class="i03 w">Ipsum</div>
+            <div class="i04">simply dummy text of the printing and typesetting industry</div>
+            <div class="i05 w">Dummy</div>
+            <div class="i06 point">printing and typesetting industry</div>
+            <div class="i07 w">Text</div>
+            <div class="i08">printing and typesetting</div>
+            <div class="i09">printing and typesetting</div>
+            <div class="i10">
+                Lorem
+                <br>Ipsum
+            </div>
+            <div class="i11">
+                Simply
+                <br>Dummy
+            </div>
+            <div class="i12">
+                Text
+                <br>of the printing
+                <br>and typesetting
+            </div>
+            <div class="i13">
+                Industry
+            </div>
+        </div>
+        
+        <!-- table 버전 -->
+        <table>
+            <colgroup>
+                <col style="width:150px;">
+                <col style="width:*;">
+                <col style="width:*;">
+                <col style="width:*;">
+                <col style="width:*;">
+            </colgroup>
+            <tbody>
+                <tr height="128px">
+                    <th></th>
+                    <td colspan="4" class="bg01 w">
+                        Lorem
+                        <br>Lorem Ipsum is simply dummy text
+                    </td>                
+                </tr>
+                <tr>
+                    <th height="73px" class="bg02 w">Ipsum</th>
+                    <td colspan="4">simply dummy text of the printing and typesetting industry</td>
+                </tr>
+                <tr>
+                    <th height="73px" class="bg03 w">Dummy</th>
+                    <td colspan="4" class="point">printing and typesetting industry</td>
+                </tr>
+                <tr>
+                    <th rowspan="2" class="bg04 w">Text</th>
+                    <td height="50px" colspan="2">printing and typesetting</td>
+                    <td colspan="2">printing and typesetting</td>
+                </tr>
+                <tr>
+                    <td height="120px">
+                        Lorem
+                        <br>Ipsum
+                    </td>
+                    <td>
+                        Simply
+                        <br>Dummy
+                    </td>
+                    <td>
+                        Text
+                        <br>of the printing
+                        <br>and typesetting
+                    </td>
+                    <td>
+                        Industry
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="area_cir">
+            <div class="sub_cir"></div>
+            <div class="cir_wrap">
+                <div class="main_cir">
+                    <ul>
+                        <li>123</li>
+                        <li>155</li>
+                        <li>132</li>
+                        <li>983</li>
+                        <li>302</li>
+                        <li>156</li>
+                        <li>124</li>
+                        <li>321</li>
+                    </ul>
+                </div>
+                <div class="cen_cir">
+                    <strong class="point">L S P</strong>
+                    <ul>
+                        <li><strong class="point">L</strong>orem Ipsum is simply</li>
+                        <li><strong class="point">L</strong>orem</li>
+                        <li><strong class="point">L</strong>orem Ipsum</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sub_cir"></div>
+        </div>            
+        <!--         
+        background:conic-gradient();
+        https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/conic-gradient 
+        -->
+
+        <div class="ab_test">
+            <div class="tar">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="tar_cen"></div>
+        </div>
+    </div> 
+</body>
+</html>
