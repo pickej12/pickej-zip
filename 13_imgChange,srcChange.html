@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImgChange</title>
+    <style>
+        body {margin:0;}
+
+        header {border-bottom:1px solid #DDD;}
+
+        .wrap {max-width:1024px;margin:0 auto;}
+
+        .main_menu {
+            height:80px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .gnb {
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:60px;
+            list-style: none;padding:0;
+        }
+    </style>
+    <script src="/src/jquery.min.js"></script>
+</head>
+<body>
+
+    <header id="header">
+        <div class="wrap">
+            <div class="main_menu">
+                <a href="#">
+                    LOGO
+                </a>
+                <ul class="gnb">
+                    <li class="gnb_list">
+                        <a href="#">
+                            <img src="/img/gnb_01_off.gif" id="01" class="img" alt="윤리강경">
+                        </a>
+                    </li>
+                    <li class="gnb_list">
+                        <a href="#">
+                            <img src="/img/gnb_02_off.gif" id="02" class="img" alt="감사팀소개">
+                        </a>
+                    </li>
+                    <li class="gnb_list">
+                        <a href="#">
+                            <img src="/img/gnb_03_off.gif" id="03" class="img" alt="부정제보">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <script>
+
+        // 1. 전체
+        // $(function(){
+        //     $('.gnb_list a img').hover(function(){
+        //         $(this).attr('src','img/gnb_'+this.id+'_on.gif');
+        //     }, 
+        //     function(){
+        //         $(this).attr('src','img/gnb_'+this.id+'_off.gif');
+        //     });	 
+        // }); 
+
+        // 1-1. 전체
+        $(document).ready(function(){
+			
+            $(".gnb_list").each(function(){
+                var image = $(this).find('img');
+                var imgsrc = $(image).attr("src");
+                
+                $(this).mouseover(function(){
+                    var on = imgsrc.replace("off.gif","on.gif");
+                    $(image).attr("src",on)
+                        return false;
+                    });
+                    
+                    $(this).mouseout(function(){
+                        var off = imgsrc.replace("on.gif","off.gif");
+                        $(image).attr("src",off)
+                        return false;
+                    });
+                });
+        }); 
+        
+
+        // 2. 특정 부분만 적용하고 싶을 때
+        // $(document).ready(function () {
+        //     $("li.gnb_list").each(function () {
+        //         var image = $(this).find('img');
+        //         var imgsrc = $(image).attr("src");
+        //         $(this).mouseover(function () {
+        //             var on = imgsrc.replace("01_off.gif", "01_on.gif");
+        //             $(image).attr("src", on)
+        //             return false;
+        //         })
+
+        //         $(this).mouseout(function () {
+        //             var off = imgsrc.replace("on.gif", "off.gif");
+        //             $(image).attr("src", off)
+        //             return false;
+        //         })
+        //     });
+        // }); 
+    </script>
+    
+</body>
+</html>
