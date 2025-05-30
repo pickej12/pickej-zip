@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"> <!-- 여기에 "maximum-scale=1.0 : 최소 사이즈를 1 지정. 확대를 막음, minimum-scale : 최대 사이즈를 1 지정. 축소를 막음, user-scalable=0 or no : 사용자 크기변화 막기 " 추가시 줌인 줌아웃 제어 -->
+    <title>Swiper</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/xpressengine/xeicon@latest/xeicon.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/js/swiper.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/css/swiper.min.css"> -->
+    
+    <script src="./src/jquery.min.js"></script>
+
+
+    <style scoped>
+        body {margin:0}
+        /* a {text-decoration:none;} */
+        ul {list-style:none;padding-left:0;}
+        p {margin:0;padding:0;}
+
+        .whole_wrap {max-width:500px;margin:0 auto;height:100vh;position:relative;}
+
+        /* header */
+        .step_header {
+            position:relative;width:100%;height:70px;
+            display:flex;justify-content:center;align-items:center
+        }
+        .step_header h3 {font-size:18px}
+        .step_header .xi-close-thin {
+            position:absolute;
+            top:50%;right:7%;transform:translateY(-50%);
+            font-size:20px
+        } 
+        .m_title {
+            display:flex;
+            font-size:20px;
+            align-items: center;
+            margin-bottom:15px
+        }
+        .m_title img {width:24px;}
+
+        /* body */
+        .step_body {padding:20px 25px}
+
+        .whole_area {
+            width:100%;max-width:450px; /*반응형*/
+        }
+        .s01 {position:relative;}
+        .swiper-slide {
+            background:#F2F2F2;
+            width:calc(100% - 40px) !important; /*반응형*/
+            height:fit-content; /*반응형*/
+            padding:20px 20px;
+            border-radius:12px;
+        }
+
+        /* fade effect용 */
+        /* .swiper-slide .txt_wrap {
+            transform:scale(2);
+            opacity:0;
+        }
+        .swiper-slide-active .txt_wrap {
+            transform:scale(1);
+            opacity:1;
+            transition: 0.5s;
+        } */
+        .swiper-slide strong {color:#333;font-weight:bolder;}
+        .swiper-slide p {font-size:15px;color:#666;}
+        .swiper-slide > div {font-size:14px;color:#bbb;}
+        .swiper-slide .tag {margin-top:15px;}
+        .swiper-slide em{font-style:normal;font-size:13px;}
+
+        .pager {
+            display:flex;
+            justify-content:space-between;
+            width:8% !important;margin:50px auto 0;
+        }
+        .pager li {cursor:pointer;}
+        
+        .bullet {
+            display:block;
+            width:8px;height:8px;
+            border-radius:50%;
+            background:#c4c4c4;
+            color:transparent; /*접근성*/
+        }
+        .bullet-active { background: #1D6CEB;}
+
+        .swiper-btn {display:flex;gap:16px; justify-content:right;}
+        .swiper-button {font-size:12px; font-weight:bold; letter-spacing:-0.025rem; color:#aaa;}
+        .swiper-button:hover {font-size:12.5px; color:#333; transition:0.5s; cursor:pointer;}
+
+        .cont_count {margin-top:20px;}
+        .count {color: #1D6CEB;}
+        .list_board_line {color:#333;}
+        .list_board_line li {border-bottom:1px solid #ddd;}
+        .sum_wrap {display:flex;align-items:flex-end;justify-content:space-between;padding:8px;}
+        .info p {font-size:14px;color:#bbb;margin-bottom:4px;}
+        .info strong {font-size:15px;word-break:keep-all;}
+
+        .sum_wrap.on .xi-angle-down-min {transform:rotate(180deg);transition:0.3s;}
+        .detail {font-size:14px;padding:8px;color:#ccc;display:none;}
+        .detail > a {margin:10px 0 25px;display:block;}
+        .xi-angle-down-min {vertical-align:middle;margin-left:5px;}
+
+        .float_btn {position:absolute;bottom:0;width:calc(100% - 60px);height:60px;text-align:center;line-height:60px;padding:20px 30px;background:#fff;z-index:1;}
+        .btn_b {border:none;border-radius:10px;background:#1D6CEB;color:#F2F2F2;width:100%;height:100%;font-weight:bold;font-size:17px;}
+
+        /* :root {
+            --height-10: 10px;
+            --height-50: 50px;
+            --height-100: 100px;
+        }
+
+        .calc_test {
+            width:50px;
+            height:var(--height-100);
+            border:1px solid;
+        }
+
+        .calc_test h3 {
+            display:block;
+            height:var(--height-50);
+            line-height:var(--height-50);
+            color:#999;
+            margin:0; padding:0;
+        }
+
+        .calc_test span {
+            display:block;
+            width:100%;
+            height:calc(var(--height-100) - var(--height-50) - 20px);
+            background:#c4c4c4;
+        } */
+    </style>
+</head>
+<body>
+    <!-- <div class="calc_test">
+        <h3>calc</h3>
+        <span></span>
+    </div> -->
+    <div class="whole_wrap">
+        <div class="step_header">
+            <h3>고마워요</h3>
+            <i class="xi-download-my"></i>
+        </div>
+        <div class="step_body">
+            <div class="m_title">
+                <strong class="m_title_ex">금주의 칭찬 BEST3</strong> <img src="./img/ico_emo_finger_heart.png" alt="icon">
+            </div>
+            <div class="whole_area">
+                <!-- !-- Slider main container -->
+                <div class="swiper swiper-container s01"> <!-- 필포함: swiper -->
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper slide_area"> <!-- 필포함: swiper-wrapper -->
+                        <!-- Slides -->
+                        <div class="swiper-slide"> <!-- 필포함: swiper-slide [swiper>swiper-wrapper>swiper-slide] -->
+                            <div class="txt_wrap"> <!-- fade effect용 -->
+                                <strong>[Company] title01</strong>
+                                <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+                                <div>
+                                    <span class="user">박*조</span> &middot; <span class="date">2023.02.02</span>
+                                </div>
+                                <div class="tag">
+                                    <em>#시스템 경비(세콤)</em>
+                                    <em>#매장</em>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="txt_wrap"> <!-- fade effect용  -->
+                                <strong>[Company] title02</strong>
+                                <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+                                <div>
+                                    <span class="user">박*조</span> &middot; <span class="date">2023.02.02</span>
+                                </div>
+                                <div class="tag">
+                                    <em>#시스템 경비(세콤)</em>
+                                    <em>#매장</em>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="txt_wrap"> <!-- fade effect용 -->
+                                <strong>[Company] title03</strong>
+                                <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+                                <div>
+                                    <span class="user">박*조</span> &middot; <span class="date">2023.02.02</span>
+                                </div>
+                                <div class="tag">
+                                    <em>#시스템 경비(세콤)</em>
+                                    <em>#매장</em>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="pager"></ul>
+                    <!-- 02.11 test -->
+                    <div class="swiper-btn">
+                        <div class="swiper-button prev">
+                            prev
+                        </div>
+                        <div class="swiper-button next">
+                            next
+                        </div>
+                    </div>
+
+                    <!-- <div class="swiper-scrollbar"></div> -->
+                </div>
+                <!-- slideup test -->
+                 
+                <div class="cont_count">총 <strong class="count">137</strong>건</div>
+                <div class="list_board_line">
+                    <ul>
+                        <li>
+                            <a href="#" aria-expanded="false" class="sum_wrap" style="text-decoration:none;color:#333;">
+                                <div class="info">
+                                    <p class="desc cate">시스템 경비(세콤)</p>
+                                    <strong class="tit">[PC프로그램] 자동 로그인 설정하는 방법</strong>
+                                </div>
+                                <i class="xi-angle-down-min"></i>
+                            </a>
+                            <div class="detail">
+                                PC에서 자동 로그인 설정하는 방법 입니다.<br>
+                                아래 링크를 클릭해 주세요.
+                                <a href="#none" class="btn_txt" style="text-decoration:none;color:#333;"><span>간편 매뉴얼 다운로드</span><i class="xi-angle-right-min"></i></a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#" aria-expanded="false" class="sum_wrap" style="text-decoration:none;color:#333;">
+                                <div class="info">
+                                    <p class="desc cate">영상(CCTV)</p>
+                                    <strong class="tit">어린이 통학버스 프로모션은 언제 진행하며 어디서 확인 가능하나요?</strong>
+                                </div>
+                                <i class="xi-angle-down-min"></i>
+
+                            </a>
+                            <div class="detail">
+                                <div class="image_container">
+                                    <img src="./img/ico_emo_finger_heart.png" alt="샘플 이미지">
+                                </div>
+                                <br>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="float_btn">
+            <button class="btn_b">칭찬 남기기</button>
+        </div>
+        <style>
+            .whole_wrap {position:relative;}
+            .float_btn {position:absolute;bottom:0;width:calc(100% - 60px);height:60px;text-align:center;line-height:60px;padding:20px 30px;background:#fff;z-index:1;}
+            .btn_b {border:none;border-radius:10px;background:#1D6CEB;color:#F2F2F2;width:100%;height:100%;font-weight:bold;font-size:17px; cursor:pointer;}
+        </style>
+    </div>
+
+    <script>
+        $(function () {
+            var swiper = new Swiper('.s01', {
+                // navigation
+                navigation: {
+                    prevEl: '.s01 .prev',
+                    nextEl: '.s01 .next'
+                },
+                pagination: {
+                    el: '.pager', // 해당 html의 클래스명 넣기
+                    clickable: true, // 클릭하여 슬라이드 컨트롤을 가능케 함. default는 false임.
+                    //type: 'fraction', // 해당 요소 추가시 현재 위치를 숫자로 ex) 2/5
+                    renderBullet: function (index, className) { // bullet을 커스텀 할 때 사용
+                        return '<li class="' + className + '">' + 'slide' + (index + 1) + '</li>';
+                    },
+                    bulletClass:"bullet",
+                    bulletActiveClass: "bullet-active", //-**direction:vertical 쓰면 pagination 나오지 X
+                },
+                loop:true, //무한루프
+                //slidesPerView:1, //한 화면 슬라이드 갯수
+                //slidesPerGroup : 1,//한번에 넘어가는 슬라이드 갯수
+                autoplay :{
+                    delay:2000,//이동 시간 간격
+                    disableOnInteraction : false, // 버튼을 이용하여 컨트롤 한 이후에도 자동 재생 유지되도록
+                },
+                // effect : 'cards', //슬라이드 처리 대신 effect 전환 | fade cube coverflow flip cards / 각 각 --Effect 옵션 있음
+                // cardsEffect: {
+                //     perSlideOffset: 20, // Space between cards in px
+                //     perSlideRotate: 1, // Rotation of cards in degrees
+                // },
+                // direction : horizontal, //방향 'horizontal' or 'vertical'-**effect사용시 쓰면 화면 없어짐
+                keyboard: {
+                    enabled: true,
+                    onlyInViewport: false,
+                }, //키보드로 슬라이드 제어
+                a11y: {
+                    prevSlideMessage: 'Previous Slide',
+                    nextSlideMessage: 'Next Slide',
+                }, //접근성
+            });
+
+            // autoplay 조절
+            $('.swiper-btn').click(function(){
+                swiper.autoplay.stop(); // swiper 6버전 이상 [최신]
+                // swiper.stopAutoplay(); // => swiper 구버전
+            });
+            $('.pager li').click(function(){
+                swiper.autoplay.start();
+                // swiper.startAutoplay();
+            });
+        });
+        // slideUP + aria-expanded attr change
+            $(function () {
+                $(".list_board_line li").find("> a").on("click", function (e) {
+                    if ($(this).hasClass("on")) {
+                        $(this).removeClass("on").attr("aria-expanded", "false").find("span").text("내용 열기")
+                        $(this).next().stop().slideUp(300);
+                    } else {
+                        $(".list_board_line").find("li").each(function () {
+                            if ($(this).find("> a").hasClass("on")) {
+                                $(this).find("> a").removeClass("on").attr("aria-expanded", "false").find("span").text("내용 열기")
+                                $(this).find("> a").next().stop().slideUp(300);
+                            }
+                        });
+                        $(this).addClass("on").attr("aria-expanded", "true").find("span").text("내용 닫기")
+                        $(this).next().stop().slideDown(300);
+                    }
+                });
+            });
+    </script>
+    <!-- 09.13 swiper 윗 단 연습 -->
+</body>
+</html>
