@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>popover2</title>
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/xpressengine/xeicon@latest/xeicon.min.css">
+    <script src="../src/jquery.min.js"></script>
+
+    <style>
+        * {padding:0; margin:0; list-style:none; text-decoration:none; color:#333;}
+        .container {padding:20px 0 50px;}
+        /* button style */
+        .sec01 {
+            position: relative;
+            padding: 120px 0;
+            border-top:5px solid #F1F1F1;
+        }
+        .sec01::after {
+            position: absolute;
+            bottom: 0; left: 0;
+            content: "";
+            width: 100%; height: 420px;
+            background: #F1F1F1;
+            z-index: -1;
+        }
+        .pop_btn_li {
+            display: flex;
+            width: 852px;
+            margin: 0 auto;
+        }
+        .pop_btn_li li button {
+            width: 426px;
+            height: 660px;
+            padding: 80px 0 0 50px;
+            border: solid 1px #DDD;
+            text-align:left;
+            cursor: pointer;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+        }
+        /* .pop_btn_li li:nth-child(1) button {
+            border-right: none;
+        } */
+        .pop_btn_li .btn01 {
+            background: url('./img/popover/btn01_img.jpg') no-repeat right bottom, #FFF;
+        }
+        .pop_btn_li .btn02 {
+            background: url('./img/popover/btn02_img.jpg') no-repeat right bottom, #FFF;
+        }
+        .pop_btn_li h3 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 20px;
+        }
+        .pop_btn_li p {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        .ic_move {
+            position: relative;
+            width: 26px; height: 26px;
+            background: url('./img/popover/ic_go.png') no-repeat;
+        }
+        .ic_move::after {
+            position: absolute;
+            top: 12.5px; right: 10px;
+            content: "";
+            width: 0; height: 1.5px;
+            background: #AED2EF;
+            border-radius: 2px;
+        }
+
+        .pop_btn_li .btn01:hover {
+            background: url('./img/popover/btn01_img.jpg') no-repeat right bottom, #0072CE;
+            transition: 0.3s;
+        }
+        .pop_btn_li .btn02:hover {
+            background: url('./img/popover/btn02_img.jpg') no-repeat right bottom, #0072CE;
+            transition: 0.3s;
+        }
+        .pop_btn_li button:hover h3,.pop_btn_li button:hover p {
+            color: #FFF;
+            transition: 0.3s;
+        }
+        .pop_btn_li button:hover .ic_move {
+            width: 53px;
+            background: url('./img/popover/ic_go_w.png') no-repeat top right;
+            transition:0.3s;
+        }
+        .pop_btn_li button:hover .ic_move::after {
+            width: 41px;
+            transition:0.3s;
+        }
+
+        /* popup style*/
+        .popup {
+            width: 1200px;
+            height: 700px;
+            display: flex;
+            border: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .popPop {
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            background: transparent;
+            border: none;
+        }
+        .popPop::backdrop {
+            background: rgba(0, 0, 0, 0.5) !important;
+        }
+        
+        .popup .pop_img {
+            width: 400px;
+        }
+
+        .popup .img01 {
+            background: url('./img/popover/pop01_img.png') no-repeat top left;
+            background-size: cover;
+        }
+        .popup .img02 {
+            background: url('./img/popover/pop02_img.png') no-repeat top left;
+            background-size: cover;
+        }
+
+        .popup .pop_con {
+            flex: 1;
+            background: #FFF;
+            position: relative;
+            padding: 40px;
+        }
+        .pop_con h3 {
+            font-size: 28px;
+            color: #000;
+            margin-bottom: 10px;
+        }
+        .scroll_area {
+            height: 570px;
+            overflow-y: scroll;
+        }
+        .scroll_area::-webkit-scrollbar {
+            background:#EBEBEB;
+            width: 8px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+        .scroll_area::-webkit-scrollbar-thumb {
+            background: #C9C9C9;
+            border-radius: 4px;
+        }
+        .scroll_area p {
+            padding-top: 10px;
+            color: #000;
+            font-size: 18px;
+        }
+        .in_menu {
+            margin: 60px 12px 0 0;
+        }
+        .in_menu .tit {
+            text-align: center;
+            align-content: center;
+            width: 100%;
+            height: 160px;
+            margin-bottom: 30px;
+        }
+        .in_menu .tit strong {
+            position: relative;
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFF;
+            z-index: 1;
+        }
+        .in_menu .tit strong::after {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+
+            content: "";
+            width: calc(100% + 24px);
+            height: 12px;
+            background: rgba(87, 150, 231, 0.8);
+            z-index: -1;
+        }
+        .tit01 {
+            background: url('./img/popover/pop_tit01.png') no-repeat center/cover;
+        }
+        .tit02 {
+            background: url('./img/popover/pop_tit02.png') no-repeat center/cover;
+        }
+        .tit03 {
+            background: url('./img/popover/pop_tit03.png') no-repeat center/cover;
+        }
+
+        .tit_list_wrap {
+            display: flex;
+            align-items: start;
+        }
+        .tit_list {
+            flex: 1;
+        }
+        .tit_list dt {
+            font-weight: bold;
+            padding-left: 14px;
+            position: relative;
+        }
+        .tit_list dt::after {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+
+            content: "";
+            width: 4px; height: 4px;
+            background: #000;
+            border-radius: 50%;
+        }
+        .tit_list dd {
+            position: relative;
+            text-indent: 14px;
+            margin-top: 10px;
+            width: fit-content;
+        }
+        .tit_list dd::after {
+            position: absolute;
+            top: 55%;
+            right: -18px;
+            transform: translateY(-50%);
+            content: "\e940";
+            font-size: 13px;
+            font-family: xeicon;
+        }
+        .in_menu:nth-last-child(1) {
+            margin-bottom: 20px;
+        }
+
+        .xi-close-min {
+            position: absolute;
+            top: 12px; right: 12px;
+            font-size: 42px;
+            color: #555;
+            cursor: pointer;
+        }
+
+        .over_hid {overflow:hidden;}
+
+        /* @ CSS: 속성 선택으로 popover 선택 가능 */
+        /* [popover] {
+            background: #000 !important;
+        } */
+
+        /* 속성 선택기 값 포함, 특정 유형의 팝오버만 선택 가능 */
+        /* [popover="auto"]{}
+        [popover="manual"]{} .. */
+
+        /* 가상 클래스로 열린(표시된) 팝오버만 선택 가능 */
+        /* :popover-open{} */
+
+        /* 호출자(button) 기준으로 popover 위치 지정 */
+        /* 1. .popover요소 {
+                top이나 bottom 위치 지정 
+                +
+                justify-self: anchor-center;
+            }
+
+            //
+
+            anchor(center);
+            anchor(bottom); ...   => anchor 사용 시 popovertarget에 anchor 지정 필요. 
+            ex) <div popover anchor="~~~">...</div>
+
+        2. .popover요소 {
+            position-area: -- ;
+        } 
+        @position-area > https://developer.mozilla.org/en-US/docs/Web/CSS/position-area    
+        */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sec01">
+            <ul class="pop_btn_li">
+                <li>
+                    <button class="btn01 pop_btn" popovertarget="btn01_pop">
+                        <h3>초고층 빌딩</h3>
+                        <p>
+                            초고층빌딩의 안전성과 가치를 높일 수 있는
+                            <br>컨설팅 + 솔루션 + 운영 서비스를
+                            <br>통합적으로 제공합니다.
+                        </p>
+                        <span class="ic_move"></span>
+                    </button>
+                </li>
+                <li>
+                    <button class="btn02 pop_btn" popovertarget="btn02_pop">
+                        <h3>복합시설</h3>
+                        <p>
+                            많은 사람이 출입하는 다중이용 공간,
+                            <br>시설의 목적과 특성에 맞는 안심 솔루션을
+                            <br>제공합니다.
+                        </p>
+                        <span class="ic_move"></span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- popup -->
+        <div id="btn01_pop" class="popPop" popover>
+            <div class="popup btn01_pop">
+                <div class="pop_img img01"></div>
+                <div class="pop_con">
+                    <h3>초고층 빌딩</h3>
+                    <div class="scroll_area">
+                        <p>
+                            초고층빌딩의 안전성과 가치를 높일 수 있는
+                            <br>컨설팅 + 솔루션 + 운영 서비스를 통합적으로 제공합니다.
+                        </p>
+
+                        <div class="in_menu">
+                            <div class="tit tit01">
+                                <strong>컨설팅</strong>
+                            </div>
+                            <div class="tit_list_wrap">
+                                <dl class="tit_list">
+                                    <dt>부동산 운영 컨설팅</dt>
+                                    <dd><a href="#!">투자자문, 매매 컨설팅</a></dd>
+                                    <dd><a href="#!">임대차 컨설팅</a></dd>
+                                    <dd><a href="#!">공간기획/프로젝트 매니지먼트</a></dd>
+                                </dl>
+                                <dl class="tit_list">
+                                    <dt>통합 보안 컨설팅</dt>
+                                    <dd><a href="#!">보안솔루션 컨설팅</a></dd>
+                                    <dd><a href="#!">대테러 컨설팅</a></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="in_menu">
+                            <div class="tit tit02">
+                                <strong>설계 / 구축</strong>
+                            </div>
+                            <div class="tit_list_wrap">
+                                <dl class="tit_list">
+                                    <dt>빌딩 솔루션</dt>
+                                    <dd><a href="#!">기술 컨설팅</a></dd>
+                                    <dd><a href="#!">에너지 컨설팅</a></dd>
+                                    <dd><a href="#!">스마트 건물관리</a></dd>
+                                    <dd><a href="#!">스마트 주차관리</a></dd>
+                                </dl>
+                                <dl class="tit_list">
+                                    <dt>보안 솔루션</dt>
+                                    <dd><a href="#!">지능형 영상보안</a></dd>
+                                    <dd><a href="#!">얼굴인식 출입관리 시스템</a></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="in_menu">
+                            <div class="tit tit03">
+                                <strong>운영 / 관리</strong>
+                            </div>
+                            <div class="tit_list_wrap">
+                                <dl class="tit_list">
+                                    <dt>빌딩 관리 서비스</dt>
+                                    <dd><a href="#!">자산관리 서비스(PM)</a></dd>
+                                    <dd><a href="#!">시설관리 서비스(FM)</a></dd>
+                                    <dd><a href="#!">스마트 케어존</a></dd>
+                                </dl>
+                                <dl class="tit_list">
+                                    <dt>보안 및 기타 운영 서비스</dt>
+                                    <dd><a href="#!">세콤 서비스</a></dd>
+                                    <dd><a href="#!">차량운행관리</a></dd>
+                                    <dd><a href="#!">정보보안 솔루션</a></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <i class="xi-close-min" id="btnClose"></i>
+                </div>
+            </div>
+        </div>
+
+        <div id="btn02_pop" class="popPop" popover>
+            <div class="popup btn02_pop">
+                <div class="pop_img img02"></div>
+                <div class="pop_con">
+                    <h3>복합 시설</h3>
+                    <div class="scroll_area">
+                        <p>
+                            많은 사람이 출입하는 다중이용 공간,
+                            <br>시설의 목적과 특성에 맞는 안심 솔루션을 제공합니다.
+                        </p>
+
+                        <div class="in_menu">
+                            <div class="tit tit01">
+                                <strong>컨설팅</strong>
+                            </div>
+                            <div class="tit_list_wrap">
+                                <dl class="tit_list">
+                                    <dt>부동산 운영 컨설팅</dt>
+                                    <dd><a href="#!">투자자문, 매매 컨설팅</a></dd>
+                                    <dd><a href="#!">임대차 컨설팅</a></dd>
+                                    <dd><a href="#!">공간기획/프로젝트 매니지먼트</a></dd>
+                                </dl>
+                                <dl class="tit_list">
+                                    <dt>통합 보안 컨설팅</dt>
+                                    <dd><a href="#!">보안솔루션 컨설팅</a></dd>
+                                    <dd><a href="#!">대테러 컨설팅</a></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="in_menu">
+                            <div class="tit tit02">
+                                <strong>설계 / 구축</strong>
+                            </div>
+                            <div class="tit_list_wrap">
+                                <dl class="tit_list">
+                                    <dt>빌딩 솔루션</dt>
+                                    <dd><a href="#!">기술 컨설팅</a></dd>
+                                    <dd><a href="#!">에너지 컨설팅</a></dd>
+                                    <dd><a href="#!">스마트 건물관리</a></dd>
+                                    <dd><a href="#!">스마트 주차관리</a></dd>
+                                </dl>
+                                <dl class="tit_list">
+                                    <dt>보안 솔루션</dt>
+                                    <dd><a href="#!">지능형 영상보안</a></dd>
+                                    <dd><a href="#!">얼굴인식 출입관리 시스템</a></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="in_menu">
+                            <div class="tit tit03">
+                                <strong>운영 / 관리</strong>
+                            </div>
+                            <div class="tit_list_wrap">
+                                <dl class="tit_list">
+                                    <dt>빌딩 관리 서비스</dt>
+                                    <dd><a href="#!">자산관리 서비스(PM)</a></dd>
+                                    <dd><a href="#!">시설관리 서비스(FM)</a></dd>
+                                    <dd><a href="#!">스마트 케어존</a></dd>
+                                </dl>
+                                <dl class="tit_list">
+                                    <dt>보안 및 기타 운영 서비스</dt>
+                                    <dd><a href="#!">세콤 서비스</a></dd>
+                                    <dd><a href="#!">차량운행관리</a></dd>
+                                    <dd><a href="#!">정보보안 솔루션</a></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <i class="xi-close-min" id="btnClose"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- *@ popovertarget -->
+        <button id="btnPop1" class="btn-open" popovertarget="popup1" popovertargetaction="toggle">팝업토글</button>
+        <div id="popup1" popover anchor="btnPop1">첫번째 팝업내용입니다.</div>
+        
+        <div style="display: block; margin:0 20px;"></div>
+        <button class="btn-open" popovertarget="popup2" popovertargetaction="show">팝업열기</button>
+        <button class="btn-open" popovertarget="popup2" popovertargetaction="hide">팝업닫기</button>
+        <div id="popup2" popover>두번째 팝업내용입니다.</div>
+        
+        <div style="display: block; margin:0 20px;"></div>
+        <button class="btn-open" popovertarget="popup3" popovertargetaction="toggle">주변을 클릭해도 안닫히는 팝업</button>
+        <div id="popup3" popover="manual">세번째 팝업내용입니다.</div> <!-- ** popover="manual" 설정 ** -->
+
+        <!-- 기본설정 => popover="auto" -->
+        <!-- popover="auto" : 팝오버 열릴 때 다른 팝오버 열려있을 시 강제 닫음., 한번에 1개의 팝 오버 show. | 외부 클릭 닫힘 가능. -->
+        <!-- popover="manual" : 다른 요소 강제로 닫지 X, popover타겟요소 외(외부) 클릭 닫힘X | toggle 또는 닫기 버튼  -->
+        <!-- popover="hint" : tooltip이나 일시적인 ui. hint끼리만 동시 오픈 X / popover="auto"요소와 같이 오픈 가능 | 외부 클릭 닫힘 기능 | 주로 마우스 이벤트/포커스 이벤트 -->
+        <!-- popover="hint"=> 자동 툴팁효과 x / mouse나 focus 이벤트를 script로 추가해줘야 함. -->
+        
+
+        <style>
+            #popup1 {
+                position-area:x-end y-self-end;
+            }
+
+            /* #popup1 {
+                top:anchor(center);
+                right:anchor(center);
+            } */
+
+            /* ** anchor 요소 지정! popovertarget : anchor사용시 무조건 지정해줘야함.(popoverBtn id와 popoverTarget의 anchor 지정 맞추기) */
+        </style>
+
+        <!-- *@ popover="hint" : 다른 팝오버를 닫지 않고 열 수 있는 팝오버 유형. -->
+        <button id="hintBtn" class="hintBtn" popovertarget="toolTip">Mouse Hover</button>
+        <div id="toolTip" class="tooltip" popover="hint" anchor="hintBtn">Hint_tooltip</div>
+        <script>
+            const toolTip = document.getElementById('toolTip');
+            const btnTooltip = document.getElementById('hintBtn');
+            
+            // s: mouseEvent
+            btnTooltip.addEventListener("mouseenter", () => {
+                toolTip.showPopover({ source: btnTooltip });
+            });
+
+            btnTooltip.addEventListener("mouseleave", () => {
+                toolTip.hidePopover();
+            }); // e: mouseEvent
+
+            // s: focusEvent
+            btnTooltip.addEventListener("focus", () => {
+                toolTip.showPopover({ source: btnTooltip });
+            });
+
+            btnTooltip.addEventListener("blur", () => {
+                toolTip.hidePopover();
+            }); // e: focusEvent
+        </script>
+        <style>
+            #toolTip {
+                top:anchor(top);
+                left:anchor(right);
+            }
+        </style>
+    </div>
+
+    <script>
+        const pop01 = document.getElementById('btn01_pop')
+        const pop02 = document.getElementById('btn02_pop')
+
+        $(function() {            
+            $('.xi-close-min').on('click',function(){
+                pop01.hidePopover();
+                pop02.hidePopover();
+                console.log('hide pop');
+            });
+        });
+
+        // *@ popover 동작 key 만들기
+        // 1. Toggle
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "p") {
+                pop01.togglePopover();
+            }
+        });
+        // 2. 개별동작
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "s") {
+                if (!pop02.matches(":popover-open")) {
+                pop02.showPopover();
+                }
+            }
+
+            if (event.key === "h") {
+                if (pop02.matches(":popover-open")) {
+                pop02.hidePopover();
+                }
+            }
+        });
+
+        // *@ popover="hint"
+        const tooltips = document.querySelectorAll(".tooltip");
+        const btns = document.querySelectorAll("tooltip 내용담긴 요소");
+
+        function addEventListeners(i) {
+            btns[i].addEventListener("mouseover", () => {
+                tooltips[i].showPopover({ source: btns[i] });
+            });
+
+            btns[i].addEventListener("mouseout", () => {
+                tooltips[i].hidePopover();
+            });
+        }
+    </script>
+</body>    
+</html>
