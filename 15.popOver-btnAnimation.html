@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PopOver-ani</title>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/xpressengine/xeicon@latest/xeicon.min.css">
+  <script src="../src/jquery.min.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      text-decoration: none;
+      list-style: none;
+    }
+    :root {
+      --btn-size: 48px;
+      --extra-space: 24px;
+    }
+
+    .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-evenly;
+      /* space-between 비슷 */
+      /* space-around 
+      : 요소 간격 동일 분배 
+        요소들 wrap의 앞과 뒤는 요소 간격의 2분의 1. 
+      */
+    
+      /* space-evenly
+      : 요소 간격, 요소들 wrap 앞 뒤 간격까지 모두 동일 분배.
+      */
+    }
+
+    .tit {
+      position: absolute;
+      top: 10%; left: 0;
+      text-align: center;
+      width:100vw;
+      font-size: 270px;
+      letter-spacing: 0.025rem;
+      color: #F2F2F2;
+      z-index: -1;
+    }
+
+    .item {
+      --radius: calc(var(--btn-size) + var(--extra-space)); /* 72px */
+      background: var(--bg);
+      transform: translateX(calc(cos(var(--angle)) * var(--radius))) translateY(calc(sin(var(--angle) * -1) * var(--radius))) rotate(0deg);
+      opacity: 0;
+      transition: all 0.3s var(--delay) ease;
+    }
+
+    .menu-items:not(:popover-open) .item {
+      --radius: 0;
+      --angle: 0;
+      rotate: 45deg;
+    }
+
+    /* rotate the "plus" */
+    .menu-toggle > div {
+      transition: transform 0.3s;
+    }
+
+    .menu:has(:popover-open) .menu-toggle > div {
+      transform: rotate(45deg);
+    }
+    
+    .menu-items {
+      position-anchor: --pointArea;
+      top: anchor(center);
+      left: anchor(center);
+      position-area: center;
+      background: transparent;
+      border: none;
+      box-shadow:2px 2px 15px rgba(0, 0, 0, 0.3);
+    }
+    /* .menu-items::backdrop {
+      background:rgba(0, 0, 0, 0.3); => 플로팅버튼이니까 ::backdrop 제거.
+    } */
+
+    .pop_menu button {outline:none;}
+
+    .hidden-close {
+      transform:rotate(45deg);
+      transition: opacity 0.1s;
+      transition-delay: 1s;
+      width: var(--btn-size);
+      aspect-ratio: 1;
+    }
+
+    :popover-open .item {
+      opacity: 1;
+    }
+
+    /* Every item gets a background, angle, and delay */
+    /* This gets updated when the popover is open */
+
+    .item:nth-child(1) {
+      --bg: pink;
+      --angle: 0deg;
+      --delay: 0s;
+      /* translate(px) 72 0 */
+    }
+
+    .item:nth-child(2) {
+      --bg: thistle;
+      --angle: 45deg;
+      --delay: 0.1s;
+      /* translate(px) 50.91 -50.91 */
+    }
+
+    .item:nth-child(3) {
+      --bg: paleturquoise;
+      --angle: 90deg;
+      --delay: 0.2s;
+      /* translate(px) 0 -72 */
+    }
+
+    .item:nth-child(4) {
+      --bg: lightgreen;
+      --angle: 135deg;
+      --delay: 0.3s;
+      /* translate(px) -50.91 -50.91 */
+    }
+
+    .item:nth-child(5) {
+      --bg: peachpuff;
+      --angle: 180deg;
+      --delay: 0.4s;
+      /* translate(px) -72 0 */
+    }
+
+    .item {
+      border-radius: 50%;
+      width: var(--btn-size);
+      aspect-ratio: 1;
+    }
+
+    .menu-toggle {
+      border-radius: 50%;
+      width: var(--btn-size);
+      aspect-ratio: 1;
+      background: darksalmon;
+      z-index: 1;
+      anchor-name: --pointArea;
+    }
+
+    .menu-toggle.on > div {
+      transform: rotate(405deg);
+      transform-origin: center;
+      transition: 0.3s;
+    }
+
+    /* Grid piles */
+
+    .pop_menu,
+    .menu-items,
+    body,
+    .item {
+      display: grid;
+      place-content: center;
+    }
+
+    .pop_menu>*,
+    .menu-items>*,
+    body>* .item button {
+      outline:none;
+      grid-area: 1/1;
+    }
+
+    /* Resets, etc. */
+    /* visually-hidden ala https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html */
+    .sr-only {
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
+
+    .pop_menu button {
+      border: none;
+      background: none;
+      font-family: 'Noto Emoji';
+      color: #222;
+      font-size: 1.25rem;
+    }
+
+    .pop_menu button:focus-visible {
+      outline: 2px dashed deeppink;
+      border-radius: 50%;
+      aspect-ratio: 1/1;
+    }
+
+    .pop_menu .item_wrap  {
+      position: relative;
+      width:52px;
+      height: 52px;
+      text-align: center;
+    }
+    .item_wrap .menu-items {
+      position: absolute;
+      top: 0; left: 0;
+      border-radius: 50%;
+    }
+    .pop_menu,
+    .menu-items {
+      overflow: unset;
+      outline:none !important;
+      /* 부모 상속 우선 / X: 기존 값 */
+      /* inherit / initial */
+    }
+
+    /* pop_move */
+    .pop_move button {
+      padding:7px 12px;
+      border-radius:20px;
+      border:1px solid #CCC;
+      anchor-name: --btnPopmove; /* = popover btn id 지정*/
+    }
+    .pop_move [popover] {
+      position-anchor: --btnPopmove; /* = pover 영역에 anchor() 추가 */
+      font-size: 1.2rem;
+      padding: 10px;
+      animation: popover-fade-out 0.7s ease-out;
+      top:anchor(50%); /*top/bottom: top, bottom, start, end, self-start, self-end, %(퍼센트)*/
+      left:anchor(50%); /*left/right: top, bottom, start, end, self-start, self-end, %(퍼센트)*/
+      transform: translate(-50%, -50%); 
+
+      /* anchor() 크롬,엣지 호환O / 사파리,파이어폭스 호환X */
+    }
+
+    .pop_move [popover]:popover-open {
+      animation: popover-fade-in 0.7s ease-out;
+    }
+
+    .pop_move [popover]:popover-open::backdrop {
+      animation: backdrop-fade-in 0.7s ease-out forwards;
+    }
+
+    @keyframes popover-fade-in {
+      0% {
+        opacity: 0;
+        transform: translate(-50%,-50%) scaleX(0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scaleX(1);
+      }
+    }
+
+    @keyframes popover-fade-out {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scaleX(1);
+        display: block;
+        /* 닫힐 때 바로 사라지지 않고 애니메이션 보이며 
+        사라지기 위해 끝까지 pop이 보이도록 
+        display:block; 추가. */
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scaleX(0);
+        display: none;
+        /* display: none은 닫힌 팝오버의 기본값이므로 
+        반드시 설정할 필요는 없지만, 
+        동작을 명확하게 하기 위해 추가. */
+      }
+    }
+
+    @keyframes backdrop-fade-in {
+      0% {
+        background:rgba(0, 0, 0, 0);
+      }
+
+      100% {
+        background:rgba(255, 0, 0, 0.05);
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h3 class="tit">
+      popover-ani
+    </h3>
+    <div class="pop_menu">
+      <div class="item_wrap">
+        <button class="menu-toggle" id="menu-toggle" popovertarget="menu-items">
+          <div aria-hidden="true"> ➕ </div>
+          <div class="sr-only">open menu</div>
+        </button>
+        <menu class="menu-items" id="menu-items" popover>
+          <li class="item">
+            <button>
+              <div aria-hidden="true">♥️</div>
+              <div class="sr-only">add to favorites</div>
+            </button>
+          </li>
+          <li class="item">
+            <button>
+              <div aria-hidden="true">💾</div>
+              <div class="sr-only">save to collection</div>
+            </button>
+          </li>
+          <li class="item">
+            <button>
+              <div aria-hidden="true">🍓</div>
+              <div class="sr-only">copy link</div>
+            </button>
+          </li>
+          <li class="item">
+            <button>
+              <div aria-hidden="true">✉️</div>
+              <div class="sr-only">email</div>
+            </button>
+          </li>
+          <li class="item">
+            <button>
+              <div aria-hidden="true">🛒</div>
+              <div class="sr-only">add to cart</div>
+            </button>
+          </li>
+          <!--  Need extra close button bc the popover lays on top of the X and doesn't let you get to it    -->
+          <li class="item">
+            <button popovertargetaction="close" popovertarget="menu-items" class="hidden-close">
+              <div aria-hidden="true"> </div>
+              <div class="sr-only">close menu</div>
+            </button>
+          </li>
+        </menu>
+      </div>
+    </div>
+    <div class="pop_move">
+      <button popovertarget="mypopover">
+        SHOW POPUP
+      </button>
+      <div popover="auto" id="mypopover">
+        Popover! I should animate!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleMenu = document.getElementById("menu-items"); 
+    const rotateItem = document.getElementById("menu-toggle")
+
+    // 팝오버 상태 변경 시 클래스를 추가 및 제거하는 이벤트 핸들러
+    toggleMenu.addEventListener("toggle", (event) => {
+        if (toggleMenu.matches(":popover-open")) {
+          rotateItem.classList.add("on");
+        } else {
+          rotateItem.classList.remove("on");
+        }
+    });
+
+    // // 팝오버 표시 버튼
+    // document.getElementById("popoverButton").addEventListener("click", () => {
+    //   toggleMenu.showPopover();
+    // });
+
+  </script>
+</body>
+</html>
