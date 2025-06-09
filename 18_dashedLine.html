@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Line_css</title>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/xpressengine/xeicon@latest/xeicon.min.css">
+
+    <style>
+        /* 요소 사이에 line 추가 ex) A -- B -- C + background로 dashed 효과 */
+        .round_dash{
+            display:flex;
+            justify-content:space-between;
+            align-items:flex-start;
+            width:420px;
+            height:100px;
+            margin:100px auto;
+            list-style:none;
+            padding:0; text-indent:0;
+        }
+        .round_dash li{
+            display:block;
+            position:relative;
+            width:70px;
+            height:50px;
+            border:1px solid #000;
+            text-align:center;
+            align-content:center; /* 가로 가운데 정렬 */
+        }
+        .round_dash li~li:before{
+            position:absolute;
+            top:50%; left:-50%; transform:translate(calc(-50% - 17.5px)); /* 라인 위치 잡기 */
+            content:""; width:70px; height:2px; /* 가로방향 dash 시 | 세로방향 dash 시 width를 짧게. height를 길게 */
+            background-image:linear-gradient(to left, #DDD 31%, rgba(255, 255, 255, 0) 0%);/* 가로방향 시 to right/ to left | 세로 방향 시 to bottom/ to top */
+            background-position:center;
+            background-size:7px 2px; /*7px만큼 왼쪽에서 오른쪽으로 31% 색상과 0% 반복 => 보이다가 투명해지는 구간이 있어 점선처럼 보임 | 세로 방향시 사이즈 반대로!*/
+            background-repeat:repeat-x; /* 가로방향 제작 시 | 세로방향 시 repeat-y */
+            vertical-align:middle; /* 동일한 위치로 repeat되도록 정렬 맞춤 */
+        }
+
+        .round_dash li:nth-child(2) {
+            align-self:center; /* (개별 flex item) 자식요소 단독 정렬 필요시=> align-self */
+        }
+        .round_dash li:nth-last-child(1) {
+            align-self:stretch; /* stretch: 요소의 영역 값을 최대로 | align-item은 flex box요소에만 사용 가능! item에는 align-self */
+            height:auto; /* 요소 공통의 값 지정 되있을 시 auto 추가해줘야 늘어남 */
+        }
+
+        /* Absoulte- w/h 100% */
+        .full{
+            display:block;
+            position:relative;
+            width:250px;
+            height:200px;
+            border:1px solid sandybrown;
+            margin:0 auto;
+            padding:20px;
+            align-content:center; text-align:center;
+            font-weight:bold;
+            box-sizing: border-box;
+            border-top-width:thick; /*thin, medium, thick or px로 지정 -> width지정 방법 종류*/
+        }
+        .full:after{
+            content:"";
+            position:absolute;
+            top:0;bottom:0;left:0;right:0; /*point!- 전체영역 연결 (width-height 값 지정 없이 기준 값 전체 맞춤)*/
+            border:2px dashed #666;
+        }
+
+        /* dashed 간격조정 */
+        .dash_gap{
+            display:block;
+            width:250px;height:250px;
+            border-width: 3px;
+            border-style: solid; /* !!dashed로 지정X */
+            border-image: repeating-linear-gradient(45deg, black 0px, black 6px, transparent 10px, transparent 10px) 1;
+            /* 확대하면 번져보일수도.. | 간격조정 + 깔끔한 dashed: svg로 변환 라이브러리 사용 */
+            margin:100px auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- 신기한 border dashed 방법-background -->
+    <ul class="round_dash">
+        <li><span>1</span></li>
+        <li><span>2</span></li>
+        <li><span>3</span></li>
+    </ul>
+    
+    <!-- 너비&높이 absolute로 100% 방법 -->
+    <div class="full">absolute_line</div>
+
+    <!-- dash 간격 조정 : 라인 깔끔 X(비추) -->
+    <div class="dash_gap"></div>
+</body>
+</html>
