@@ -13,13 +13,14 @@
         .container {
             display:flex;
             overflow-y:scroll;
+            width:100vw; height:100vh; /*bg 적용 시 w,h없으면 배경 못 잡음.*/
+            background:url('./img/btn_set.gif') no-repeat center/cover;
         }
 
         .container.on {
             overflow:hidden;
-            width:100vw;
-            height:100vh;
         }
+
         #pop_popover {
             position:fixed;
             top:0; left:0;
@@ -87,17 +88,18 @@
 <body>
     <div class="container">
         <div class="cont_area">
-        <!-- s: Popover -->
-        <div id="pop_popover" popover><!-- 스크립트 내장 API불러오기 위해 popover 속성 작성 필 -->
-            <div class="pop_cont">
-                <div class="pop_cont_wrap">
-                    <!-- 327x387 -->
-                    <div class="popcont_area"></div> 
-                    <div class="btn_wrap">
-                        <div class="btn_closetoday">오늘 하루 안보기</div>
-                        <div class="close_b btn_close">닫기</div>
+            <!-- s: Popover -->
+            <div id="pop_popover" popover><!-- 스크립트 내장 API불러오기 위해 popover 속성 작성 필 -->
+                <div class="pop_cont">
+                    <div class="pop_cont_wrap">
+                        <!-- 327x387 -->
+                        <div class="popcont_area"></div> 
+                        <div class="btn_wrap">
+                            <div class="btn_closetoday">오늘 하루 안보기</div>
+                            <div class="close_b btn_close">닫기</div>
+                        </div>
+                        <i class="xi-close-square-o close_t btn_close"></i>
                     </div>
-                    <i class="xi-close-square-o close_t btn_close"></i>
                 </div>
             </div>
         </div>
@@ -130,8 +132,8 @@
                     console.log('24h check start')
 
                     const nDate = new Date();
-                    // nDate.setTime(nDate.getTime() + (1 * 60 * 1000)); //테스트용!- 1분으로 값 적용코드 **정상동작
-                    nDate.setTime(nDate.getTime() + (due * 60 * 60 * 1000));
+                    nDate.setTime(nDate.getTime() + (0.5 * 60 * 1000)); //테스트용!- 30초로 값 적용코드 **정상동작
+                    // nDate.setTime(nDate.getTime() + (due * 60 * 60 * 1000));
                     const expires = `expires=${nDate.toUTCString()}`;
                     document.cookie = `noPop24h=true; ${expires}; path=/`;
 
