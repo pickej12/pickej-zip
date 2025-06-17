@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin_gnb-table</title>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/xpressengine/xeicon@latest/xeicon.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="../src/jquery.min.js"></script>
+    <script src="../src/jquery-ui.min.js"></script>
+
+    <style>
+        * {padding:0; margin:0; list-style:none; text-decoration:none; color:#333;}
+        
+        .container {
+            display:flex;
+            overflow-y:scroll;
+        }
+
+        .gnb {
+            width:220px;
+        }
+
+        .cont_area {
+            flex:1
+        }
+
+        /* menu */
+        .gnb {
+            text-align:center;
+            background:#EEE;
+        }
+        .gnb .dep01 > li {
+            padding:13px 0;
+            border-bottom:1px solid #FFF;
+            position:relative;
+        }
+        .gnb .dep01 .dep02 {
+            display:none;
+            position:absolute;
+            top: 0;
+            left: 100%;
+            width:150px;
+            height:auto;
+            aspect-ratio:1/1;
+            padding:30px;
+            background:#F9F9F9;
+            overflow:hidden;
+        }
+        .gnb .dep01 .dep02.on {
+            display:block;
+        }
+        .dep02 span {
+            display:block;
+            font-size:15px;
+            font-weight:bold;
+            color:#777;
+            margin-bottom:30px;
+        }
+        .dep02 .li_layout {
+            display:flex;
+            justify-content:space-between;
+            border-top:1px solid #DDD;
+            padding-top:20px;
+        }
+        .li_layout ul {
+            height:80px;
+            overflow-y:scroll;
+            
+        }
+
+        /* table */
+        caption {
+            display:none;
+            font-size: 0;
+            text-indent:-1000000px;
+            transform:scale(0);
+        }
+        .tbl_wrap {
+            width:800px;
+            margin:120px auto;
+        }
+        table {
+            border-collapse: collapse;
+            border: 2px solid rgb(140 140 140);
+            font-size: 14px;
+            width:100%;
+        }
+        table th,td {
+            border:1px solid #ccc;
+            padding:30px;
+        }
+        .sc_area {
+            display:flex;
+            gap:40px;
+            justify-content:space-between;
+            height:80px;
+        }
+        .sc_area .sc_aco {
+            overflow-y: auto;
+            flex:1;
+        }
+
+        .aco_custom {
+            width:100%;
+            height:225px;
+            overflow-y:scroll;
+        }
+        .aco_custom ul {
+            margin:0 80px;
+        }
+        .aco_custom button {
+            width:100%; height:100%;
+            padding:15px;
+            background:#eee;
+            border: none;
+            border-bottom:3px solid #FFF;
+            cursor:pointer;
+        }
+        .aco_custom ul li h3 {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+        .aco_custom ul li ul.aco_list {
+            height: 0px;
+            transform:scaleY(0);
+            transform-origin:top;
+            transition:0.3s;
+            will-change:transition transform;
+        }
+        .aco_custom ul li ul.aco_list.on {
+            height:100%;
+            transform:scaleY(1);
+            transition:0.2s;
+        }
+
+        .aco_list {
+            width:100%;
+            margin:0 !important;
+        }
+        .aco_list li {
+            padding:15px;
+            border-bottom:1px solid #EEE;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- s: Accordion -->
+        <div class="gnb">
+            <ul class="dep01">
+                <li>
+                    <a href="#">m01</a>
+                </li>
+                <li>
+                    <a href="#">m02</a>
+                </li>
+                <li>
+                    <a href="#">m03</a>
+                    <ul class="dep02">
+                        <li>
+                            <span>subsub</span>
+                            <div class="li_layout">
+                                <ul class="li01">
+                                    <li>sub01</li>
+                                    <li>sub01</li>
+                                    <li>sub01</li>
+                                    <li>sub01</li>
+                                    <li>sub01</li>
+                                    <li>sub01</li>
+                                </ul>
+                                <ul class="li02">
+                                    <li>sub02</li>
+                                    <li>sub02</li>
+                                    <li>sub02</li>
+                                    <li>sub02</li>
+                                    <li>sub02</li>
+                                    <li>sub02</li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">m04</a>
+                    <ul class="dep02">
+                        <li>test</li>
+                        <li>test2</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <script>
+            // 전체 li적용
+            // $('.dep01 > li').hover(function(){
+            //     $('.dep02').toggleClass('on');
+            // });
+            
+            // $(this)로 개별 적용
+            $('.dep01 > li').hover(function(){
+                $(this).find('.dep02').toggleClass('on');
+            });
+        </script>
+        <div class="cont_area">
+            <!-- 테이블 내부 위치 아코디언 -->
+            <div class="tbl_wrap">
+                <table>
+                    <caption>
+                        test table
+                    </caption>
+                    <tbody>
+                        <tr>
+                            <th>Lorem Ipsum</th>
+                            <td>Lorem Ipsum is simply dummy text</td>
+                        </tr>
+                        <tr>
+                            <th>Lorem Ip</th>
+                            <td>lorem Ipsum is simply dummy text</td>
+                        </tr>
+                        <tr>
+                            <th>Lorem Ips</th>
+                            <td>
+                                <div class="sc_area">
+                                    <div class="aco sc_aco">
+                                        <h3>cont03-1</h3>
+                                        <ul class="sc02">
+                                            <li>aco01</li>
+                                            <li>aco01</li>
+                                            <li>aco01</li>
+                                            <li>aco01</li>
+                                            <li>aco01</li>
+                                            <li>aco01</li>
+                                        </ul>
+                                        <h3>cont03-2</h3>
+                                        <ul class="sc02">
+                                            <li>aco02</li>
+                                            <li>aco02</li>
+                                            <li>aco02</li>
+                                            <li>aco02</li>
+                                            <li>aco02</li>
+                                            <li>aco02</li>
+                                        </ul>
+                                        <h3>cont03-3</h3>
+                                        <ul>
+                                            <li>aco03</li>
+                                            <li>aco03</li>
+                                            <li>aco03</li>
+                                            <li>aco03</li>
+                                            <li>aco03</li>
+                                            <li>aco03</li>
+                                        </ul>
+                                        <h3>cont03-4</h3>
+                                        <ul>
+                                            <li>aco03</li>
+                                            <li>aco03</li>
+                                            <li>aco03</li>
+                                            <li>aco03</li>
+                                            <li>aco03</li>
+                                            <li>aco03</li>
+                                        </ul>
+                                    </div>
+                                    <div class="aco sc_aco">
+                                        <h3>cont03-1</h3>
+                                        <ul class="sc02">
+                                            <li>aco01</li>
+                                            <li>aco01</li>
+                                            <li>aco01</li>
+                                            <li>aco01</li>
+                                            <li>aco01</li>
+                                            <li>aco01</li>
+                                        </ul>
+                                        <h3>cont03-2</h3>
+                                        <ul class="sc02"></ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Lorem I</th>
+                            <td>simply dummy text</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="aco_custom">
+                <ul aria-label="accordion menu">
+                    <li>
+                        <button>
+                            <h3 id="list1" aria-expanded="false">
+                                제목1
+                                <!-- jquery-ui icon : 사용시 jquery-ui 불러오기. -->
+                                <span class="ui-icon ui-icon-circle-plus"></span>
+                            </h3>
+                        </button>
+                        <ul class="aco_list" aria-labelledby="list1">
+                            <li>내용1</li>
+                            <li>내용2</li>
+                            <li>내용3</li>
+                            <li>내용4</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button>
+                            <h3 id="list2" aria-expanded="false">
+                                제목2
+                                <span class="ui-icon ui-icon-circle-plus"></span>
+                            </h3>
+                        </button>
+                        <ul class="aco_list" aria-labelledby="list2">
+                            <li>내용1</li>
+                            <li>내용2</li>
+                            <li>내용3</li>
+                            <li>내용4</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button>
+                            <h3 id="list3" aria-expanded="false">
+                                제목3
+                                <span class="ui-icon ui-icon-circle-plus"></span>
+                            </h3>
+                        </button>
+                        <ul class="aco_list" aria-labelledby="list3">
+                            <li>내용1</li>
+                            <li>내용2</li>
+                            <li>내용3</li>
+                            <li>내용4</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button>
+                            <h3 id="list4" aria-expanded="false">
+                                제목4
+                                <span class="ui-icon ui-icon-circle-plus"></span>
+                            </h3>
+                        </button>
+                        <ul class="aco_list" aria-labelledby="list4">
+                            <li>내용1</li>
+                            <li>내용2</li>
+                            <li>내용3</li>
+                            <li>내용4</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <script>
+                $(function() {
+                    // jqeury-ui 아코디언
+                    $(".aco").accordion({
+                        active:-1, // 첫 화면에 열릴 list 지정 [0부터 시작, 음수값은 뒤에서 부터 선택.]
+                        // 숫자 or false
+                        
+                        event:"click", 
+                        // click or mouseover (jquery가 인식할 수 있는 모든 이벤트 타입 가능, 복수 선택 가능)
+        
+                        heightStyle:"content",
+                        // -> auto: 아코디언 컨텐츠 중 가장 긴 길이에 맞춤.
+                        // -> fill: 아코디언 부모 높이까지 맞춰 길이 확장
+                        // -> content: 아코디언 각 컨텐츠 내용의 높이에 맞춤.
+        
+                        active:false, //-> 초기 모든 패널 상태 (false: 닫힘)
+                        // -> 
+                        collapsible:true, //-> 모든 패널 닫기
+                        // 초기 화면에 모두 닫기하려면 2개(active,collapsible) 세트! 같이 적용.
+        
+                        icons: {
+                            header:"ui-icon-circle-plus",
+                            activeHeader:"ui-icon-circle-minus",
+                        },
+                        // 열고 닫는 아이콘 설정, false 비활성화
+                        //jquery-ui icons에 속한 icon은 명칭으로 변경
+                        // https://api.jqueryui.com/theming/icons/
+                        // 이미지 변경은 바로 css에서.
+                        // 외부 아이콘 라이브러리는 icons:false, 처리 후 html에 직접 작성.
+        
+                        //animation:"500", //ms단위
+                        animation:{
+                            duration:500,
+                            easing:"easeOutBounce",
+                        },
+                    });
+        
+                    // 직접 스크립트 작성
+                    // 열림 유지-클릭시에만 열고 닫고
+                    // $(".aco_custom li").on("click", function(e){
+                    //     const liTarget = $(this).find('.aco_list');
+                    //     const openLi = liTarget.hasClass('on'); // hasClass = 해당 class를 가지고 있는지 확인. true/false 반환.
+                        
+                    //     $(this).find('.aco_list').removeClass('on');
+                    //     $(this).find('h3').attr('aria-expanded', 'false');
+                    //     $(this).find('.ui-icon').removeClass('ui-icon-circle-minus').addClass('ui-icon-circle-plus');
+                    //     // click area event
+                    //     if (!openLi){
+                    //         liTarget.addClass('on');
+                    //         $(this).find('h3').attr('aria-expanded', 'true');
+                    //         $(this).find('.ui-icon').removeClass('ui-icon-circle-plus').addClass('ui-icon-circle-minus')
+                    //     }
+                    // });
+        
+                    // 1-1. 하나의 아코디언에서 하나만 열림.
+                    $(function () {
+                        $(".aco_custom button").on("click", function (e) {
+                            e.preventDefault(); // button의 기본 동작 방지
+                            e.stopPropagation(); // 이벤트 버블링 방지
+        
+                            const $thisLi = $(this).closest("li");
+                            const $targetList = $thisLi.find(".aco_list");
+                            const isOpen = $targetList.hasClass("on");
+        
+                            // 모든 아코디언 닫기
+                            $(".aco_custom .aco_list").removeClass("on");
+                            $(".aco_custom h3").attr("aria-expanded", "false");
+                            $(".aco_custom .ui-icon")
+                                .removeClass("ui-icon-circle-minus")
+                                .addClass("ui-icon-circle-plus");
+        
+                            // 클릭한 항목만 열기
+                            if (!isOpen) {
+                                $targetList.addClass("on");
+                                $thisLi.find("h3").attr("aria-expanded", "true");
+                                $thisLi.find(".ui-icon").removeClass("ui-icon-circle-plus").addClass("ui-icon-circle-minus");
+                            }
+                        });
+                    }); 
+                });
+            </script>
+
+            <!-- 2. 여러개 동시 열림. (w3 accordion clone) -->
+            <div id="accordionGroup" class="accordion">
+                <h3>
+                    <button type="button" aria-expanded="true" class="accordion-trigger" aria-controls="sect1" id="accordion1id">
+                        <span class="accordion-title">
+                            Personal Information
+                            <span class="accordion-icon"></span>
+                        </span>
+                    </button>
+                </h3>
+                <div id="sect1" role="region" aria-labelledby="accordion1id" class="accordion-panel">
+                    <!-- aria-labelledby : 요소에 대한 접근 가능한 이름 정의 -->
+                    <div>
+                        <fieldset>
+                            <p>
+                                <label for="cufc1">
+                                    Name
+                                    <span aria-hidden="true">
+                                        *
+                                    </span>
+                                    :
+                                </label>
+                                <input type="text" value="" name="Name" id="cufc1" class="required" aria-required="true">
+                            </p>
+                            <p>
+                                <label for="cufc2">
+                                    Email
+                                    <span aria-hidden="true">
+                                        *
+                                    </span>
+                                    :
+                                </label>
+                                <input type="text" value="" name="Email" id="cufc2" aria-required="true">
+                            </p>
+                            <p>
+                                <label for="cufc3">
+                                    Phone:
+                                </label>
+                                <input type="text" value="" name="Phone" id="cufc3">
+                            </p>
+                            <p>
+                                <label for="cufc4">
+                                    Extension:
+                                </label>
+                                <input type="text" value="" name="Ext" id="cufc4">
+                            </p>
+                            <p>
+                                <label for="cufc5">
+                                    Country:
+                                </label>
+                                <input type="text" value="" name="Country" id="cufc5">
+                            </p>
+                            <p>
+                                <label for="cufc6">
+                                    City/Province:
+                                </label>
+                                <input type="text" value="" name="City_Province" id="cufc6">
+                            </p>
+                        </fieldset>
+                    </div>
+                </div>
+                <h3>
+                    <button type="button" aria-expanded="false" class="accordion-trigger" aria-controls="sect2" id="accordion2id">
+                        <span class="accordion-title">
+                            Billing Address
+                            <span class="accordion-icon"></span>
+                        </span>
+                    </button>
+                </h3>
+                <div id="sect2" role="region" aria-labelledby="accordion2id" class="accordion-panel" hidden="">
+                    <div>
+                        <fieldset>
+                            <p>
+                                <label for="b-add1">
+                                    Address 1:
+                                </label>
+                                <input type="text" name="b-add1" id="b-add1">
+                            </p>
+                            <p>
+                                <label for="b-add2">
+                                    Address 2:
+                                </label>
+                                <input type="text" name="b-add2" id="b-add2">
+                            </p>
+                            <p>
+                                <label for="b-city">
+                                    City:
+                                </label>
+                                <input type="text" name="b-city" id="b-city">
+                            </p>
+                            <p>
+                                <label for="b-state">
+                                    State:
+                                </label>
+                                <input type="text" name="b-state" id="b-state">
+                            </p>
+                            <p>
+                                <label for="b-zip">
+                                    Zip Code:
+                                </label>
+                                <input type="text" name="b-zip" id="b-zip">
+                            </p>
+                        </fieldset>
+                    </div>
+                </div>
+                <h3>
+                    <button type="button" aria-expanded="false" class="accordion-trigger" aria-controls="sect3" id="accordion3id">
+                        <span class="accordion-title">
+                            Shipping Address
+                            <span class="accordion-icon"></span>
+                        </span>
+                    </button>
+                </h3>
+                <div id="sect3" role="region" aria-labelledby="accordion3id" class="accordion-panel" hidden="">
+                    <div>
+                        <fieldset>
+                            <p>
+                                <label for="m-add1">
+                                    Address 1:
+                                </label>
+                                <input type="text" name="m-add1" id="m-add1">
+                            </p>
+                            <p>
+                                <label for="m-add2">
+                                    Address 2:
+                                </label>
+                                <input type="text" name="m-add2" id="m-add2">
+                            </p>
+                            <p>
+                                <label for="m-city">
+                                    City:
+                                </label>
+                                <input type="text" name="m-city" id="m-city">
+                            </p>
+                            <p>
+                                <label for="m-state">
+                                    State:
+                                </label>
+                                <input type="text" name="m-state" id="m-state">
+                            </p>
+                            <p>
+                                <label for="m-zip">
+                                    Zip Code:
+                                </label>
+                                <input type="text" name="m-zip" id="m-zip">
+                            </p>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                'use strict';
+
+                class Accordion { 
+                // 클래스문법 - 클래스 정의(실제 생성X 함수 명명-> html class랑 다름.)
+                // const 대신 class [직관적, prototype자동연결, ES6 이후 스타일]
+                    constructor(domNode) { // node = 요소
+                        this.rootEl = domNode;
+                        this.buttonEl = this.rootEl.querySelector('button[aria-expanded]');
+
+                        const controlsId = this.buttonEl.getAttribute('aria-controls');
+                        this.contentEl = document.getElementById(controlsId);
+
+                        this.open = this.buttonEl.getAttribute('aria-expanded') === 'true';
+
+                        // add event listeners
+                        this.buttonEl.addEventListener('click', this.onButtonClick.bind(this));
+                    }
+
+                    onButtonClick() {
+                        this.toggle(!this.open);
+                    }
+
+                    toggle(open) {
+                        // don't do anything if the open state doesn't change
+                        if (open === this.open) {
+                            return;
+                        }
+
+                        // update the internal state
+                        this.open = open;
+
+                        // handle DOM updates
+                        this.buttonEl.setAttribute('aria-expanded', `${open}`);
+                        if (open) {
+                            this.contentEl.removeAttribute('hidden');
+                        } else {
+                            this.contentEl.setAttribute('hidden', '');
+                        }
+                    }
+
+                    // Add public open and close methods for convenience
+                    open() {
+                        this.toggle(true);
+                    }
+
+                    close() {
+                        this.toggle(false);
+                    }
+                }
+
+                // init accordions
+                const accordions = document.querySelectorAll('.accordion h3');
+                accordions.forEach((accordionEl) => {
+                    new Accordion(accordionEl);
+                });
+            </script>
+
+            <style>
+                .accordion {
+                    margin: 50px auto;
+                    padding: 0;
+                    border: 2px solid hsl(0deg 0% 52%);
+                    border-radius: 7px;
+                    width: 20em;
+                }
+            
+                .accordion h3 {
+                    margin: 0;
+                    padding: 0;
+                }
+            
+                /* :focus-within => 포커스시 부모에 스타일 지정 */
+                .accordion:focus-within {
+                    border-color: hsl(216deg 94% 43%);
+                }
+            
+                .accordion:focus-within h3 {
+                    background-color: hsl(0deg 0% 97%);
+                }
+            
+                /* '*+*' => *:모든요소 // +:인접 형제 // *: +의 모든 요소 */
+                /* 띄어쓰기 필수 아님_ 가독성위해 띄어쓰기 */
+                .accordion > * + * {
+                    border-top: 1px solid hsl(0deg 0% 52%);
+                }
+            
+                .accordion-trigger {
+                    background: none;
+                    color: hsl(0deg 0% 13%);
+                    display: block;
+                    font-size: 1rem;
+                    font-weight: normal;
+                    margin: 0;
+                    padding: 1em 1.5em;
+                    position: relative;
+                    text-align: left;
+                    width: 100%;
+                    outline: none;
+                }
+            
+                .accordion-trigger:focus,
+                .accordion-trigger:hover {
+                    background: hsl(216deg 94% 94%);
+                }
+            
+                .accordion-trigger:focus {
+                    outline: 4px solid transparent;
+                }
+            
+                .accordion>*:first-child .accordion-trigger,
+                .accordion>*:first-child {
+                    border-radius: 5px 5px 0 0;
+                }
+            
+                .accordion>*:last-child .accordion-trigger,
+                .accordion>*:last-child {
+                    border-radius: 0 0 5px 5px;
+                }
+            
+                button {
+                    border-style: none;
+                }
+            
+                .accordion button::-moz-focus-inner {
+                    border: 0;
+                }
+            
+                .accordion-title {
+                    display: block;
+                    pointer-events: none;
+                    border: transparent 2px solid;
+                    border-radius: 5px;
+                    padding: 0.25em;
+                    outline: none;
+                }
+            
+                .accordion-trigger:focus .accordion-title {
+                    border-color: hsl(216deg 94% 43%);
+                }
+            
+                .accordion-icon {
+                    border: solid currentcolor;
+                    border-width: 0 2px 2px 0;
+                    height: 0.5rem;
+                    pointer-events: none;
+                    position: absolute;
+                    right: 2em;
+                    top: 50%;
+                    transform: translateY(-60%) rotate(45deg);
+                    width: 0.5rem;
+                }
+            
+                .accordion-trigger:focus .accordion-icon,
+                .accordion-trigger:hover .accordion-icon {
+                    border-color: hsl(216deg 94% 43%);
+                }
+            
+                .accordion-trigger[aria-expanded="true"] .accordion-icon {
+                    transform: translateY(-50%) rotate(-135deg);
+                }
+            
+                .accordion-panel {
+                    margin: 0;
+                    padding: 1em 1.5em;
+                }
+            
+                /* Edge bug */
+                /* css [hidden] => html 태그 내부에 hidden <div hidden></div> 적용되야 사용.*/
+                .accordion-panel[hidden] {
+                    display: none;
+                }
+            
+                fieldset {
+                    border: 0;
+                    margin: 0;
+                    padding: 0;
+                }
+            
+                input {
+                    border: 1px solid hsl(0deg 0% 42%);
+                    border-radius: 0.3em;
+                    display: block;
+                    font-size: inherit;
+                    padding: 0.3em 0.5em;
+                }
+            </style>
+        </div>
+        <!-- e: Accordion -->
+    </div>
+    <!-- jquery ui 아코디언 사용시 title은 h3 유지! 전체 wrap은 div -->
+    <!-- 기본으로 header역할 위치의 Tag는 h3으로 되어 있는데 태그 변경할 수 있음 : $( ".aco" ).accordion( "option", "header", "[원하는 태그 지정]" );-->
+    <!-- jquery ui 사용시엔 한번에 하나만 오픈 -->
+
+    <!-- e.preventDefault : 현재 이벤트의 기본 동작 막기 (보다 stopPropagation이 추후 추가될 이벤트들을 대비해 안정적.) -->
+    <!-- e.stopPropagation : 상위 이벤트 전파 막기 -->
+</body>
+</html>
