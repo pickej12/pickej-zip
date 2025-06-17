@@ -132,8 +132,8 @@
                     console.log('24h check start')
 
                     const nDate = new Date();
-                    nDate.setTime(nDate.getTime() + (0.5 * 60 * 1000)); //테스트용!- 30초로 값 적용코드 **정상동작
-                    // nDate.setTime(nDate.getTime() + (due * 60 * 60 * 1000));
+                    //nDate.setTime(nDate.getTime() + (0.5 * 60 * 1000)); //테스트용!- 30초로 값 적용코드 **정상동작
+                    nDate.setTime(nDate.getTime() + (due * 60 * 60 * 1000));
                     const expires = `expires=${nDate.toUTCString()}`;
                     document.cookie = `noPop24h=true; ${expires}; path=/`;
 
