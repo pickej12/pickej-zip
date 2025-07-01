@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<body style="margin:0; padding:0; font-size:14px; color:#333; font-family: '맑은 고딕', 'Malgun Gothic', 'Malgun', Gothic, sans-serif;">
+    <!-- eDM code (= 메일링 코딩 / = 테이블 코딩) -->
+
+    <!-- - 이메일 클라이언트 마다 같은 클라이언트라도 앱/웹 따라 지원하는 스펙이 다름 => 테이블코딩 
+    : <div>를 지원하지 않는 곳이 많음.
+    : <table>이 <body>의 역할 -->
+
+    <!-- - table border / cellpadding / cellspacing:0 지정 -->
+
+    <!-- - 반응형 작업 불가 -> width 600px 작업
+    :폼의 컨텐츠 영역의 가로너비는 600px(가장 호환성이 높은 값)이 가장 안전하며, 다양한 해상도의 이메일 클라이언트에 최적화되어있다. 
+    (최대 800px 미만 권장)
+    : 대부분의 이메일 클라이언트에서 이메일 본문의 영역이 600~640px로 제한
+    : 모바일에서도 축소되었을 때 가독성과 사용성을 어느정도 유지할 수 있는 폭 기준 값이기도 함.
+    : 600px 처럼 고정 값이 아닌 100% 지정 시 PC에서 디자인적 레이아웃 유지 / 특성 상 많은 텍스트의 가독성에 문제가 생길 수도 있음! -->
+    <!--  대부분의 eDM은 "모바일에서도 잘 보이는 고정형 레이아웃"으로 제작하며, 진짜 반응형 설계는 이메일 환경에서 효율성이 떨어지기 때문에 피하는 것 -->
+
+    <!-- - 여백을 위한 <td></td> (=빈 셀) 내부에 공백코드  &nbsp; 추가 (레이아웃 유지 안전성) -->
+
+    <!-- - 웹폰트 지원 범위 동일X - 기본 폰트 권장 -->
+
+    <!-- - 개별 속성 사용 안전
+    : padding:12px (X) | padding-top:12px; padding-bottom:12px; padding-left:12px; padding-right:12px;
+    : border:1px solid #CCC; (X) | border-width:1px; border-style: solid; border-color: #CCC; -->
+    
+    <!-- - 무조건 인라인 스타일 적용
+    : link로 불러오는 css파일이나 <style> 태그 지원 X
+    : link 연결 대부분의 이메일 클라이언트에서 무시됨 (보안상 외부 링크 로딩 차단)
+    : Gmail은 head에 <style>두면 무시
+    : css 지원이 매우 제한적 -> 인라인이어야 정상 작동하는 코드들이 많음. -->
+    
+    <!-- - 이미지 
+    : alt속성 필수 기입 
+    : 여백 제거 - display:block; 추가 -->
+    
+    <table cellpadding="0" cellspacing="0" style="padding:0; margin:0 auto; border:none; max-width:600px; width:100%;">
+        <tbody>
+            <tr>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
