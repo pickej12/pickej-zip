@@ -33,12 +33,189 @@
     
     <!-- - 이미지 
     : alt속성 필수 기입 
-    : 여백 제거 - display:block; 추가 -->
+    : 여백 제거 - display:block; 추가 
+    : background로 이미지 보여줄 시 불러오지 못 할 상황 대비 background-color도 같이 추가 
+    : background-image 서버에 올라간 이미지 불러오기로는 가능! -->
+
+    <!-- - 동영상 
+    : 동영상 iframe 보안상 코드제거로 이메일에서 자동 제거
+    : 썸네일 이미지 넣고 링크 연결로 우회 권장 
+    : or video tag는 가능!! (하지만 권장X) : 비디오 영역만 보이고 재생 불가, 썸네일 적용 안됨 등 변수가 많음. -->
     
+    <!-- 디자인: 피그마 공유 디자인 -->
+    <!-- https://www.figma.com/design/Onwg2ig2EfEq0FEK75Qram/LV-EDM-Onboarding-Emails--Community-?node-id=657-14&p=f&t=KdItVV2lycnHofQx-0 -->
+
+    <!-- 이미지 => <img src='/img/eDM/~.jpg' /> -->
     <table cellpadding="0" cellspacing="0" style="padding:0; margin:0 auto; border:none; max-width:600px; width:100%;">
-        <tbody>
+        <thead>
             <tr>
-                <td></td>
+                <th style="width:100%; height:40px;"> &nbsp; </th> <!-- 간격 조정 -->
+            </tr>
+            <tr>
+                <th style="text-align:center;">
+                    <img src="img/eDM/logo_leapVista.png" alt="logo-leapVista" style="display:inline-block; margin-left:27px; margin-right:27px;"/>
+                    <img src="img/eDM/logo.png" alt="logo-Ecom-Domination" style="display:inline-block; margin-left:27px; margin-right:27px;"/>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="padding-top:30px; background-image:url('/img/eDM/top_bg.png'); background-size:contain; background-position:top right; background-repeat: no-repeat;">
+                <td style="display:block; width:440px;  margin-left: auto; margin-right: auto;">
+                    <h2 style="font-size:44px; font-weight: bold; color: #535353; line-height: 1.2; letter-spacing: -0.03rem;">
+                        Welcome,
+                        <br>Camille!
+                    </h2>
+                    <p style="font-size:18px; margin-top:8px; color: #4F4F4F;">Great to have you on board!</p>
+                    <span style="display: block; width:44px; height:2px; background:#F8C431; margin-top:25px;"></span>
+                    <strong style="display:block; font-weight:bold; color:#4F4F4F; font-size: 18px; line-height: 1.6; margin-top:40px;">
+                        We’re super thrilled to have 
+                        <br>you as a member of the <span style="color:#26C0FF">eCom 
+                        <br>Domination Mastermind</span> 
+                        <br>family!
+                    </strong>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100%; height:32px;"> &nbsp; </td> <!-- 간격 조정 -->
+            </tr>
+
+            <tr>
+                <td style="display: block; width: 440px; margin-left: auto; margin-right: auto; font-size: 16px; word-break: keep-all;">
+                    We want to <strong style="font-weight:bold;">THANK YOU</strong> for choosing us to be you personal mentors as you dive deeper into learning all the ropes in eCommerce.
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100%; height:40px;"> &nbsp; </td> <!-- 간격 조정 -->
+            </tr>
+            <tr>
+                <td style="display: block; width: 440px; margin-left: auto; margin-right: auto;">
+                    <!-- **적용 불가 - 자동삭제됨. -->
+                    <!-- <iframe id="ytp_videoo" width="100%" height="652" src="https://www.youtube.com/embed/6okMf9JlgIc" title=""
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen=""
+                    >
+                    </iframe> -->
+
+                    <!-- **적용 가능 -->
+                    <video controls buffered preload="auto" type="video/mp4" width="100%" height="" poster="/img/eDM/video_link.png" style="height: fit-content;">
+                        <source src="https://www.s1.co.kr/file/image?path=movie&fileName=20190613141741491024.mp4">
+                        video를 지원하지 않습니다. <!--영상을 불러오지 못 할 때만 문구보임.-->
+                    </video>
+
+                    <!-- <a href="#" target="_blank">
+                        <img src="/img/eDM/video_link.png" alt="video-link" style="display:block; width: 100%; height: auto;"/>
+                    </a> -->
+                    <!--  -->
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100%; height:40px;"> &nbsp; </td> <!-- 간격 조정 -->
+            </tr>
+            <tr>
+                <td style="display: block; width: 440px; margin-left: auto; margin-right: auto; word-break: keep-all; font-size: 16px;">
+                    Today, there are so many people claiming that they know all the corners of entrepreneurship and dropshipping. We know that it can be challenging to determine whose voice you should listen to, and whose mentorship you’d rely on. But if there’s one thing we can promise, it’s this:
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 100%; height:40px;"> &nbsp; </td> <!-- 간격 조정 -->
+            </tr>
+            <!-- background 서버에 올라간 이미지 불러오기는 가능! -->
+            <tr style="display:block; width: 100%; height: 206px; background-color:#13375B; background-image: url('https://newsroom.hyundaicard.com/common/file/0611eb9e865f4914845284d298c384ab/png/getImg.do'); background-repeat: no-repeat; background-position: center; align-content: center;">
+                <td style="display:block; color:#FFFFFF; text-align:center; font-weight:bold; font-size: 23px; width:440px;  margin-left: auto; margin-right: auto; word-break: keep-all; line-height:1.6;">
+                    We will only ever share proven methods and best practices that personally work for us.
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100%; height:40px;"> &nbsp; </td> <!-- 간격 조정 -->
+            </tr>
+            <tr>
+                <td style="display:block; width:440px; margin-left:auto; margin-right: auto; word-break:keep-all; font-size: 16px; line-height: 1.6;">
+                    You’ll get to pick our TOP-SECRET learnings that we’ve acquired in over 14 years of our hands-on experience in crushing the game, combined the expertise and guidance of our top-notch coaches!
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100%; height:40px;"> &nbsp; </td> <!-- 간격 조정 -->
+            </tr>
+            <tr>
+                <td style="display:block; width:440px; margin-left:auto; margin-right: auto; word-break:keep-all; font-size: 16px; line-height: 1.6;">
+                    So prepare for an immersive knowledge-filled environment where we’ll let you gain first-hand experience of what it’s like being an eCommerce business owner!    
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100%; height:40px;"> &nbsp; </td> <!-- 간격 조정 -->
+            </tr>
+            <tr>
+                <td style="display:block; width:440px; margin-left:auto; margin-right: auto; word-break:keep-all; font-size: 16px; line-height: 1.6;">
+                    Once again, thank you for choosing Leap Vista. Rest assured that this training will be ONE OF THE BEST investments you will ever make for yourself.
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100%; height:40px;"> &nbsp; </td> <!-- 간격 조정 -->
+            </tr>
+            <tr>
+                <td style="display:block; width:440px; margin-left:auto; margin-right: auto; word-break:keep-all; font-size: 16px; line-height: 1.6;">
+                    Remember to TAKE ACTION and TRUST THE PROCESS, and soon you’ll be surprised to see significant results and improvements in your eCommerce business as we progress. Let’s work together to make this into the best coaching experience for you! 
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100%; height:40px;"> &nbsp; </td> <!-- 간격 조정 -->
+            </tr>
+            <tr>
+                <td style="display:block; width:440px; margin-left:auto; margin-right: auto; word-break:keep-all; font-size: 16px; line-height: 1.6;">
+                    To your success,
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100%; height:40px;"> &nbsp; </td> <!-- 간격 조정 -->
+            </tr>
+            <tr>
+                <td style="text-align:center;">
+                    <img src="./img/eDM/ceo01.png" alt="ceo-img-01" style="display: inline-block; margin-right:27px;">
+                    <img src="./img/eDM/ceo02.png" alt="ceo-img-02" style="display: inline-block; margin-left:27px;">
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100%; height:40px;"> &nbsp; </td> <!-- 간격 조정 -->
+            </tr>
+            <tr>
+                <td style="text-align:center; font-size: 17px; font-weight: bold;">
+                    Founders
+                    <strong style="display: block; color: #75D1F6; margin-top: 7px; margin-bottom: 25px; font-weight: bold; font-size: 18px;">Ecom Domination Mastermind</strong>
+                    <img src="./img/eDM/logo.png" alt="logo-Ecom-Domination">
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100%; height:40px;"> &nbsp; </td> <!-- 간격 조정 -->
+            </tr>
+            <tr style="background-color: #13375B; border-color: #13375B;">
+                <td style="width:100%; height:40px;"> &nbsp; </td> <!-- 간격 조정 -->
+            </tr>
+            <tr style="background-color: #13375B; border-color: #13375B;">
+                <td style="text-align: center;">
+                    <img src="/img/eDM/logo_leapVista_w.png" alt="logo-leapVista-white">
+                    <strong style="display:block; color: #26C0FF; margin-top: 16px; font-size:18px; font-weight: bold;">Leap Vista Pte Ltd</strong>
+                    <p style="color:#FFFFFF; display: block; font-size: 18px;">137 Cecil Street, Hengda Building, #09-01 Singapore</p>
+                </td>
+            </tr>
+            <tr style="background-color: #13375B; border-color: #13375B;">
+                <td style="width:100%; height:48px;"> &nbsp; </td> <!-- 간격 조정 -->
+            </tr>
+            <tr style="background-color: #13375B; border-color: #13375B;">
+                <td style="text-align:center;">
+                    <img src="/img/eDM/ic_instagram.png" alt="icon-instagram" style="margin-right:20px; display:inline-block">
+                    <img src="/img/eDM/ic_facebook.png" alt="icon-facebook" style="margin-right:20px; display:inline-block">
+                    <img src="/img/eDM/ic_twitter.png" alt="icon-twitter" style="display:inline-block">
+                </td>
+            </tr>
+            <tr style="background-color: #13375B; border-color: #13375B;">
+                <td style="width:100%; height:48px;"> &nbsp; </td> <!-- 간격 조정 -->
+            </tr>
+            <tr style="background-color: #13375B; border-color: #13375B;">
+                <td style="text-align:center; color:#FFFFFF;">Want to unsubscribe? <a href="#" style="font-weight:bold; color:#FFFFFF; text-decoration:none;" target="_blank">Click here.</a></td>
+            </tr>
+            <tr style="background-color: #13375B; border-color: #13375B;">
+                <td style="width:100%; height:40px;"> &nbsp; </td> <!-- 간격 조정 -->
             </tr>
         </tbody>
     </table>
