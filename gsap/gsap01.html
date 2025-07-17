@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSAP_기본 Ani</title>
+
+    <!-- Font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
+
+    <script src="../src/jquery-1.12.4.min.js"></script>
+
+    <!-- CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        body {
+            background: #222;
+            color: #FFF;
+            font-family: "Montserrat", sans-serif;
+        }
+
+        a {
+            color: #FFF;
+            text-decoration: none;
+        }
+
+        /* header: main_visual */
+        .main_visual {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            z-index: 1000;
+        }
+        .main_visual h1 {
+            display: inline-block;
+            font-size: 35px;
+            font-weight: 400;
+            border-bottom: 1px dashed #fff;
+            margin-bottom: 20px;
+            padding-bottom: 5px;
+        }
+        .main_visual p {
+            position: relative;
+            margin: 40px 0 12px;
+            padding-left: 20px;
+        }
+        .main_visual p::after {
+            position: absolute;
+            top:-10px; left: 15px;
+            content: '';
+            width: 5px; height: 5px;
+            background: rgb(255, 81, 0);
+            border-radius: 50%;
+        }
+        .main_visual .ul_wrap {
+            display: flex;
+        }
+        .main_visual ul {
+            position: relative;
+        }
+        .main_visual ul::after {
+            content:"";
+            position: absolute;
+            top: 13%; left: 25px;
+            width: 1.5px;
+            height: 80%;
+            background: rgba(255, 81, 0, 0.4);
+        }
+        .main_visual li {
+            line-height: 2;
+            padding-left: 45px;
+        }
+        .main_visual li.active a, .main_visual li:hover a {
+            color: #FFF;
+            font-weight: 500;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .main_visual li a {
+            color: #CCC;
+            font-size: 14px;
+        }
+
+        /* parallax__cont */
+        #parallax__cont {
+            overflow: hidden;
+        }
+        .parallax__item {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .parallax__item:nth-child(2n){
+            background: #333;
+        }
+        .parallax__item__num {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            font-size: 5vw;
+            line-height: 1;
+        }
+        .parallax__item__img {
+            width: 10vw;
+            height: 10vw;
+            background-color: #FFF;
+            background-size: cover;
+            background-position: center;
+        }
+        .parallax__item:nth-child(1) .parallax__item__img {
+            background-image: url('assets/img/01/images01.jpg');
+        }
+        .parallax__item:nth-child(2) .parallax__item__img {
+            background-image: url('assets/img/01/images02.jpg');
+        }
+        .parallax__item:nth-child(3) .parallax__item__img {
+            background-image: url('assets/img/01/images03.jpg');
+        }
+        .parallax__item:nth-child(4) .parallax__item__img {
+            background-image: url('assets/img/01/images04.jpg');
+        }
+        .parallax__item:nth-child(5) .parallax__item__img {
+            background-image: url('assets/img/01/images05.jpg');
+        }
+        .parallax__item:nth-child(6) .parallax__item__img {
+            background-image: url('assets/img/01/images06.jpg');
+        }
+        .parallax__item:nth-child(7) .parallax__item__img {
+            background-image: url('assets/img/01/images07.jpg');
+        }
+        .parallax__item:nth-child(8) .parallax__item__img {
+            background-image: url('assets/img/01/images08.jpg');
+        }
+        .parallax__item:nth-child(9) .parallax__item__img {
+            background-image: url('assets/img/01/images09.jpg');
+        }
+        .parallax__item__img.active {
+            filter: hue-rotate(100deg);
+        }
+    </style>
+</head>
+<body>
+    <header class="main_visual">
+        <h1>GSAP Parallax Effect</h1>
+        <p>GSAP scrollTrigger Effect</p>
+
+        <div class="ul_wrap">
+            <ul>
+                <li class="active"><a href="gsap01.html">01_기본Ani</a></li>
+                <li class=""><a href="#!">02_Pin Ani</a></li>
+                <li class=""><a href="#!">03_Pin 배경 고정</a></li>
+            </ul>
+            <ul>
+                <li><a href="#!">04_이질감 효과</a></li>
+                <li class=""><a href="#!">05_나타내기 효과</a></li>
+                <li class=""><a href="#!">06_텍스트 효과</a></li>
+            </ul>
+            <ul>
+                <li><a href="#!">07_배경색 효과</a></li>
+                <li class=""><a href="#!">08_진행바 효과</a></li>
+                <li class=""><a href="#!">09_메뉴 이동 효과</a></li>
+            </ul>
+            <ul>
+                <li><a href="#!">10_메뉴 축소 효과</a></li>
+                <li class=""><a href="#!">11_메뉴 숨기기 효과</a></li>
+                <li class=""><a href="#!">12_가로 효과</a></li>
+            </ul>
+            <ul>
+                <li><a href="#!">13_가로/세로 효과</a></li>
+                <li class=""><a href="#!">14_가로/세로 나타나기 효과</a></li>
+                <li class=""><a href="#!">15_스무스 효과</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main id="parallax__cont">
+        <section id="sec01" class="parallax__item">
+            <span class="parallax__item__num">01.</span>
+            <div class="parallax__item__img"></div>
+        </section>
+
+        <section id="sec02" class="parallax__item">
+            <span class="parallax__item__num">02.</span>
+            <div class="parallax__item__img"></div>
+        </section>
+        
+        <section id="sec03" class="parallax__item">
+            <span class="parallax__item__num">03.</span>
+            <div class="parallax__item__img"></div>
+        </section>   
+
+        <section id="sec04" class="parallax__item">
+            <span class="parallax__item__num">04.</span>
+            <div class="parallax__item__img"></div>
+        </section>
+
+        <section id="sec05" class="parallax__item">
+            <span class="parallax__item__num">05.</span>
+            <div class="parallax__item__img"></div>
+        </section>
+
+        <section id="sec06" class="parallax__item">
+            <span class="parallax__item__num">06.</span>
+            <div class="parallax__item__img"></div>         
+        </section>
+
+        <section id="sec07" class="parallax__item">
+            <span class="parallax__item__num">07.</span>
+            <div class="parallax__item__img"></div>     
+        </section>
+
+        <section id="sec08" class="parallax__item">
+            <span class="parallax__item__num">08.</span>
+            <div class="parallax__item__img"></div>
+        </section>
+        
+        <section id="sec09" class="parallax__item">
+            <span class="parallax__item__num">09.</span>
+            <div class="parallax__item__img"></div>
+        </section>
+    </main>
+
+    <script>
+        // 선택자
+        const box01 = document.querySelector('#sec01 .parallax__item__img');
+        const box02 = document.querySelector('#sec02 .parallax__item__img');
+        const box03 = document.querySelector('#sec03 .parallax__item__img');
+        const box04 = document.querySelector('#sec04 .parallax__item__img');
+        const box05 = document.querySelector('#sec05 .parallax__item__img');    
+        const box06 = document.querySelector('#sec06 .parallax__item__img');
+        const box07 = document.querySelector('#sec07 .parallax__item__img');
+        const box08 = document.querySelector('#sec08 .parallax__item__img');
+        const box09 = document.querySelector('#sec09 .parallax__item__img');
+
+
+
+        // 01 - 기본 Ani
+        gsap.to(box01,{
+            duration: 2,
+            x:500,
+            rotation: 360,
+            borderRadius: 100,
+            scale:0.3,
+        });
+        // e : 요소를 2초동안 오른쪽으로 500px만큼 이동 + 회전하며 borderRadius 
+
+
+
+        // 02 - trigger
+        gsap.to(box02,{
+            duration: 2.5,
+            x:500,
+            rotation: 360,
+            borderRadius: 100,
+            scrollTrigger: {
+                trigger: box02, //시작점 설정.
+            }
+        });
+        // e : 스크롤로 해당영역(trigger) box02 도달 시 2.5초 동안 오른쪽으로 500px을 360도 돌며 borderRadius되는 ani 실행
+        //     - 시작 시점 설정 = trigger
+
+
+
+        // 03 - toggleActions
+        // * 동작상태
+        // : onEnter - 애니메이션 시작
+        // : onLeave - 애니메이션 종료
+        // : onEnterBack - 애니메이션 시작하고 화면에 보이지 않을 때
+        // : onLeaveBack - 애니메이션 종료하고 화면에 보이지 않을 때
+
+        // 동작 값
+        // : play - 애니메이션 시작
+        // : pause - 애니메이션 정지    
+        // : reverse - 애니메이션 되감기
+        // : none - 아무 동작도 하지 않음
+        // : resume - 애니메이션 재개
+        // : reset - 애니메이션 초기화
+        // : complete - 애니메이션 완료
+        // : restart - 애니메이션 다시 시작
+
+        // => toggleActions: "(onEnter onLeave onEnterBack onLeaveBack)" 동작 상태의 해당 위치에 동작 값 추가.
+
+        gsap.to(box03,{
+            duration: 3,
+            x:500,
+            rotation: 360,
+            borderRadius: 100,
+            scrollTrigger: {
+                trigger: box03, //시작점 설정.
+                toggleActions: "play pause reverse pause", //스크롤 시 애니메이션 동작 설정 : reverse자리에 resume을 쓰면 앞 단계인 pause로 재개 : 그럼 동작 안 하는 걸로 보임.
+            }
+        });
+        // e : box03 도달했을 때 3초동안 360도 돌며 borderRadius적용되면서 오른쪽으로 500px 가는 ani를 box03에 도달했을 때 
+        //     ani 시작 시점에서 play ani 종료 때 ani 정지 ani시작하고 화면에 보이지 않을 때 ani 되감기 ani 끝나고 화면에 보이지 않을 때 ani 정지.  
+
+
+
+        // 04 - start, end
+        gsap.to(box04,{
+            duration:1,
+            x:500,
+            rotation:360,
+            borderRadius:100,
+            scrollTrigger:{
+                trigger:box04,
+                start:"topR 30%", //"요소시작점 브라우저시작점" => 이 부분이 만나는 곳에서 ani 시작 [px이나 %]
+                end:"bottom 20%", //"요소종료지점 브라우저종료지점" => 이 부분이 만나는 곳에서 ani 종료 [px이나 %]
+                toggleActions:"play pause reverse pause",
+                markers:true, // 마커 위치 확인
+                id: "box04", // 문자열이어야 함! * "" 
+            }
+        });
+        // e : 1초동안 오른쪽으로 500px 가면서 borderRadius적용 360도 회전.
+        // box04 도달했을 때 해당 요소의 top 브라우저의 50%에 닿았을 때 1초 동안 500px만큼 오른쪽으로 가며 360도 돌면서 borderRadius되는 ani 시작
+        // 해당요소의 bottom이 브라우저의 브라우저 끝 20%에 닿았을 때 ani 종료.
+
+
+
+        // 05 - scrub : 스크롤 내리면 같이 움직이도록(스크롤값에 따라) 한 번 작동X
+        gsap.to(box05,{
+            duration:0.5,
+            x:500,
+            borderRadius:100,
+            scrollTrigger:{
+                trigger:box05,
+                start:"top 50%",
+                end:"bottom 50%",
+                scrub:true, //true or 숫자값
+                markers: true,
+                id: "box05",
+            }
+        });
+        // => start-"" / end-""이랑 | scroller-start-"" / scroller-end-"" 차이점 찾아보기. : 전자는 요소기준 후자는 스크롤 가능 영역 기준
+        // e : 0.5초동안 오른쪽으로 500px 가면서 borderRadius적용, 스크롤과 연동되어 그 위치 값 도달 시 마다 반복.  
+
+
+
+
+        // 06 - pin : 고정 (내가 위치한 영역에 고정)
+        gsap.to(box06,{
+            duration:2,
+            x:500,
+            rotation:360,
+            borderRadius:100,
+            scrollTrigger:{
+                trigger: box06,
+                start:"top 0%",
+                end: "bottom -100px", //2번쨰 속성 값 변경 시 확인 가능-pin
+                pin:true,
+                scrub:true,
+                markers:true,
+            }
+        });
+        
+
+
+
+        // 07 - toggleClass : class 추가 가능
+        gsap.to(box07,{
+            duration:2,
+            x:500,
+            rotation:360,
+            borderRadius: 100,
+            scrollTrigger:{
+                trigger:box07,
+                start:"top 0%",
+                end:"bottom 0%",
+                scrub:true,
+                markers:true,
+                toggleClass:"active",
+                id:"box07" //마커 이름 변경 ex) scroll-start -> box07-start.
+            }
+        });
+        // e : ani 동작 시점마다 class추가도 같이
+
+
+
+        // 08 - callback (하나씩 함수 실행-동시실행X)
+        gsap.to(box08,{
+            duration:2,
+            x: 500,
+            rotation: 360,
+            borderRadius: 100,
+            scrollTrigger: {
+                trigger: box08,
+                start: "top center",
+                end: "bottom 30%",
+                scrub: true,
+                markers: false,
+                // onEnter : () => {console.log("onEnter")},
+                // onLeave : () => {console.log("onLeave")},
+                // onEnterBack : () => {console.log("onEnterBack")},
+                // onLeaveBack : () => {console.log("onLeaveBack")},
+                // onUpdate : (self) => {console.log("onUpdate", self.progress.toFixed(3))},
+                onToggle : (self) => {console.log("onToggle", self.isActive)},
+            }
+        });
+
+
+
+        // 09 - none.
+
+
+
+        // header
+        $(".ul_wrap ul li").on("click", function () {
+            $(".ul_wrap ul li").removeClass("active");
+            $(this).addClass("active");
+        });
+    </script>
+</body>
+</html>
