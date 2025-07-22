@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSAP_Pin Ani</title>
+
+    <link rel="stylesheet" href="./assets/css/common.css">
+    
+    <!-- Font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
+
+    <script src="../src/jquery-1.12.4.min.js"></script>
+    
+    <!-- gsap02 CSS -->
+    <style>
+        #section05 {
+            flex-direction: column;
+        }
+
+        .parallax__item__text {
+            margin-bottom: 15px;
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        #section07 .parallax__item__text {
+            font-size:5vw;
+            position:absolute;
+            left:50%;
+            top:50%;
+            transform:translate(-50%, -50%);
+            background:#222;
+            padding:30px;
+            width:100%;
+            text-align:center;
+            color:#FFF;
+        }
+        #section07 > div:nth-of-type(1) {
+            font-size:10vw;
+        }
+
+        #section08 {
+            flex-direction: column;
+        }
+        #section08 .parallax__item__text {
+            font-size: 2vw;
+            line-height: 1.5;
+            text-transform: uppercase;
+        }
+        #section08 .parallax__item__img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        #sectionEnd {
+            background:#222;
+        }
+    </style>
+</head>
+<body>
+    <header class="main_visual">
+        <h1>GSAP Parallax Effect</h1>
+        <p>GSAP scrollTrigger Effect</p>
+
+        <div class="ul_wrap">
+            <ul>
+                <li class=""><a href="gsap01.html">01_기본Ani</a></li>
+                <li class="active"><a href="#!">02_Pin Ani</a></li>
+                <li class=""><a href="gsap03.html">03_Pin 배경 고정</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap04.html">04_이질감 효과</a></li>
+                <li class=""><a href="gsap05.html">05_나타내기 효과</a></li>
+                <li class=""><a href="gsap06.html">06_텍스트 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap07.html">07_배경색 효과</a></li>
+                <li class=""><a href="gsap08.html">08_진행바 효과</a></li>
+                <li class=""><a href="gsap09.html">09_메뉴 이동 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap10.html">10_메뉴 축소 효과</a></li>
+                <li class=""><a href="gsap11.html">11_메뉴 숨기기 효과</a></li>
+                <li class=""><a href="gsap12.html">12_가로 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap13.html">13_가로/세로 효과</a></li>
+                <li class=""><a href="gsap14.html">14_가로/세로 나타나기 효과</a></li>
+                <li class=""><a href="gsap15.html">15_스무스 효과</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main id="parallax__cont">
+        <section id="section01" class="parallax__item">
+            <span class="parallax__item__num">01</span>
+            <div class="parallax__item__img"></div>
+        </section>
+        <!-- //section1 -->
+
+        <section id="section02" class="parallax__item">
+            <span class="parallax__item__num">02</span>
+            <div class="parallax__item__img i1"></div>
+            <div class="parallax__item__img i2"></div>
+            <div class="parallax__item__img i3"></div>
+        </section>
+        <!-- //section2 -->
+
+        <section id="section03" class="parallax__item">
+            <span class="parallax__item__num">03</span>
+            <div class="parallax__item__img"></div>
+            <div class="parallax__item__img"></div>
+            <div class="parallax__item__img"></div>
+            <div class="parallax__item__img"></div>
+            <div class="parallax__item__img"></div>
+            <div class="parallax__item__img"></div>
+        </section>
+        <!-- //section3 -->
+
+        <section id="section04" class="parallax__item">
+            <span class="parallax__item__num">04</span>
+            <div class="parallax__item__img"></div>
+        </section>
+        <!-- //section4 -->
+
+        <section id="section05" class="parallax__item">
+            <span class="parallax__item__num">05</span>
+            <div class="parallax__item__text t1">section5_01</div>
+            <div class="parallax__item__text t2">section5_02</div>
+            <div class="parallax__item__text t3">section5_03</div>
+            <div class="parallax__item__text t4">section5_04</div>
+        </section>
+        <!-- //section5 -->
+
+        <section id="section06" class="parallax__item">
+            <span class="parallax__item__num">06</span>
+            <div class="parallax__item__text">section6</div>
+        </section>
+        <!-- //section6 -->
+
+        <section id="section07" class="parallax__item">
+            <span class="parallax__item__num">07</span>
+            <div class="parallax__item__text t1">Lorem</div>
+            <div class="parallax__item__text t2">lorem ipsum is</div>
+            <div class="parallax__item__text t3">simply</div>
+            <div class="parallax__item__text t4">dummy text</div>
+            <div class="parallax__item__text t5">of the printing</div>
+            <div class="parallax__item__text t6">and</div>
+            <div class="parallax__item__text t7">typesetting industry.</div>
+        </section>
+        <!-- //section7 -->
+
+        <section id="section08" class="parallax__item">
+            <span class="parallax__item__num">08</span>
+            <div class="parallax__item__text t1">section08 Title01</div>
+            <div class="parallax__item__text t2">section08 Title02</div>
+            <div class="parallax__item__text t3">section08 Title03</div>
+            <div class="parallax__item__img i1"></div>
+        </section>
+        <!-- //section8 -->
+
+        <section id="section09" class="parallax__item">
+            <span class="parallax__item__num">09</span>
+            <div class="parallax__item__img"></div>
+        </section>
+        <!-- //section9 -->
+        
+        <section id="sectionEnd" class="parallax__item">
+            <span class="parallax__item__num">End.</span>
+        </section>
+        <!-- //sectionEnd -->
+    </main>
+
+    <script>
+        // from / to / fromTo
+        // from: 원래상태로 돌아오는 ani | 시작점: 내가 정의한 초기 상태 / 끝점: 초기 ani 없는 상태
+        // to: 지정된 상태로 가는 ani | 시작점: 현재 화면에 보이는 부분 / 끝점: 내가 정의한 값
+        // fromTo: 정확히 정의된 to와 from영역 사이만 이동 | 시작점.끝점 명확히 내가 원하는 값에서
+
+
+        // 01.
+        const ani01 = gsap.timeline(); // 타임라인 생성 .to()매서드를 연속적으로 연결하기 위해 - 순차적 진행 : timeline 연결이 없으면 ani가 연결이 안되어 소스가 복잡해짐.
+
+        ani01.to('#section01 .parallax__item__img', {rotation:720, scale:0, borderRadius:200})
+        .to('#section01 .parallax__item__img', {rotation:0, scale:1, borderRadius:20})
+
+        ScrollTrigger.create({
+            animation: ani01, // 위에서 만든 타임라인 연결 - 필수는 아니나 timeline연결시 시간 흐름 기반 ani에 효과적.
+            trigger:"#section01", // ani시작 기준
+            start:"top top",
+            end:"+=2000", // ani의 작동 길이 2000px(=2000px만큼 스크롤 | 영역이 끝나는 부분부터 2000px 스크롤!) --숫자가 작아 질수록 ani가 짧음
+            scrub:true, // 스크롤과 ani연동 (true나 숫자값)- 트리거가 아니라 스크롤 위치 따라
+            pin:true, // ani끝날 때까지 trigger 뷰포트에 머무름. 고정!
+            anticipatePin:1, // 부드러운 전환 효과 : pin이 될 타이밍 미리 감지(미리 pin)
+                             //  - pin:true와 함께 사용 [pin 사용시 다른콘텐츠가 아래로 밀리며 해당 pin구역 뷰포트 유지, 이때 스크롤 튐과 물림을 줄이기 위해 사용.]
+                             // 일반적으로 1 or 2
+            markers:false
+        });
+
+
+        // 02. 이미지 순차적
+        const ani02 = gsap.timeline();
+
+        //autoAlpha = visiblity + opacity 동시제어 (gsap 속성)
+        // autoAlpha: 0 or 1 => 0: opacity:0 + visiblity:hidden | 1: opacity:1 + visiblity:visible.
+        ani02.from('#section02 .i1', {y:-100, autoAlpha:0, borderRadius:200})
+        .from('#section02 .i2', {y:100, autoAlpha:0, borderRadius:200})
+        .from('#section02 .i3', {y:-100, autoAlpha:0, borderRadius:200});
+
+        ScrollTrigger.create({
+            animation:ani02,
+            trigger:"#section02",
+            start:"top top",
+            end:"+=2000",
+            scrub:true,
+            pin:true,
+            anticipatePin:1,
+            markers:false
+        })
+
+        //03. 이미지 랜덤 떨어짐 효과 (from:"random" / 6개 옵션이 있음!)
+        const ani03 = gsap.timeline();
+
+        ani03.from("#section03 .parallax__item__img",{
+            autoAlpha:0,
+            y: -100, // 위에서 아래로 =translateY
+            ease:"back.out(4)", //back: 튕겼다가 돌아오는 효과 | .out(강도) = 강도:4
+            stagger:{
+                amount:3, //3초 안에 모든 요소 등장
+                from:"random" // 등장순서 무작위
+
+                //start(default): 첫번째 요소부터 실행 (<->end)
+                //end: 마지막 요소부터 실행(<->start)
+                //center: 가운데 요소부터 양 옆으로 퍼지듯 실행 (<->edges)
+                //edges: 양 끝에서 가운데로 좁혀지면서 실행 (<->center)
+                //random: 무작위
+                //숫자(특정 인덱스): 해당 인덱스 영역부터 양 옆으로 실행
+            }
+        });
+
+        ScrollTrigger.create({
+            animation:ani03,
+            trigger:"#section03",
+            start:"top top",
+            end:"+=3000",
+            scrub:true,
+            pin:true,
+            markers:false,
+            anticipatePin:1
+        });
+
+        // 04. 이미지 축소
+        const ani04 = gsap.timeline();
+        ani04.from('#section04 .parallax__item__img',{
+            autoAlpha:0,
+            scale:5,
+            width:"100vw",
+            height:"100vh",
+        })
+
+        ScrollTrigger.create({
+            animation:ani04, // 없으면 ani가 자연스럽게 정상 작동 안 될지도
+            trigger:"#section04", // 없으면 언제 어디서 ani가 시작될지 모름
+            start:"top top",
+            end:"+=3000",
+            scrub:true,
+            pin:true,
+            markers:false, 
+            anticipatePin:1
+        });
+
+        // 05. 텍스트 ani
+        const ani05 = gsap.timeline();
+        ani05.to('#section05 .t1',{xPercent:300},"text") //예약어는 변경 가능 '예약어 = 첫 시점(0)'
+        .to('#section05 .t2',{xPercent:-300},"text")
+        .to('#section05 .t3',{xPercent:300},"text+=0.1") // 기존 시점에서 + 0.1s
+        .to('#section05 .t4',{xPercent:-300},"text+=0.2")
+
+        ScrollTrigger.create({
+            animation:ani05,
+            trigger:"#section05",
+            start:"top top",
+            end:"+=3000",
+            scrub:true,
+            pin:true,
+            markers:false,
+            anticipatePin:1
+        });
+
+        //06. 텍스트 확대
+        const ani06 = gsap.timeline();
+        ani06.to('#section06 .parallax__item__text',{scale:45, duration:1.5, autoAlpha:1})
+        .to('#section06 .parallax__item__text',{opacity:0.5})
+        .to('#section06 .parallax__item__text',{autoAlpha:0})
+
+        ScrollTrigger.create({
+            animation:ani06,
+            trigger:"#section06",
+            start:"top top",
+            end:"+=2300",
+            scrub:true,
+            pin:true,
+            anticipatePin:1,
+            markers:false
+        });
+
+        //07. 텍스트 제자리 ani
+        const ani07 = gsap.timeline();
+        ani07.from('#section07 .t1',{autoAlpha:0, duration:1, y:50}, "+=1")
+        .from('#section07 .t2',{autoAlpha:0, duration:1, y:50}, "+=1")
+        .from('#section07 .t3',{autoAlpha:0, duration:1, y:50}, "+=1")
+        .from('#section07 .t4',{autoAlpha:0, duration:1, y:100}, "+=1")
+        .from('#section07 .t5',{autoAlpha:0, duration:1, y:50}, "+=1")
+        .from('#section07 .t6',{autoAlpha:0, duration:1, y:50}, "+=1")
+        .from('#section07 .t7',{autoAlpha:0, duration:1, y:50}, "+=1") // css로 absolute 해줬기 때문에 같은 자리에서 뜨고 사라지는 효과.
+
+        ScrollTrigger.create({
+            animation:ani07,
+            trigger:"#section07",
+            start:"top top",
+            end:"+=6000",
+            scrub:true,
+            pin:true,
+            markers:false,
+            anticipatePin:1
+        });
+
+        //08. 텍스트 ani_01
+        const ani08 = gsap.timeline();
+        ani08.from("#section08 .t1", {x:innerWidth *1})
+        .from("#section08 .t2", {x:innerWidth *-1, opacity:0.7})
+        .from("#section08 .t3", {x:innerWidth *1})
+        .from("#section08 .i1", {x:innerWidth *1, rotation:720, scale:3}) 
+
+        ScrollTrigger.create({
+            animation:ani08,
+            trigger:"#section08",
+            start:"top top",
+            end:"+=4000",
+            scrub:true,
+            pin:true,
+            markers:false,
+            anticipatePin:1
+        });
+
+        //09. 이미지 확대 (<-> 04.효과)
+        const ani09 = gsap.timeline();
+        ani09.to('#section09 .parallax__item__img',{scale:13})
+        .to('#section09 .parallax__item__img',{autoAlpha:0})
+
+        ScrollTrigger.create({
+            animation:ani09,
+            trigger:"#section09",
+            start:"top top",
+            end:"+=4000",
+            scrub:true,
+            pin:true,
+            markers:false,
+            anticipatePin:1
+        });
+
+        //10. 마지막End
+        const aniEnd = gsap.timeline();
+        aniEnd.to('#sectionEnd .parallax__item__num', {xPercent:-350, yPercent:-500, scale:2.5, fontWeight:"bold", opacity:0.9})
+
+        ScrollTrigger.create({
+            animation:aniEnd,
+            trigger:"#sectionEnd",
+            start:"top top",
+            end:"+=1000",
+            scrub:true,
+            pin:true,
+            markers:false,
+            anticipatePin:1
+        });
+
+        // [ ScrollTrigger Method ]
+
+        // ScrollTrigger.create()	
+        // : 새로운 스크롤 트리거 인스턴스를 생성.
+
+        // ScrollTrigger.getAll()	
+        // : 생성된 모든 ScrollTrigger 인스턴스를 배열로 반환.
+
+        // ScrollTrigger.refresh()	
+        // : 트리거의 시작/끝 위치를 다시 계산 (레이아웃 변경 시 필수!).
+
+        // ScrollTrigger.update()	
+        // : 트리거 위치 수동 업데이트.
+
+        // ScrollTrigger.killAll()	
+        // : 모든 ScrollTrigger 인스턴스를 제거.
+
+        // ScrollTrigger.clearMatchMedia()	
+        // : matchMedia()로 등록된 반응형 트리거 제거.
+
+        // ScrollTrigger.saveStyles(targets)	
+        // : 나중에 복원할 수 있도록 스타일 저장.
+
+        // ScrollTrigger.revert()	
+        // : saveStyles()로 저장한 스타일 복원.
+        
+        // ScrollTrigger.refresh(true)	
+        // : 전체 레이아웃 강제 재계산 및 업데이트.
+        
+        // ScrollTrigger.get(id)	
+        // : 특정 id를 가진 트리거를 반환.
+
+        // ScrollTrigger.matchMedia({
+        //  "(min-width: 768px)": function (){
+        //      ScrollTrigger.create({
+        //          ~~
+        //      })   
+        //  },
+        // });
+        // : 반응형용 Method.
+    </script>
+</body>
+</html>
