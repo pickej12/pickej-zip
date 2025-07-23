@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSAP_Pin 배경 고정</title>
+
+    <link rel="stylesheet" href="./assets/css/common.css">
+    
+    <!-- Font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
+
+    <script src="../src/jquery-1.12.4.min.js"></script>
+    
+    <!-- gsap03 CSS -->
+    <style>
+        .parallax__item {
+            flex-direction:column;
+        }
+        .parallax__item__num {
+            z-index:10;
+        }
+        .parallax__item__img {
+            position:absolute;
+            left:0;
+            top:0;
+            width:100%;
+            height:100vh;
+        }
+        .parallax__item__img::after {
+            content:'';
+            position:absolute;
+            left:0;
+            top:0;
+            width:100%;
+            height:100vh;
+            background:rgba(0,0,0,0.7);
+            z-index:1;
+        }
+        #section01 .parallax__item__img {
+            background: url(assets/img/images02.jpg);
+        }
+        #section02 .parallax__item__img {
+            background: url(assets/img/images03.jpg);
+        }
+        #section03 .parallax__item__img {
+            background: url(assets/img/images04.jpg);
+        }
+        #section04 .parallax__item__img {
+            background: url(assets/img/images05.jpg);
+        }
+        #section05 .parallax__item__img {
+            background: url(assets/img/images06.jpg);
+        }
+        #section06 .parallax__item__img {
+            background: url(assets/img/images07.jpg);
+        }
+        #section07 .parallax__item__img {
+            background: url(assets/img/images08.jpg);
+        }
+        #section08 .parallax__item__img {
+            background: url(assets/img/images09.jpg);
+        }
+        #section09 .parallax__item__img {
+            background: url(assets/img/images10.jpg);
+        }
+        .parallax__item__title {
+            font-size: 5vw;
+            z-index: 100;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <header class="main_visual">
+        <h1>GSAP Parallax Effect</h1>
+        <p>GSAP scrollTrigger Effect</p>
+
+        <div class="ul_wrap">
+            <ul>
+                <li class=""><a href="gsap01.html">01_기본Ani</a></li>
+                <li class=""><a href="gsap02.html">02_Pin Ani</a></li>
+                <li class="active"><a href="#!">03_Pin 배경 고정</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap04.html">04_이질감 효과</a></li>
+                <li class=""><a href="gsap05.html">05_나타내기 효과</a></li>
+                <li class=""><a href="gsap06.html">06_텍스트 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap07.html">07_배경색 효과</a></li>
+                <li class=""><a href="gsap08.html">08_진행바 효과</a></li>
+                <li class=""><a href="gsap09.html">09_메뉴 이동 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap10.html">10_메뉴 축소 효과</a></li>
+                <li class=""><a href="gsap11.html">11_메뉴 숨기기 효과</a></li>
+                <li class=""><a href="gsap12.html">12_가로 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap13.html">13_가로/세로 효과</a></li>
+                <li class=""><a href="gsap14.html">14_가로/세로 나타나기 효과</a></li>
+                <li class=""><a href="gsap15.html">15_스무스 효과</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main id="parallax__cont">
+        <section id="section01" class="parallax__item">
+            <span class="parallax__item__num">01</span>
+            <div class="parallax__item__img"></div>
+            <h2 class="parallax__item__title">section1</h2>
+        </section>
+        <!-- //section1 -->
+
+        <section id="section02" class="parallax__item">
+            <span class="parallax__item__num">02</span>
+            <div class="parallax__item__img"></div>
+            <h2 class="parallax__item__title">section2</h2>
+        </section>
+        <!-- //section2 -->
+
+        <section id="section03" class="parallax__item">
+            <span class="parallax__item__num">03</span>
+            <div class="parallax__item__img"></div>
+            <h2 class="parallax__item__title">section3</h2>
+        </section>
+        <!-- //section3 -->
+
+        <section id="section04" class="parallax__item">
+            <span class="parallax__item__num">04</span>
+            <div class="parallax__item__img"></div>
+            <h2 class="parallax__item__title">section4</h2>
+        </section>
+        <!-- //section4 -->
+
+        <section id="section05" class="parallax__item">
+            <span class="parallax__item__num">05</span>
+            <div class="parallax__item__img"></div>
+            <h2 class="parallax__item__title">section5</h2>
+        </section>
+        <!-- //section5 -->
+
+        <section id="section06" class="parallax__item">
+            <span class="parallax__item__num">06</span>
+            <div class="parallax__item__img"></div>
+            <h2 class="parallax__item__title">section6</h2>
+        </section>
+        <!-- //section6 -->
+
+        <section id="section07" class="parallax__item">
+            <span class="parallax__item__num">07</span>
+            <div class="parallax__item__img"></div>
+            <h2 class="parallax__item__title">section7</h2>
+        </section>
+        <!-- //section7 -->
+
+        <section id="section08" class="parallax__item">
+            <span class="parallax__item__num">08</span>
+            <div class="parallax__item__img"></div>
+            <h2 class="parallax__item__title">section8</h2>
+        </section>
+        <!-- //section8 -->
+
+        <section id="section09" class="parallax__item">
+            <span class="parallax__item__num">09</span>
+            <div class="parallax__item__img"></div>
+            <h2 class="parallax__item__title">section9</h2>
+        </section>
+        <!-- //section9 -->
+    </main>
+
+    <script>
+        // 순번 하나씩만 적용해줘야 올바른 화면 확인 가능!
+
+        //01. 한개 섹션 고정
+        // const panel = document.querySelector("#section01") // 고정시킬 영역 변수에 저장
+
+        // ScrollTrigger.create({
+        //     trigger: panel, // pin효과 주려면 trigger영역은 자기 자신이 되어야 함.
+        //     start: "top top",
+        //     pin: true, // 설정 시 여백 생길 수 있음
+        //     pinSpacing: false // pin여백 제거
+        // });
+
+        // //02. 여러개 섹션 고정
+        //gsap.utils.toArray => 무조건 Array로 변환 (다중선택시 사용하는 유틸함수. | .toArray는 Method)
+        // forEach : 같은 영역이라도 요소별로 각각 적용 가능
+
+        // gsap.utils.toArray(".parallax__item").forEach((panel, i) => {
+        //     ScrollTrigger.create({
+        //     trigger: panel,
+        //     start: "top top",
+        //     pin: true, 
+        //     pinSpacing: false 
+        // });
+        // });
+
+        //03. 스냅 고정 효과 만들기
+        let panels = gsap.utils.toArray(".parallax__item"); //.parallax__item 클래스들을 배열로 가져 옴 (Array변환)
+        let tops = panels.map(panel => ScrollTrigger.create({trigger: panel, start: "top top"})); // 각 panel의 스크롤 시작점을 기준으로 Pin
+
+        panels.forEach((panel, i) => {
+            ScrollTrigger.create({
+                trigger: panel,
+                start: () => panel.offsetHeight < window.innerHeight ? "top top" : "bottom bottom",
+                // 조건부
+                // : 패널 높이가 윈도우보다 작으면 "top top", 그렇지 않으면 "bottom bottom"
+                pin: true, 
+                pinSpacing: false
+            });
+        });
+
+        ScrollTrigger.create({
+            snap: {//특정지점에 자동으로 붙게 만드는 기능. (ex 사용자가 스크롤을 멈췄을 때 가장 가까운 지정된 위치로 스크롤이 부드럽게 이동)
+                snapTo:(progress, self) => { //progress:스크롤 진행도 | self: 현재 ScrollTrigger 객체
+                    let panelStarts = tops.map(st => st.start), //st.start : 각 패널이 시작되는 스크롤 위치
+                    snapScroll = gsap.utils.snap(panelStarts, self.scroll()); //유틸함수 panelStarts: 첫번째 패널 시작 위치, 두번째 패널 시작 위치
+                    return gsap.utils.normalize(0, ScrollTrigger.maxScroll(window), snapScroll); //normalize(min,max,value)
+                },
+                //=> 가장 가까운 위치로 자동 이동.
+                //self > 현재 scroll-trigger 객체
+                duration:0.5
+            } //스크롤 시 자동으로 패널 경계에 맞춰 붙도록 처리
+            // snapTo : 스크롤 위치로 계산 [0, 1로 전환]
+        });
+    </script>
+</body>
+</html>
