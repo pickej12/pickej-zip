@@ -7,6 +7,7 @@
     <title>GSAP_이질감 효과</title>
 
     <link rel="stylesheet" href="./assets/css/common.css">
+    <link rel="stylesheet" href="./assets/css/__cont2.css">
     
     <!-- Font  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,108 +24,7 @@
     <!-- gsap04 CSS -->
     <style>
         .main_visual {
-            position:absolute;
-        }
-
-        /* parallax__cont */
-        #parallax__cont {
-            max-width: 1600px;
-            width: 98%;
-            margin: 0 auto;
-        }
-        .parallax__item {
-            width: 1000px;
-            max-width: 70vw;
-            margin: 30vw auto;
-            text-align: left;
-            margin-right: 0;
-            position: relative;
-            padding-top: 15vw;
-        }
-        .parallax__item:nth-child(even) {
-            margin-left: 0;
-            text-align: right;
-        }
-        .parallax__item__num {
-            font-size: 35vw;
-            position: absolute;
-            left: -5vw;
-            top: -13vw;
-            opacity: 0.07;
-            font-family: "Lato";
-            font-weight: 100;
-        }
-        .parallax__item:nth-child(even) .parallax__item__num {
-            left: auto;
-            right: -5vw;
-        }
-        .parallax__item__title {
-            padding-bottom: 5px;
-            font-weight: 400;
-        }
-        .parallax__item__imgWrap {
-            width: 100%;
-            padding-bottom: 56.25%;
-            background: #000;
-            position: relative;
-            overflow: hidden;
-        }
-        .parallax__item__img {
-            position: absolute;
-            left: -5%; 
-            top: -5%;
-            width: 110%;
-            height: 110%;
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
-            filter: saturate(0%);
-            transition: all 1s;
-        }
-        .parallax__item__img:hover {
-            filter: saturate(100%);
-            transform: scale(1.025);
-        }
-        #section01 .parallax__item__img {
-            background-image: url('./assets/img/images01.jpg');
-        }
-        #section02 .parallax__item__img {
-            background-image: url('./assets/img/images02.jpg');
-        }
-        #section03 .parallax__item__img {
-            background-image: url('./assets/img/images03.jpg');
-        }
-        #section04 .parallax__item__img {
-            background-image: url('./assets/img/images04.jpg');
-        }
-        #section05 .parallax__item__img {
-            background-image: url('./assets/img/images05.jpg');
-        }
-        #section06 .parallax__item__img {
-            background-image: url('./assets/img/images06.jpg');
-        }
-        #section07 .parallax__item__img {
-            background-image: url('./assets/img/images07.jpg');
-        }
-        #section08 .parallax__item__img {
-            background-image: url('./assets/img/images08.jpg');
-        }
-        #section09 .parallax__item__img {
-            background-image: url('./assets/img/images09.jpg');
-        }
-
-        .parallax__item__desc {
-            font-size: 4vw;
-            line-height: 1.6;
-            margin-top: -5vw;
-            margin-left: -4vw;
-            z-index: 100;
-            position: relative;
-            word-break: keep-all;
-        }
-        .parallax__item:nth-child(even) .parallax__item__desc {
-            margin-left: auto;
-            margin-right: -4vw;
+            position:absolute !important;
         }
     </style>
 </head>
