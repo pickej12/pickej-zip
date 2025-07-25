@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSAP_이질감 효과</title>
+
+    <link rel="stylesheet" href="./assets/css/common.css">
+    
+    <!-- Font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
+
+    <script src="../src/jquery-1.12.4.min.js"></script>
+    
+    <!-- gsap04 CSS -->
+    <style>
+        .main_visual {
+            position:absolute;
+        }
+
+        /* parallax__cont */
+        #parallax__cont {
+            max-width: 1600px;
+            width: 98%;
+            margin: 0 auto;
+        }
+        .parallax__item {
+            width: 1000px;
+            max-width: 70vw;
+            margin: 30vw auto;
+            text-align: left;
+            margin-right: 0;
+            position: relative;
+            padding-top: 15vw;
+        }
+        .parallax__item:nth-child(even) {
+            margin-left: 0;
+            text-align: right;
+        }
+        .parallax__item__num {
+            font-size: 35vw;
+            position: absolute;
+            left: -5vw;
+            top: -13vw;
+            opacity: 0.07;
+            font-family: "Lato";
+            font-weight: 100;
+        }
+        .parallax__item:nth-child(even) .parallax__item__num {
+            left: auto;
+            right: -5vw;
+        }
+        .parallax__item__title {
+            padding-bottom: 5px;
+            font-weight: 400;
+        }
+        .parallax__item__imgWrap {
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+        }
+        .parallax__item__img {
+            position: absolute;
+            left: -5%; 
+            top: -5%;
+            width: 110%;
+            height: 110%;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            filter: saturate(0%);
+            transition: all 1s;
+        }
+        .parallax__item__img:hover {
+            filter: saturate(100%);
+            transform: scale(1.025);
+        }
+        #section01 .parallax__item__img {
+            background-image: url('./assets/img/images01.jpg');
+        }
+        #section02 .parallax__item__img {
+            background-image: url('./assets/img/images02.jpg');
+        }
+        #section03 .parallax__item__img {
+            background-image: url('./assets/img/images03.jpg');
+        }
+        #section04 .parallax__item__img {
+            background-image: url('./assets/img/images04.jpg');
+        }
+        #section05 .parallax__item__img {
+            background-image: url('./assets/img/images05.jpg');
+        }
+        #section06 .parallax__item__img {
+            background-image: url('./assets/img/images06.jpg');
+        }
+        #section07 .parallax__item__img {
+            background-image: url('./assets/img/images07.jpg');
+        }
+        #section08 .parallax__item__img {
+            background-image: url('./assets/img/images08.jpg');
+        }
+        #section09 .parallax__item__img {
+            background-image: url('./assets/img/images09.jpg');
+        }
+
+        .parallax__item__desc {
+            font-size: 4vw;
+            line-height: 1.6;
+            margin-top: -5vw;
+            margin-left: -4vw;
+            z-index: 100;
+            position: relative;
+            word-break: keep-all;
+        }
+        .parallax__item:nth-child(even) .parallax__item__desc {
+            margin-left: auto;
+            margin-right: -4vw;
+        }
+    </style>
+</head>
+<body>
+    <header class="main_visual">
+        <h1>GSAP Parallax Effect</h1>
+        <p>GSAP scrollTrigger Effect</p>
+
+        <div class="ul_wrap">
+            <ul>
+                <li class=""><a href="gsap01.html">01_기본Ani</a></li>
+                <li class=""><a href="gsap02.html">02_Pin Ani</a></li>
+                <li class=""><a href="gsap03.html">03_Pin 배경 고정</a></li>
+            </ul>
+            <ul>
+                <li class="active"><a href="#!">04_이질감 효과</a></li>
+                <li class=""><a href="gsap05.html">05_나타내기 효과</a></li>
+                <li class=""><a href="gsap06.html">06_텍스트 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap07.html">07_배경색 효과</a></li>
+                <li class=""><a href="gsap08.html">08_진행바 효과</a></li>
+                <li class=""><a href="gsap09.html">09_메뉴 이동 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap10.html">10_메뉴 축소 효과</a></li>
+                <li class=""><a href="gsap11.html">11_메뉴 숨기기 효과</a></li>
+                <li class=""><a href="gsap12.html">12_가로 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap13.html">13_가로/세로 효과</a></li>
+                <li class=""><a href="gsap14.html">14_가로/세로 나타나기 효과</a></li>
+                <li class=""><a href="gsap15.html">15_스무스 효과</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main id="parallax__cont">
+        <!-- 요소가 겹쳤을 때 확인. -->
+        <section id="section01" class="parallax__item">
+            <span class="parallax__item__num">01</span>
+            <h2 class="parallax__item__title">section01</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">높은 목표를 세우고, 스스로 채찍질 한다.</p>
+        </section>
+        <!-- //section01 -->
+
+        <section id="section02" class="parallax__item">
+            <span class="parallax__item__num">02</span>
+            <h2 class="parallax__item__title">section02</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">결과도 중요하지만, 과정을 더 중요하게 생각한다.</p>
+        </section>
+        <!-- //section2 -->
+
+        <section id="section03" class="parallax__item">
+            <span class="parallax__item__num">03</span>
+            <h2 class="parallax__item__title">section03</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">매 순간에 최선을 다하고, 끊임없이 변화한다.</p>
+        </section>
+        <!-- //section3 -->
+
+        <section id="section04" class="parallax__item">
+            <span class="parallax__item__num">04</span>
+            <h2 class="parallax__item__title">section04</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">모든 일에는 기본을 중요하게 생각한다.</p>
+        </section>
+        <!-- //section4 -->
+
+        <section id="section05" class="parallax__item">
+            <span class="parallax__item__num">05</span>
+            <h2 class="parallax__item__title">section05</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">열정을 잃지 않고 실패에서 실패로 걸어가는 것이 성공이다.</p>
+        </section>
+        <!-- //section5 -->
+
+        <section id="section06" class="parallax__item">
+            <span class="parallax__item__num">06</span>
+            <h2 class="parallax__item__title">section06</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">천 마디 말보단 하나의 행동이 더 값지다.</p>
+        </section>
+        <!-- //section6 -->
+
+        <section id="section07" class="parallax__item">
+            <span class="parallax__item__num">07</span>
+            <h2 class="parallax__item__title">section07</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">조그만 성공에 만족하지 않으며, 방심을 경계한다.</p>
+        </section>
+        <!-- //section7 -->
+
+        <section id="section08" class="parallax__item">
+            <span class="parallax__item__num">08</span>
+            <h2 class="parallax__item__title">section08</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">나는 내가 더 노력할수록 운이 더 좋아진다는 걸 발견했다.</p>
+        </section>
+        <!-- //section8 -->
+
+        <section id="section09" class="parallax__item">
+            <span class="parallax__item__num">09</span>
+            <h2 class="parallax__item__title">section09</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">꿈이 있다면, 그 꿈을 잡고 절대 놓아주지마라.</p>
+        </section>
+        <!-- //section9 -->        
+    </main>
+    
+    <script>
+        // 01.이질감 표현
+        // gsap.to(".parallax__item__desc", {
+        //     yPercent: -100,
+        //     ease: "none",
+        //     duration: 0.5,
+        //     scrollTrigger: {
+        //         trigger: ".parallax__item__desc",
+        //         start: "top bottom", 
+        //         end: "bottom top",
+        //         markers: true,
+        //         scrub: true
+        //     },  
+        // });
+
+        // 02. 여러개 이질감 표현
+        gsap.utils.toArray(".parallax__item__desc").forEach(item => {
+            gsap.to(item, {
+                yPercent: -100,
+                ease: "none",
+                duration: 0.5,
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top bottom", 
+                    end: "bottom top", 
+                    markers: true,
+                    scrub: 0.5
+                },  
+            });
+        });
+    </script>
+</body>
+</html>
