@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSAP_텍스트 효과</title>
+
+<link rel="stylesheet" href="./assets/css/common.css">
+<link rel="stylesheet" href="./assets/css/__cont2.css">
+
+<!-- Font  -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<!-- GSAP -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
+
+<script src="../src/jquery-1.12.4.min.js"></script>
+<!-- splitType 라이브러리 -->
+<script src="https://unpkg.com/split-type"></script>
+    
+<!-- gsap05 CSS -->
+<style>
+    /* <span>으로 split된 요소들 공백 표현용 css */
+    .split > span {
+        display: inline-block;
+        white-space: pre-wrap;
+    }
+    .line {
+        display: inline !important;
+    }
+</style>
+</head>
+<body>
+    <header class="main_visual">
+        <h1>GSAP Parallax Effect</h1>
+        <p>GSAP scrollTrigger Effect</p>
+
+        <div class="ul_wrap">
+            <ul>
+                <li class=""><a href="gsap01.html">01_기본Ani</a></li>
+                <li class=""><a href="gsap02.html">02_Pin Ani</a></li>
+                <li class=""><a href="gsap03.html">03_Pin 배경 고정</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap04.html">04_이질감 효과</a></li>
+                <li class=""><a href="gsap05.html">05_나타내기 효과</a></li>
+                <li class="active"><a href="#!">06_텍스트 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap07.html">07_배경색 효과</a></li>
+                <li class=""><a href="gsap08.html">08_진행바 효과</a></li>
+                <li class=""><a href="gsap09.html">09_메뉴 이동 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap10.html">10_메뉴 축소 효과</a></li>
+                <li class=""><a href="gsap11.html">11_메뉴 숨기기 효과</a></li>
+                <li class=""><a href="gsap12.html">12_가로 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap13.html">13_가로/세로 효과</a></li>
+                <li class=""><a href="gsap14.html">14_가로/세로 나타나기 효과</a></li>
+                <li class=""><a href="gsap15.html">15_스무스 효과</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main id="parallax__cont">
+        <section id="section01" class="parallax__item">
+            <span class="parallax__item__num">01</span>
+            <h2 class="parallax__item__title">section01</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc split">Lorem Ipsum is simply dummy text.</p>
+        </section>
+        <!-- //section1 -->
+
+        <section id="section02" class="parallax__item">
+            <span class="parallax__item__num">02</span>
+            <h2 class="parallax__item__title">section02</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc split">Lorem Ipsum has been the industry's standard dummy text.</p>
+        </section>
+        <!-- //section2 -->
+
+        <section id="section03" class="parallax__item">
+            <span class="parallax__item__num">03</span>
+            <h2 class="parallax__item__title">section03</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc split">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        </section>
+        <!-- //section3 -->
+
+        <section id="section04" class="parallax__item">
+            <span class="parallax__item__num">04</span>
+            <h2 class="parallax__item__title">section04</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc split">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+        </section>
+        <!-- //section4 -->
+
+        <section id="section05" class="parallax__item">
+            <span class="parallax__item__num">05</span>
+            <h2 class="parallax__item__title">section05</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc split">When an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        </section>
+        <!-- //section5 -->
+
+        <section id="section06" class="parallax__item">
+            <span class="parallax__item__num">06</span>
+            <h2 class="parallax__item__title">section06</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc split">오리 휴지 선풍기 립밤 에어컨 조명 수첩.</p>
+        </section>
+        <!-- //section6 -->
+
+        <section id="section07" class="parallax__item">
+            <span class="parallax__item__num">07</span>
+            <h2 class="parallax__item__title">section07</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc split">Lorem Ipsum has been the industry's standard dummy text.</p>
+        </section>
+        <!-- //section7 -->
+
+        <section id="section08" class="parallax__item">
+            <span class="parallax__item__num">08</span>
+            <h2 class="parallax__item__title">section08</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc split">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        </section>
+        <!-- //section8 -->
+
+        <section id="section09" class="parallax__item">
+            <span class="parallax__item__num">09</span>
+            <h2 class="parallax__item__title">section09</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc split">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+        </section>
+        <!-- //section9 -->
+    </main>
+    
+    <script>
+        // 01.텍스트 분리
+        let text = document.querySelector(".split");
+        let splitText = text.innerText; // .text() : 텍스트 가져오기 || .html() : html 태그 구조까지 가져오기
+        let splitWrap = splitText.split('').join('</span><span>'); 
+        //.split()을 통해 글자를 하나씩 가져옴, .join()으로 분리된 각 요소 연결 (여기에 적힌 요소로 연결) | 아래를 보면 span 내부에 들어가기 때문에 닫는 태그부터 시작.
+        text.innerHTML = splitWrap = "<span>" + splitWrap + "</span>"// 하나씩 나눈 글자에 <span>으로 wrap
+        // .html() : jquery - 함수처럼 호출 가능(ex: .html().addClass()~ )
+        // .innerHTML() : javascript - 속성(값처럼 접근) | html내부를 읽거나 수정하는 역할 | 내부 콘텐츠만 가져옴. 요소자체+내부 콘텐츠 가져오기 = .outerHTML();
+
+
+        // 02.다중 선택 텍스트 분리
+        document.querySelectorAll(".split").forEach(text => { //querySelectorAll() = 다중 선택
+            let splitWrap = text.innerText.split('').join("</span><span aria-hidden='true'>");
+            text.innerHTML = "<span aria-hidden='true'>"+ splitWrap + "</span>";
+            text.setAttribute("aria-label", text.innerText);
+        });
+
+        // 03.다중 선택 텍스트 분리 + 여백 표현
+        document.querySelectorAll(".split").forEach(text => {
+            let theText = text.innerText; //텍스트 가져와서 변수에 담기
+            let newText = "";
+
+            for(let i=0; i<text.innerText.length; i++){ //각 문자를 순회하기 위한 루프
+                newText +="<span aria-hidden='true'>"; //+= : 복합 대입 연산자(더해서 저장)
+                if(text.innerText[i]==""){
+                    newText +=""
+                }else{
+                    newText += text.innerText[i];
+                }
+                // newText += text.innerText[i];
+                newText += "</span>"
+            }
+            text.innerHTML = newText;
+            text.setAttribute("aria-label", theText);
+        }); // => 이 단계까진 띄어쓰기 X
+        // <span>으로 inline구조! => ani를 주기 위해서는 block처리 필!(inline-block) => css로 지정이 간단.
+
+        // 띄어쓰기 적용
+        gsap.from(".split span", {
+            yPercent: 100,
+            autoAlpha: 0,
+            duration: 2,
+            ease: "circ.out",
+            stagger: 0.1,
+            
+            scrollTrigger: {
+                trigger: ".split",
+                start: "top center",
+                end: "+=400",
+                markers: true,
+                scrub: 1, 
+            }
+        });
+
+        gsap.utils.toArray(".split").forEach((text) => {
+            gsap.from(text.querySelectorAll("span"), {
+                yPercent: 100,
+                outoAlpha: 0,
+                duration: 1,
+                ease: "circ.out",
+                //stagger: 0.04,
+                stagger: {
+                    amount: 1,
+                    from: "random"
+                },
+                
+                scrollTrigger: {
+                    trigger: text,
+                    start: "top bottom",
+                    end: "+=400",
+                    markers: true,
+                }
+            });
+        });
+
+        const targets = gsap.utils.toArray(".split");
+
+        targets.forEach((target) => {
+            let SplitClient = new SplitType(target, { type: "lines, words, chars" }); 
+            // lines : 줄 마다 <div class="line">
+            // words : 단어 마다 <span class="word">
+            // chars : 글자 마다 <span class="char"> 
+            let lines = SplitClient.lines;
+            let words = SplitClient.words;
+            let chars = SplitClient.chars;
+
+            gsap.from(words, {
+                yPercent: 100,
+                opacity: 0,
+                duration: 1,
+                ease: "circ.out",
+                stagger: {
+                    amount: 1,
+                    from: "random"
+                },
+                scrollTrigger: {
+                    trigger: target,
+                    start: "top bottom",
+                    end: "+=400",
+                    markers: true,
+                }
+            });
+        });
+    </script>
+</body>
+</html>
