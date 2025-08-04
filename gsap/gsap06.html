@@ -23,7 +23,7 @@
 <!-- splitType 라이브러리 -->
 <script src="https://unpkg.com/split-type"></script>
     
-<!-- gsap05 CSS -->
+<!-- gsap06 CSS -->
 <style>
     /* <span>으로 split된 요소들 공백 표현용 css */
     .split > span {
@@ -159,6 +159,16 @@
             <p class="parallax__item__desc split">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
         </section>
         <!-- //section9 -->
+
+        <style>
+            .parallax__item {
+                transform-style: preserve-3d;
+                perspective: 800px;
+            }
+            .split {
+                transform: rotateX(720deg);
+            }
+        </style>
     </main>
     
     <script>
@@ -219,9 +229,11 @@
         gsap.utils.toArray(".split").forEach((text) => {
             gsap.from(text.querySelectorAll("span"), {
                 yPercent: 100,
-                outoAlpha: 0,
+                autoAlpha: 0,
                 duration: 1,
                 ease: "circ.out",
+                rotationX: 1440,
+                transformOrigin: "center bottom",
                 //stagger: 0.04,
                 stagger: {
                     amount: 1,
