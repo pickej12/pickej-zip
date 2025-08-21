@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSAP_메뉴 숨기기 효과</title>
+
+<link rel="stylesheet" href="./assets/css/common.css">
+<link rel="stylesheet" href="./assets/css/__cont2.css">
+
+<!-- Font  -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<!-- GSAP -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
+
+<script src="../src/jquery-1.12.4.min.js"></script>
+    
+<!-- gsap11 CSS - css 비교 후 공통 코드 파일 적용 및 정리(08/06)-->
+<style>
+    #parallax__nav {
+        position: fixed;
+        right: 20px;
+        top: 20px;
+        z-index: 1000;
+        background-color: rgba(0,0,0,0.4);
+        padding: 15px 20px;
+        border-radius: 50px;
+        text-align: center;
+    }
+    #parallax__nav li {
+        list-style: none;
+        display: inline;
+    }
+    #parallax__nav li a {
+        display: inline-block;
+        width: 30px; 
+        height: 30px;
+        padding: 5px;
+        text-align: center;
+        line-height: 30px;
+        transition: all 0.3s;
+    }
+    #parallax__nav li a.active {
+        background: #FFF;
+        color: #000;
+        border-radius: 30px;
+    }
+</style>
+</head>
+<body>
+    <header class="main_visual">
+        <h1>GSAP Parallax Effect</h1>
+        <p>GSAP scrollTrigger Effect</p>
+
+        <div class="ul_wrap">
+            <ul>
+                <li class=""><a href="gsap01.html">01_기본Ani</a></li>
+                <li class=""><a href="gsap02.html">02_Pin Ani</a></li>
+                <li class=""><a href="gsap03.html">03_Pin 배경 고정</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap04.html">04_이질감 효과</a></li>
+                <li class=""><a href="gsap05.html">05_나타내기 효과</a></li>
+                <li class=""><a href="gsap06.html">06_텍스트 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap07.html">07_배경색 효과</a></li>
+                <li class=""><a href="gsap08.html">08_진행바 효과</a></li>
+                <li class=""><a href="gsap09.html">09_메뉴 이동 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap10.html">10_메뉴 축소 효과</a></li>
+                <li class="active"><a href="#!">11_메뉴 숨기기 효과</a></li>
+                <li class=""><a href="gsap12.html">12_가로 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap13.html">13_가로/세로 효과</a></li>
+                <li class=""><a href="gsap14.html">14_가로/세로 나타나기 효과</a></li>
+                <li class=""><a href="gsap15.html">15_스무스 효과</a></li>
+            </ul>
+        </div>
+    </header>
+    <!-- //parallax__title -->
+
+    <nav id="parallax__nav">
+        <ul>
+            <li><a href="#section01" class="active">s1</a></li>
+            <li><a href="#section02">s2</a></li>
+            <li><a href="#section03">s3</a></li>
+            <li><a href="#section04">s4</a></li>
+            <li><a href="#section05">s5</a></li>
+            <li><a href="#section06">s6</a></li>
+            <li><a href="#section07">s7</a></li>
+            <li><a href="#section08">s8</a></li>
+            <li><a href="#section09">s9</a></li>
+        </ul>
+    </nav>
+    <!-- //parallax__nav -->
+
+    <main id="parallax__cont">
+        <section id="section01" class="parallax__item">
+            <span class="parallax__item__num">01</span>
+            <h2 class="parallax__item__title">section01</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">Lorem Ipsum is simply dummy text.</p>
+        </section>
+        <!-- //section1 -->
+
+        <section id="section02" class="parallax__item">
+            <span class="parallax__item__num">02</span>
+            <h2 class="parallax__item__title">section2</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">Lorem Ipsum is simply dummy text.</p>
+        </section>
+        <!-- //section2 -->
+
+        <section id="section03" class="parallax__item">
+            <span class="parallax__item__num">03</span>
+            <h2 class="parallax__item__title">section3</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">Lorem Ipsum is simply dummy text.</p>
+        </section>
+        <!-- //section3 -->
+
+        <section id="section04" class="parallax__item">
+            <span class="parallax__item__num">04</span>
+            <h2 class="parallax__item__title">section04</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">Lorem Ipsum is simply dummy text.</p>
+        </section>
+        <!-- //section4 -->
+
+        <section id="section05" class="parallax__item">
+            <span class="parallax__item__num">05</span>
+            <h2 class="parallax__item__title">section05</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">Lorem Ipsum is simply dummy text.</p>
+        </section>
+        <!-- //section5 -->
+
+        <section id="section06" class="parallax__item">
+            <span class="parallax__item__num">06</span>
+            <h2 class="parallax__item__title">section06</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">Lorem Ipsum is simply dummy text.</p>
+        </section>
+        <!-- //section6 -->
+
+        <section id="section07" class="parallax__item">
+            <span class="parallax__item__num">07</span>
+            <h2 class="parallax__item__title">section07</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">Lorem Ipsum is simply dummy text.</p>
+        </section>
+        <!-- //section7 -->
+
+        <section id="section08" class="parallax__item">
+            <span class="parallax__item__num">08</span>
+            <h2 class="parallax__item__title">section08</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">Lorem Ipsum is simply dummy text.</p>
+        </section>
+        <!-- //section8 -->
+
+        <section id="section09" class="parallax__item">
+            <span class="parallax__item__num">09</span>
+            <h2 class="parallax__item__title">section09</h2>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+            <p class="parallax__item__desc">Lorem Ipsum is simply dummy text.</p>
+        </section>
+        <!-- //section9 -->
+    </main>
+     
+    <script>
+        // 사용예제
+        // - 사용자 행동 기반 인터페이스 반영
+        // - 공간이 상대적으로 좁은 모바일이나 태블릿 환경 (반응형 디자인 최적화)
+        // - 몰입도 향상(부가적인 시각적 요소 제거)
+
+        const showNav = gsap.from('#parallax__nav',{
+            yPercent:-200, // 이만큼 이동시키는 ani
+            paused:true, // 처음엔 일시정지
+            duration:0.2 
+        }).progress(1); // 변수 설정 + 애니메이션 생성 //완전히 끝난 상태로 초기화
+
+        ScrollTrigger.create({
+            start: "top top", // 최상단부터 감시 시작
+            //end: "99999", //사실상 끝지점 계속 감시 => 전역 스크롤 감지 | bottom bottom은 제한적(하단 근처에 있을 떄만) | 상대적 위치
+            // end: () => document.body.scrollHeight, //99999처럼 강력 대응 X , 스크롤 높이까지. > 전체 문서 길이 기준 | 전체 페이지 감지가 목적 | 절대적 길이 
+            // (트리거가 0부터 document.body.scrollHeight 까지 활성 상태를 유지)
+            end: "bottom bottom", // > 위치 기준 / 특정 센서만 감지
+
+            markers:true,
+            onUpdate:(self) => {
+                self.direction === -1 ? showNav.play() : showNav.reverse() // 내려오고 : 다시 올라감
+                // self.direction => -1: 스크롤 업 / 1: 스크롤 다운 => 다른 값은 없음.
+            },
+            // self.isActive : 현재 트리거가 활성 상태인지.(true/false)
+        });
+
+        let links = gsap.utils.toArray('#parallax__nav ul li a');
+
+        links.forEach(link => {
+            const element = document.querySelector(link.getAttribute("href")); // 재할당이 없어서 const : 값이 변하지 않는다는 것을 알리기 위해 (let -> const)
+
+            ScrollTrigger.create({
+                trigger: element,
+                start: "top center",
+                end: "bottom center",
+                onToggle: self => setActive(link), //onToggle을 활용해 setActive() 메서드에 link(9개의 메뉴) 보내줌 - 스크롤 양방향 ani 적용.
+            });
+        });
+
+        function setActive(link){ 
+            links.forEach(el=>el.classList.remove("active")); // 모든 링크(links)에 active 제거
+            link.classList.add("active"); // 현재 링크(link)에 active 추가
+        }
+    </script>
+</body>
+</html>
