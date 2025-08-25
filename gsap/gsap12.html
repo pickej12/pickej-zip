@@ -23,9 +23,19 @@
 
 <!-- gsap12 CSS -->
 <style>
-    /* body {
-        overflow: hidden;
-    } */
+    body {
+        overflow-x: hidden;
+        /* 가로 스크롤은 아예 막기 : 세로 스크롤을 가로로 변형 해준 것이라 overflow-y로 hidden 지정 시 동작X */
+        scrollbar-width: none;
+        /* 파이어폭스 */
+        -ms-overflow-style: none;
+        /* IE, Edge 구버전 */
+    }
+
+    body::-webkit-scrollbar {
+        display: none;
+        /* 크롬, 사파리 */
+    }
     
     /* parallax__cont */
     /* 가로 스크롤에 중요!! */
@@ -70,15 +80,6 @@
     #section1, #section3, #section5, #section7, #section9 {
         background-color: #111;
     }
-
-body {
-  overflow-x: hidden; /* 가로 스크롤은 아예 막기 : 세로 스크롤을 가로로 변형 해준 것이라 overflow-y로 hidden 지정 시 동작X */
-  scrollbar-width: none; /* 파이어폭스 */
-  -ms-overflow-style: none; /* IE, Edge 구버전 */
-}
-body::-webkit-scrollbar {
-  display: none; /* 크롬, 사파리 */
-}
 </style>
 </head>
 <body>
