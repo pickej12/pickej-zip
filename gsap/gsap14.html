@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSAP_가로/세로 나타나기 효과</title>
+
+<link rel="stylesheet" href="./assets/css/common.css">
+<link rel="stylesheet" href="./assets/css/__cont.css">
+
+<!-- Font  -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<!-- GSAP -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
+
+<script src="../src/jquery-1.12.4.min.js"></script>
+
+<!-- gsap14 CSS -->
+<style>
+    /* parallax__cont */
+    .parallax__item__imgWrap {
+        width: 30%;
+        padding-bottom: 18%;
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+    .parallax__item__img {
+        position: absolute;
+        left: -5%; 
+        top: -5%;
+        width: 110%;
+        height: 110%;
+        background-repeat: no-repeat;
+        filter: saturate(0%);
+        transition: all 1s;
+    }
+    .parallax__item__img:hover {
+        filter: saturate(100%);
+        transform: scale(1.025);
+    }
+
+    /* option- 가로모드용*/
+    #horizontal {
+        display: flex;
+        flex-wrap: nowrap;
+        width: 500%;
+    }
+    #horizontal > section {
+        width: 100%;
+    }
+</style>
+</head>
+<body>
+    <header class="main_visual">
+        <h1>GSAP Parallax Effect</h1>
+        <p>GSAP scrollTrigger Effect</p>
+
+        <div class="ul_wrap">
+            <ul>
+                <li class=""><a href="gsap01.html">01_기본Ani</a></li>
+                <li class=""><a href="gsap02.html">02_Pin Ani</a></li>
+                <li class=""><a href="gsap03.html">03_Pin 배경 고정</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap04.html">04_이질감 효과</a></li>
+                <li class=""><a href="gsap05.html">05_나타내기 효과</a></li>
+                <li class=""><a href="gsap06.html">06_텍스트 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap07.html">07_배경색 효과</a></li>
+                <li class=""><a href="gsap08.html">08_진행바 효과</a></li>
+                <li class=""><a href="gsap09.html">09_메뉴 이동 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap10.html">10_메뉴 축소 효과</a></li>
+                <li class=""><a href="gsap11.html">11_메뉴 숨기기 효과</a></li>
+                <li class=""><a href="gsap12.html">12_가로 효과</a></li>
+            </ul>
+            <ul>
+                <li class=""><a href="gsap13.html">13_가로/세로 효과</a></li>
+                <li class="active"><a href="#!">14_가로/세로 나타나기 효과</a></li>
+                <li class=""><a href="gsap15.html">15_스무스 효과</a></li>
+            </ul>
+        </div>
+    </header>
+    <!-- //parallax__title -->
+
+    <main id="parallax__cont">
+        <section id="section01" class="parallax__item">
+            <span class="parallax__item__num">01</span>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+        </section>
+        <!-- //section01 -->
+
+        <section id="section02" class="parallax__item">
+            <span class="parallax__item__num">02</span>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+        </section>
+        <!-- //section02 -->
+
+        <main id="horizontal">
+            <section id="section03" class="parallax__item">
+                <span class="parallax__item__num">03</span>
+                <figure class="parallax__item__imgWrap">
+                    <div class="parallax__item__img"></div>
+                </figure>
+            </section>
+            <!-- //section03 -->
+
+            <section id="section04" class="parallax__item">
+                <span class="parallax__item__num">04</span>
+                <figure class="parallax__item__imgWrap img04">
+                    <div class="parallax__item__img"></div>
+                </figure>
+            </section>
+            <!-- //section04 -->
+
+            <section id="section05" class="parallax__item">
+                <span class="parallax__item__num">05</span>
+                <figure class="parallax__item__imgWrap img05">
+                    <div class="parallax__item__img"></div>
+                </figure>
+            </section>
+            <!-- //section05 -->
+
+            <section id="section06" class="parallax__item">
+                <span class="parallax__item__num">06</span>
+                <figure class="parallax__item__imgWrap img06">
+                    <div class="parallax__item__img"></div>
+                </figure>
+            </section>
+            <!-- //section06 -->
+
+            <section id="section07" class="parallax__item">
+                <span class="parallax__item__num">07</span>
+                <figure class="parallax__item__imgWrap img07">
+                    <div class="parallax__item__img"></div>
+                </figure>
+            </section>
+            <!-- //section07 -->
+        </main>
+
+        <section id="section08" class="parallax__item">
+            <span class="parallax__item__num">08</span>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+        </section>
+        <!-- //section08 -->
+
+        <section id="section09" class="parallax__item">
+            <span class="parallax__item__num">09</span>
+            <figure class="parallax__item__imgWrap">
+                <div class="parallax__item__img"></div>
+            </figure>
+        </section>
+        <!-- //section09 -->        
+    </main>
+     
+    <script>
+        const horizontal = document.querySelector("#horizontal");
+        const sections = gsap.utils.toArray("#horizontal > section");
+        
+        // gsap 코드를 변수에 저장
+        let scrollTween = gsap.to(sections,{
+            xPercent: -100 * (sections.length - 1), // section 갯수만큼 가로로 이동
+            ease: "none",
+            scrollTrigger: {
+                trigger: horizontal, // gsap 스크롤(=gsap13에선 가로 스크롤) 동작 기준
+                start: "top top", // #horizontal의 top과 뷰포트의 top이 만날 때 시작
+                end: () => "+=" + (horizontal.offsetWidth - innerWidth), 
+                // 스크롤 영역의 전체 넓이에서 현재 창 넓이를 뺀 수치만큼 스크롤 
+                //  start 지점부터 추가로 (horizontal.offsetWidth - innerWidth) 이만큼 가야 스크롤 끝남.
+                // ' () => "+=" + '을 기입하면 윈도우 리사이즈 시 자동 다시 계산 | ScrollTrigger가 refresh 될 때마다 다시 계산
+
+                pin: true, // 스크롤 중 해당 요소 고정
+                scrub: 1, // 자연스러운 동작(부드러운 ani)
+                invalidateOnRefresh: true, // 브라우저 리사이즈 시 자동 다시 계산 (화면 값 계산하는 반응형엔 무조건 포함)
+                anticipatePin: 1 // ani타이밍 미리 감지 => 부드러운 ani 
+            },
+        });
+
+        //** containerAnimation 지정 **
+        gsap.to(".img04",{
+            y: -200,
+            duration: 2,
+            ease: "elastic",
+            scrollTrigger: {
+                trigger:".img04",
+                containerAnimation: scrollTween, // *** gsap스크롤 내부 요소들의 옵션을 따로 주고 싶을 때.
+                start: "left center",
+                toggleActions:"play none reverse none",
+                markers: false,
+                id:"img04"
+            }
+        });
+
+        gsap.to(".img05",{
+            rotate: 720,
+            duration: 2,
+            ease: "elastic",
+            scrollTrigger: {
+                trigger:".img05",
+                containerAnimation: scrollTween, // *** gsap스크롤 내부 요소들의 옵션을 따로 주고 싶을 때.
+                start: "left center",
+                toggleActions:"play none reverse none",
+                markers: false,
+                id:"img05"
+            }
+        });
+
+        gsap.to(".img06",{
+            scale:0.3,
+            duration: 2,
+            ease: "elastic",
+            scrollTrigger: {
+                trigger:".img06",
+                containerAnimation: scrollTween, // *** gsap스크롤 내부 요소들의 옵션을 따로 주고 싶을 때.
+                start: "left center",
+                toggleActions:"play none reverse none",
+                markers: false,
+                id:"img06"
+            }
+        });
+    </script>
+</body>
+</html>
