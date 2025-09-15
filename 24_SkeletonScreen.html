@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skeleton Screen</title>
+
+    <style lang="css">
+        
+        * {
+            text-decoration: none;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 100px 0;
+            width: 100vw;
+            height: 100vh;
+            overflow-x: hidden;
+            color: #555;
+            @media(max-width:768px){
+                padding:0 0 35px;
+            }
+        }
+
+        /* s: ani keyframes ============================================== */
+        
+        /* blink */
+        @keyframes blinkScreen {
+            0% {
+                opacity: 30%;
+            }
+
+            50% {
+                opacity: 20%;
+            }
+
+            100% {
+                opacity: 70%;
+            }
+        }
+
+        /* shimmer */
+        @keyframes Shimmer {
+            0% {
+                left: -150%;
+            }
+            100% {
+                left: 150%;
+            }
+        }
+
+        /* e: ani keyframs ============================================== */
+
+        .screen_wrap {
+            max-width: 1280px;
+            width: 92%;
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        .cont_li {
+            display: flex;
+            flex-wrap: wrap; /* 줄 바꿈(영역 흘러내림) 허용 */
+            justify-content: space-between;
+        }
+
+        .item {
+            padding: 10px;
+            width: calc(50% - 20px);
+            height: 100%;
+            @media screen and (max-width:768px){
+                width: 100%;
+                margin-top: 35px;
+            };
+        }
+
+        .item_img {
+            position: relative;
+            width:320px;
+            height: 200px;
+            margin: 0 auto;
+        }
+
+        .loading {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background: #FFF;
+        }
+        /* 이미지 - 스켈레톤 스크린 뼈대 */
+        .loading_img {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #AAA, #E0E0E0);
+        }
+
+        .blink_me {
+            background:linear-gradient(-45deg, #AAA, #E0E0E0);
+            /* animation: blinkScreen 0.8s linear infinite; */
+
+            /* Shimmer효과용 코드 */
+            position: relative;
+            overflow: hidden;
+            background:#EFEFEF;
+        }
+        /* Shimmer효과 */
+        /* - 영역을 크게 잡고 위치를 전환시켜 움직이도록 */
+        .blink_me:after {
+            content: "";
+            position: absolute;
+            top:0;
+            left:-150%;
+            width:200%;
+            height:100%;
+            background: linear-gradient(
+            135deg,
+            rgba(255,255,255,0) 0%,
+            rgba(255,255,255,0.5) 50%,
+            rgba(255, 255, 255, 0) 100%
+            );
+            z-index: 9999;
+            animation: Shimmer 1s infinite;
+        }
+
+        /* 실 이미지 */
+        .img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .item_txt {
+            position: relative;
+            width: 320px;
+            margin: 0 auto;
+        }
+
+        /* 텍스트 - 스켈레톤 스크린 뼈대 */
+        .loading_txt {
+            margin-bottom: 0.8rem;
+            height: 20px;
+            background: #E0E0E0;
+        }
+
+        /* 실 텍스트 */
+        h3 {
+            margin: 0.5rem 0;
+        }
+
+        .date {
+            display: block;
+            font-size: smaller;
+            margin-bottom: 0.8rem;
+        }
+
+        .intro {
+            font-style: italic;
+            word-break: break-all;
+        }
+
+        /* 스켈레톤 스크린 숨기기 */
+        .loading_hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen_wrap">
+        <ul class="cont_li">
+            <!-- 01 -->
+            <li class="item"> 
+                <div class="item_img">
+                    <div class="loading">
+                        <div class="loading_img blink_me"></div>
+                    </div>
+                    <img src="./img/popover/btn01_img.jpg" class="img" alt="img-content-01">
+                </div>
+                <div class="item_txt">
+                    <div class="loading">
+                        <div class="loading_txt blink_me"></div>
+                        <div class="loading_txt blink_me"></div>
+                        <div class="loading_txt blink_me"></div>
+                    </div>
+                    <h3>ContentA</h3>
+                    <span class="date">2025.09.14 (12:00)</span>
+                    <p class="intro">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                </div>
+            </li>
+            <!-- // -->
+            <!-- 02 -->
+            <li class="item">
+                <div class="item_img">
+                    <div class="loading">
+                        <div class="loading_img blink_me"></div>
+                    </div>
+                    <img src="./img/popover/btn02_img.jpg" class="img" alt="img-content-02">
+                </div>
+                <div class="item_txt">
+                    <div class="loading">
+                        <div class="loading_txt blink_me"></div>
+                        <div class="loading_txt blink_me"></div>
+                        <div class="loading_txt blink_me"></div>
+                    </div>
+                    <h3>ContentB</h3>
+                    <span class="date">2025.09.21 (15:20)</span>
+                    <p class="intro">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                </div>
+            </li>
+            <!-- // -->
+            <!-- 03 -->
+            <li class="item">
+                <div class="item_img">
+                    <div class="loading">
+                        <div class="loading_img blink_me"></div>
+                    </div>
+                    <img src="./img/video/02.png" class="img" alt="img-content-03">
+                </div>
+                <div class="item_txt">
+                    <div class="loading">
+                        <div class="loading_txt blink_me"></div>
+                        <div class="loading_txt blink_me"></div>
+                        <div class="loading_txt blink_me"></div>
+                    </div>
+                    <h3>ContentC</h3>
+                    <span class="date">2025.09.28 (13:40)</span>
+                    <p class="intro">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                </div>
+            </li>
+            <!-- // -->
+            <!-- 04 -->
+            <li class="item">
+                <div class="item_img">
+                    <div class="loading">
+                        <div class="loading_img blink_me"></div>
+                    </div>
+                    <img src="./img/video/04.jpg" class="img" alt="img-content-04">
+                </div>
+                <div class="item_txt">
+                    <div class="loading">
+                        <div class="loading_txt blink_me"></div>
+                        <div class="loading_txt blink_me"></div>
+                        <div class="loading_txt blink_me"></div>
+                    </div>
+                    <h3>ContentD</h3>
+                    <span class="date">2025.10.05 (12:00)</span>
+                    <p class="intro">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                </div>
+            </li>
+            <!-- // script 적용 : blink area stage -->
+        </ul>
+    </div>
+
+    <script>
+        const loadingItem = document.querySelectorAll('.loading');
+
+        const hideLoading = () => {
+            loadingItem.forEach(element => {
+                element.classList.add('loading_hidden');
+            });
+        }
+
+        // 테스트 코드 
+        // window.onload = setTimeout(hideLoading, 2000)
+        // 실 코드
+        window.onload = hideLoading;
+    </script>
+
+    <!-- 참조 -->
+    <!-- https://joshua-dev-story.blogspot.com/2020/12/68.html -->
+</body>
+</html>
