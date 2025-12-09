@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library_FullCalendar</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+    <script src="/src/full-calendar/js/index.global.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
+    
+    <style>
+        /* 레이아웃 */
+        * {
+            margin: 0; padding: 0;
+            list-style: none; text-decoration: none;
+        }
+
+        .nav {
+            height: 100px;
+            background: #CECECE;
+        }
+        .wrap {
+            display: flex;
+            min-height: calc(100vh - 100px);
+            height: auto;
+        }
+        .nav_side {
+            width: 17%; height: auto;
+            background: #EFEFEF;
+        }
+        .content {
+            flex: 1;
+            padding: 60px 50px 30px;
+            display: flex;
+        }
+
+        .calendar {
+            flex: 1;
+        }
+        .add {
+            width: 35%;
+            margin: 65px 0 0 40px;
+            background: #AAA;
+        }
+
+        .event {
+            cursor: pointer;
+        }
+        .event.used {
+            text-decoration: line-through;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav"></div>
+    <div class="wrap">
+        <div class="nav_side"></div>
+        <div class="content">
+            <!-- <div id="calendar"></div> -->
+            <div class="calendar"></div>
+            <div class="add">
+                <strong>[외부 일정 목록]</strong>
+                <ul>
+                    <li class="event" data-id="task1" data-title="일정01">일정01</li>
+                    <li class="event" data-id="task2" data-title="일정02">일정02</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 캘린더 불러오기 -->
+    <!-- <script>
+        // DOM이 로드되면 실행 html다 불러와 트리 구조로 읽히면
+
+        // docontentloaded = 돔이 로드되면
+        // 돔이 로드 = html이 다 읽혀 스크립트에게 트리 구조화되면
+        // 브라우저가 html을 읽으면 출력하기 위해 트리구조로 저장
+        // html이 읽힌 후 실행 -> 요소를 찾지 못해 오류나는 일 X
+        
+        document.addEventListener('DOMContentLoaded', function(){
+            // var calEl = document.getElementById('calendar');
+            var calEl = document.getElementsByClassName('calendar')[0];
+            // var calEl = document.querySelector('.calendar');
+            var cal = new FullCalendar.Calendar(calEl, {
+                // @ 커스텀 속성들 기입
+                initialView: 'dayGridMonth',
+                // @ dayGridYear | dayGridMonth | dayGridWeek | dayGridDay | dayGrid(=dayGridDay) | timeGridWeek | timeGridDay | timeGrid(=timeGridDay) | listYear | listMonth | listWeek | listDay | list(=listDay)
+                
+                //initialDate: '2025-02', // 기본값: 현재날짜
+                locale: 'ko', // 언어및지역화설정 | 기본값: 'en'
+                timeZone: 'local', // 기본값: 'local' - UTC사용할 때 (or 'Asia/Seoul')
+                weekends: true, // 주말 표시 여부 | 기본값: true
+                //firstDay: "1", // 기본 값 : 일요일부터 ( =0 ) | 한 주의 시작 요일 설정
+                //hiddenDays: "3, 6", // 특정 요일 숨기기
+
+                // @ 높이의 기본값은 aspectRatio에 의해 결정 (너비 대 높이의 종횡비: 1.35)
+                // @ 높이들을 auto로 지정하면 스크롤 X
+                // @ 높이 지정과 aspectRaio 같이 사용 불가.
+                // @ height > contentHeight, aspectRatio 무시됨. | contentHeight > height없을 때만 사용 가능. | aspectRatio > 모두 없을 때, unset일 때 사용 가능 
+                
+                //height: 600, // (=600px) 달력 전체(헤더,본문,푸터...) h | 숫자값 다른 단위 > ''안에 단위랑 같이 기입 
+                //contentHeight:'auto', // 캘린더 표(본문) h
+                aspectRatio: 0.8, // 기본값: 1.35 | 1 이상 가로가 더 김 / 1 이하(소수점값) 세로가 더 김
+               
+                slotMinTime : '03:30:00', // time 뷰 일 때 시작 시간 지정
+                //now: '2025-11-12', // today 지정
+                eventOverlap: false, // overlap: 화면 사이징에 따른 편집 시 겹침 방지.(이벤트 막기 X)
+                
+                //eventColor: ''(bg+border), eventTextColor: '', eventBackgroundColor: '', eventBorderColor: '' 
+                //=> 전체 event 일괄 적용, 개별 적용 시 전역 속성보다 개별 우선 적용
+                
+                dayMaxEvents: 2, // 하루 표시 이벤트 갯수 제한 (초과 이벤트 '+더보기 BTN','리스트 내역 popup') | 'true' 지정시 공간에 따라 자동 갯수 조절
+
+                nowIndicator: true, //현재 시간을 나타내는 마커 표시 여부 | initialView: '' 종류가 timeGrid~ 일 경우만 적용. | now랑 같이 쓸 수 없음.
+
+                // titleFormat: {
+                //     //날짜 출력 형식 변경. 요소들 중 선택해서 작성
+                //     year:'numeric(2025) 2-digit(25)',
+                //     month:'long(September) short(Sep) narrow(S) numeric(9) 2-digit(09)',
+                //     day:'numeric(9) 2-digit(09)',
+                //     weekday:'long(Wednesday) short(Wed) narrow(W)',
+                //     hour:'numeric(5) 2-digit(05)',
+                //     second:'numeric(5) 2-digit(05)',
+                //     hour12:'true(12시간제_am|pm표기) false(24시간제_0~23시 표기)',
+                //     timeZoneName:'short(:default값 아님)' // 기본값은 시간 대 출력없음. 시간대 출력 원할 시 short 작성
+                // },
+
+                buttonText: {
+                    // 기본제공 버튼에 표시될 텍스트 설정.
+                    today:'오늘',
+                    month:'월',
+                    week:'주',
+                    day:'일',
+                    list:'리스트보기',
+                },
+
+                // 아이콘 변경은 bootstrap4/5 라이브러리.(스타일 적용 위해)
+                themeSystem: 'bootstrap5', //기본값 : standard
+
+                events: [ // @ 마지막 이벤트 뒤에는 쉼표가 없어야 함! / Internet Explorer 에러 발생!!
+
+                    // rendering : 'background', // 업무 시간 렌더링 방식 설정 | 디폴트 값X ('background', 'inverse-background') | (색상 커스텀: CSS = .fc-non-business에 스타일 코드 추가! // 'backgroundColor: '' , 로' 지정)
+
+                    { title:'일정01', start: '2025-11-18T13:00', url: 'https://junesker.tistory.com/105?category=1238556' }, // @ 하루 일정
+                    { title:'일정02', start: '2025-11-19T03:00:00', end: '2025-11-19T07:00', backgroundColor:'#F00', overlap: false }, // @ 기간 일정
+                    // @ 이벤트 속성 연습
+                    { title:'일정03', start: '2025-11-11', url: 'https://junesker.tistory.com/105?category=1238556', editable:true },
+                    { title:'일정04', start: '2025-11-11T02:00', url: 'https://junesker.tistory.com/105?category=1238556' },
+                    { title:'일정05', start: '2025-11-11T05:00', url: 'https://junesker.tistory.com/105?category=1238556' },
+                    { title:'일정06', start: '2025-11-11T08:30', url: 'https://junesker.tistory.com/105?category=1238556' }
+                    
+                    // @ title: 일정 명
+                    // @ url: 새창열기는 따로 스크립트 지정! | id: 이벤트 고유 속성
+                    // @ constraint: 이벤트가 적용될 범위 지정 (기입한 해당 영역 내로 제한)
+                    // @ id: 고유 식별자 | @ groupId : 이벤트 묶음 식별자 (같이 제어를 원하는 여러 이벤트들에 부여 )
+                    // @ allDay: 하루 종일로 표기 여부
+                    // @ startStr/endStr: 시점 문자열, 출력이나 디버깅용
+                    // @ editable: 편집 가능 설정 허용할 수 있도록 (기본값: false) , 드래그하여 위치 조정 가능, 사이즈 조절로 일정 수정 가능 | 이벤트 수정 여부
+                    // @ startEditable / @ durationEditable / @ resourceEditable : 드래그해서 변경 허용
+                    // @ backgroundColor / @borderColor / @textColor : 색상 스타일 재정의
+                    // @ overlap: 화면 사이징에 따른 편집 시 겹침 방지.(이벤트 막기 X)
+                    // @ expandedProps: 기본 제공 이벤트 외 이벤트 추가(사용자 정의 데이터) // 클릭이벤트나 커스텀 렌더링에 활용.
+                    // @ source => 이벤트 소스 참고 / 객체 내부 읽기 전용 제공 속성 / 'source: '--'로 작성은 안 하고 자동으로 붙는 참조(이벤트 정의 시 직접 쓰는 속성 아님.), 이벤트에 접근할 때 event.source로 확인 가능   
+
+                    //rendering: 'background', // 업무 시간 렌더링 방식 설정 | 디폴트 값X ('background', 'inverse-background') | (색상 커스텀: CSS = .fc-non-business에 스타일 코드 추가! // 'backgroundColor: '' , 로' 지정)
+                ],
+
+                moreLinkClick: function(info){ }, // +더보기 BTN 클릭 시 기본 팝업 외에 동작 적용하고 싶을 때 사용. | 모든 더보기 버튼 일괄 적용 코드! //이벤트 별 개별 적용 원할 시 일자를 불러오는 스크립트 적용 후 개별 적용
+
+                // numeric: 숫자 / 수치적인
+                // digit: 자릿수 (ex) *2-digit => 2025 : 25
+
+                // @ businessHours:true, // 기본값 : false, ( true시 기본값=월~금, 09:00-17:00), //true로 설정하면 businessHours 외 다 회색음영 표기 구분됨.
+                businessHours: [
+                    // @ businessHours 커스텀 : 커스텀 코드가 있을 땐 값 true를 미리 지정 안 해줘도 됨!
+                    {
+                        daysOfWeek:[1, 2, 4, 5], // Sun(0), Mon(1), Tue(2), Wed(3), Thu(4), Fri(5), Sat(6)
+                        startTime:'09:00',
+                        endTime: '18:00',
+                    }, {
+                        daysOfWeek:[3],
+                        startTime:'08:00',
+                        endTime: '14:00',
+                    },
+                ],
+
+                validRange: { // 사용자가 탐색할 수 있는 기간, 이벤트 위치 제한
+                    start:'2025-11-01', // 시작 날짜
+                    end: '2025-12-01', // 종료 날짜 _이 일자는 포함 안 됨 (전 날까지 보임!)
+                },
+
+                selectable: true, // 사용자가 클릭.드래그하여 여러 날짜나 시간대를 강조 | 상호작용 | 사용자가 이벤트를 직접 적용할 수 있도록 코드 제작할 때 필요.
+                //선택영역이 나타나지 않음, 하지만 해당 옵션 true시 선택 상태 모니터링 가능.
+                selectConstraint: {
+                    startTime: '2025-11-19',
+                    endTime: '2025-11-20',                    
+                }, //선택 가능한 범위 제한 | selectable: true일 때만 사용 가능.
+                // 1)selectConstraint와 2)validRange 유사 
+                // : 1)은 사용자 선택_화면 상 제한은 없지만 동작에 제한, 드래그에 한해. 
+                // : 2)캘린더 전체 탐색 가능한 범위 제한._동작 제한은 동일하지만 화면상 외의 일자에는 회색 배경처리.
+                
+                selectMirror: true, // 기본값: false | 드래그 중 mirror표시 (가짜 이벤트 | 사용자가 영역 선택시 저장되거나 일어나는 이벤트는 없지만 시각적으로 선택 영역을 보여줌.)
+                // 저장된 값X => 드래그 동작이 끝나면 화면에 남는 표기 X
+            });
+            
+            cal.render();
+            
+            console.log(cal.view.type); // 적용된 표기 타입 확인용 코드
+
+
+            // ============================================================================================================================================================
+
+            // https://junesker.tistory.com/108?category=1238556
+            // 상호작용 Event
+            new FullCalendar.Draggable( document.querySelector('add'),{
+                itemSelector: '.event',
+                eventData: function(eventEl){
+                    return {
+                        title: eventEl.dataset.title
+                    };
+                },
+            });
+
+            var calender = new FullCalendar.Calendar(calEl, {
+                initialView:'dayGridMonth',
+                droppable: true,
+                editable: true,
+            });
+
+            calender.render();
+        });
+    </script> -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            new FullCalendar.Draggable(document.querySelector('.add'), {
+                itemSelector: '.event:not(.used)', //.used가 있을 때는 드래그 불가(왼료처리)
+                eventData: function(eventEl){
+                    return {
+                        title:eventEl.dataset.title,
+                        id:eventEl.dataset.id //고유 ID부여
+                    }
+                }
+            });
+
+            var calendar = new FullCalendar.Calendar(document.querySelector('.calendar'), {
+                initialView: 'dayGridMonth',
+                droppable: true,
+                editable: true,
+                // 달력->리스트 되돌리기 (기본 제공 이벤트 함수)
+                eventReceive: function(info) {
+                    var origin = document.querySelector('.event[data-id="'+info.event.id+'"]');
+                    if(origin) {
+                        origin.classList.add('used'); // 가운데 라인 표시
+                    }
+                },
+
+                eventDragStop: function(info) {
+                    // 외부 영역(.add) 위치 확인
+                    var dropArea = document.querySelector('.add');
+                    var rect = dropArea.getBoundingClientRect();
+                    var x = info.jsEvent.clientX;
+                    var y = info.jsEvent.clientY;
+
+                    if (x >= rect.left && x <= rect.right &&
+                        y >= rect.top && y <= rect.bottom) {
+                        // 달력에서 삭제
+                        info.event.remove();
+
+                        // 원본 리스트 다시 복구
+                        var origin = document.querySelector('.event[data-id="'+info.event.id+'"]');
+                        if(origin) {
+                            origin.classList.remove('used');
+                        }
+                    }
+                },
+            });
+            
+            calendar.render();
+        });
+
+        // https://junesker.tistory.com/108?category=1238556
+        // 상호작용 Event
+    </script>
+</body>
+</html>
