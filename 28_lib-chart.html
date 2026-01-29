@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library_Chart</title>
+
+    <!-- 라이브러리 -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+
+    <style>
+        * {
+            margin: 0; padding: 0;
+            list-style: none; text-decoration: none;
+        }
+        .wrap {
+            width: 80%;
+            margin: 0 auto;
+            height: 100vh;
+            align-content: center;
+        }
+        .myChart {
+            margin: 0 auto;
+        }
+
+        .main_status_chart {
+            position:relative;
+        }
+        
+        #custom-tooltip {position: absolute; left: -9999px; top: 0;  pointer-events: none; transition: opacity 0.1s ease; z-index: 99;}
+        #custom-tooltip .tooltip-box {position: relative; display: inline-block;}
+        #custom-tooltip .tooltip-cont {display: flex; align-items: center; justify-content:center; font-size: 14px; padding:8px 12px; background:#FFF; border-radius:12px; box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08); white-space:nowrap;}
+        #custom-tooltip .color-box {width: 8.4px; height: 8.4px; border-radius: 2.8px; margin-right: 4.8px; margin-bottom:0.3px; flex-shrink: 0;}
+        #custom-tooltip .label {color: var(--txt-g-70); font-size: 14px;}
+        #custom-tooltip .divider {display:block; margin: 0 8px; background: #E0E0E6; width:1px; height:10px;}
+        #custom-tooltip .value {color: var(--txt-g-90) !important; font-size: 14px;}
+
+        #custom-tooltip .tooltip-caret {position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 6px solid #FFF; filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.08)); box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <!-- 기본 형태 -->
+        <!-- <canvas id="myChart" class="myChart" width="1200" height="300"></canvas> -->
+         <canvas id="statusChart" class="main_status_chart" width="1200" height="287"></canvas>
+
+        <script>
+            // $(document).ready(function () {
+
+            const customTooltip = {
+                enabled: false,
+                mode: 'nearest',/* 가까운 포인터 하나만 인식 */
+                intersect: true, /* 영역 가까이 있을 때 실행 */
+            
+                custom: function (tooltipModel) {
+                    let tooltipEl = document.getElementById('custom-tooltip');
+            
+                    if (!tooltipEl) {
+                        tooltipEl = document.createElement('div');
+                        tooltipEl.id = 'custom-tooltip';
+                        tooltipEl.innerHTML = `
+                            <div class="tooltip-box">
+                            <div class="tooltip-cont"></div>
+                            <div class="tooltip-caret"></div>
+                            </div>
+                        `;
+                        document.body.appendChild(tooltipEl);
+                    }
+                
+                    /* 숨김처리 */	
+                    if (tooltipModel.opacity === 0) {
+                        tooltipEl.style.opacity = 0;
+                        return;
+                    }
+            
+                    // 데이터 있을 때만 실행
+                    if (tooltipModel.body) {
+                        const chart = this._chart;
+                        const chartData = chart.data;
+                        const item = tooltipModel.dataPoints[0];
+                        
+                        const datasetIndex = item.datasetIndex;
+                        const dataIndex = item.index;
+            
+                        const dataset = chartData.datasets[datasetIndex];
+                        const value = dataset.data[dataIndex];
+                        
+                        // 데이터셋 라벨
+                        const label = dataset.label || chartData.labels[dataIndex];
+                        
+                        // 배경색 
+                        const color = Array.isArray(dataset.backgroundColor)
+                            ? dataset.backgroundColor[dataIndex]
+                            : dataset.backgroundColor;
+            
+                        let html = `
+                            <span class="color-box" style="background:${color}"></span>
+                            <span class="label">${label}</span>
+                            <span class="divider"></span>
+                            <span class="value">${value}건</span>
+                        `;
+            
+                        tooltipEl.querySelector('.tooltip-cont').innerHTML = html;
+                    }
+                
+                    /* 위치값 */
+                    const position = this._chart.canvas.getBoundingClientRect();
+                    const tooltipBox = tooltipEl.querySelector('.tooltip-box');
+                    
+                    tooltipEl.style.opacity = 1;
+                    tooltipEl.style.position = 'absolute';
+                    // 가로 위치
+                    tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX - (tooltipBox.offsetWidth / 2) + 'px';
+                    // 세로 위치
+                    tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY - tooltipBox.offsetHeight + 'px';
+                    tooltipEl.style.pointerEvents = 'none';
+                    tooltipEl.style.zIndex = 9999;
+                }
+            };
+
+            // 투명도 조절
+            function shadeColor(color, opacity) {
+                if (!color) return color;
+                // HEX
+                if (color.indexOf('#') === 0) {
+                    const r = parseInt(color.slice(1, 3), 16);
+                    const g = parseInt(color.slice(3, 5), 16);
+                    const b = parseInt(color.slice(5, 7), 16);
+                    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+                }
+                // RGB
+                if (color.indexOf('rgb') === 0 && color.indexOf('rgba') === -1) {
+                    return color.replace('rgb', 'rgba').replace(')', `, ${opacity})`);
+                }
+                // 이미 rgba일 경우 마지막 값만 변경
+                if (color.indexOf('rgba') === 0) {
+                    return color.replace(/[^,]+(?=\))/, ` ${opacity}`);
+                }
+                return color;
+            }
+                
+            // 투명도 제어
+            function handleHover(e, item, chart) {
+                const datasets = chart.data.datasets;
+                const activePoint = chart.getElementAtEvent(e)[0];
+                
+                if (activePoint) {
+                    // 마우스가 직접 닿은 요소의 데이터셋 인덱스(리딩/프로/아너)와 데이터 인덱스(지역)
+                    const selectedDatasetIndex = activePoint._datasetIndex;
+                    const selectedIndex = activePoint._index;
+            
+                    datasets.forEach((dataset, i) => {
+                        const origKey = '_originalColors_' + i;
+            
+                        if (!dataset[origKey]) {
+                            if (Array.isArray(dataset.backgroundColor)) {
+                                dataset[origKey] = [...dataset.backgroundColor];
+                            } else {
+                                // 바 차트
+                                dataset[origKey] = new Array(dataset.data.length).fill(dataset.backgroundColor);
+                            }
+                        }
+            
+                        // 선택 하나
+                        dataset.backgroundColor = dataset[origKey].map((color, idx) => {
+                            if (i === selectedDatasetIndex && idx === selectedIndex) {
+                                return color;
+                            } else {
+                                return shadeColor(color, 0.5); // opacity 조정
+                            }
+                        });
+                    });
+                } else {
+                    // 복구
+                    datasets.forEach((dataset, i) => {
+                        const origKey = '_originalColors_' + i;
+                        if (dataset[origKey]) {
+                            dataset.backgroundColor = [...dataset[origKey]];
+                        }
+                    });
+                }
+                
+                const tooltipEl = document.getElementById('custom-tooltip');
+                if (tooltipEl) {
+                    tooltipEl.style.opacity = 0;
+                }
+            
+                // Transition
+                chart.update({
+                    duration: 400,
+                });
+            }
+
+
+                let barArea = document.getElementById('statusChart');
+
+                let statusChart = new Chart(barArea, {
+                    type: 'bar',
+                    data: {
+                        labels: ['건설', '군산', '김포', '본사', '서인천', '태안', '평택'],
+                        datasets: [
+                            { label: '리딩', data: [5, 8, 4, 8, 12, 8, 8], backgroundColor: '#FFDF89' },
+                            { label: '프로', data: [15, 7, 8, 12, 11, 6, 12], backgroundColor: '#88D7F3' },
+                            { label: '아너', data: [5, 10, 20, 22, 15, 10, 11], backgroundColor: '#10CFC8' }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,                    
+                        legend: {
+                            position: 'top',
+                            align: 'end'
+                        },
+                        onHover: function(e, item) { 
+                            handleHover(e, item, this);
+                        },
+                        tooltips: customTooltip,      
+                        scales: {
+                            xAxes: [{
+                            stacked: true,
+                            categoryPercentage: 0.42,
+                            barPercentage: 0.75,
+                            gridLines: {
+                                display: false
+                            }
+                            }],
+                            yAxes: [{
+                            stacked: true,
+                            ticks: {
+                                min: 0,
+                                max: 50,
+                                stepSize: 10, 
+                                callback: function(value) {
+                                return value === 0 ? '' : value;
+                                }
+                            },
+                            gridLines: {
+                                drawBorder: false,
+                                color: '#E6EAF2',
+                                borderDash: [4, 4],
+                                zeroLineWidth: 0
+                            }
+                            }]
+                        }
+                    }
+                });
+            // });
+        </script>
+
+        <!-- <script>
+            let CtArea = document.getElementById('myChart');
+
+            let myChart = new Chart(CtArea, {
+                type: 'bar',
+                data: {
+                    labels: ['2020', '2021', '2022', '2023'],
+                    datasets: [
+                        {
+                            label: 'Dataset',
+                            data: [
+                                10,
+                                20,
+                                75,
+                                40
+                            ],
+                            backgroundColor: '#00C7E2',
+                            maxBarThickness: 40
+                        },
+                        // 들어갈 데이터 값 수 만큼 datasets에 데이터 세트 추가
+                        {
+                            label: 'Dataset',
+                            data: [
+                                60,
+                                10,
+                                25,
+                                60
+                            ],
+                            backgroundColor: '#FF7DA8',
+                            maxBarThickness: 40
+                        }
+                    ],
+                },
+
+                options: {
+                    //방향 지정: 데이터가 쌓이는 방향을 기준으로! (세로방향:x / 가로방향:y)
+                    indexAxis: 'x', //bar, line, scatter,bubble 차트만 지정 가능
+                    skipNull: true, //값 중 null이 있을 때 해당 부분 차트 생성 여부 (true,false)
+                    responsive: false, // 반응형 [기본값: true]
+                    maintainAspectRatio: false, // 크기 고정
+                    // plugins: {
+                    //     // 툴팁
+                    //     tooltip: {
+                    //         // 툴팁 스타일링
+                    //         enabled: true, // 툴팁 활성화 [기본값: true]
+                    //         backgroundColor: '#000', // 툴팁 색상
+                    //         padding: 10, // 툴팁 패딩 영역
+                    //     },
+                    //     // 범례
+                    //     legend : {
+                    //         display: true, // 범례 활성화 [기본값: true]
+                    //         position: 'bottom', // 위치 [top,bottom,left,right]
+                    //     },
+                    //     // x,y축 설정
+                    //     scales : {
+                    //         x: {
+                    //             // 격자선 설정
+                    //             grid: {
+                    //                 //활성화 여부
+                    //                 display:false, 
+                    //             },
+                    //             //눈금 라벨 옵션
+                    //             ticks: {
+                    //                 color:,
+                    //                 font:,
+                    //                 stepSize:, //눈금간격
+                    //                 callback:, //라벨포맷팅 (값 형식 ex> 00명, 1000 -> 1,000 / ₩1,000 ...) 
+                    //             },
+                    //             //최소값지정
+                    //             min: 0,
+                    //             //최댓값지정
+                    //             max: 0,
+                    //             // 축 테두리 속성
+                    //             border: {
+                    //                 dash: [5, 5], //점선 지정
+                    //                 dashOffset: 2, //점선 시작 위치 조정
+                    //                 width: 2,
+                    //                 color: '#555',
+                    //                 display: true, //표시 여부
+                    //                 z: 0, //z-index: 다른 요소와 겹쳤을 때 우선순위 지정 (chart 내부 요소들에만 영향 / 외부 요소들과는 안됨 / 차트가 랜더링되어 보여지기 때문에 css에서 지정 안 됨)
+                    //             },
+                    //             // 축 제목 설정
+                    //             title: {
+                    //                 display: true,
+                    //                 text: '축 제목',
+                    //                 color: '#333',
+                    //                 font: {
+                    //                     size: 18,
+                    //                     family: 'NotoSans KR',
+                    //                     style: 'normal',
+                    //                     weight: 'bold',
+                    //                     lineHeight: 1.45,
+                    //                 }, 
+                    //             }
+                    //         },
+                    //         y: {
+                    //             // x축 옵션 동일
+                    //         }
+                    //     }
+                    // },
+                },
+            });
+        </script> -->
+    </div>
+    <!-- 사용 예시 velog -->
+    <!-- //https://velog.io/@seoyaon/Javascript-Chart.js%EB%A1%9C-%EC%B0%A8%ED%8A%B8-%EA%B7%B8%EB%A6%AC%EA%B8%B0 -->
+</body>
+</html>
