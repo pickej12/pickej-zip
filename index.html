@@ -3,11 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pickej-Zip</title>
+    <title>pickej12-Zip</title>
+    <style>
+        body {margin: 0;}
+        
+        .wrap {
+            display:flex; align-items:center; justify-content:center; 
+            flex-direction: column;
+            width: 100vw; height: 100vh;
+            text-align: center;
+        }
+
+        .li_tit {
+            font-weight:500;
+            color:#eeecec;
+            font-size:17px; font-weight: 700;
+            letter-spacing: 2rem;
+        }
+
+        .li_wrap {
+            width:66%;
+            display: flex; gap: 26px; justify-content: center; align-items: center;
+            flex-wrap: wrap;
+            list-style: none;
+            padding:0; margin-top:50px;
+        }
+        .li_wrap:hover a {
+            animation-play-state: paused;
+        }
+
+        .li_wrap a {
+            display: block;
+            text-decoration: none; color: #555; font-size:14px;
+            width: fit-content; height: 42px;
+            padding: 0 18px; align-content:center;
+            background:#F9FAFC; border-radius: 30px;
+            transition: 0.5s;
+            animation: float 1.5s ease-in-out infinite alternate;
+        }
+        .li_wrap a:hover {
+            background: #f0f0f0;
+        }
+        .li_wrap li:nth-of-type(odd) a {margin-top:16px; animation-duration:5s;}
+
+        @keyframes float {
+            0% {
+                transform:translate(0,0);
+            }
+            100% {transform:translate(5px, -5px);}
+        }
+    </style>
 </head>
 <body>
     <div class="wrap">
-        <h2>연습공간 리스트</h2>
+        <h2 class="li_tit">- 구현 연습 모음 리스트 -</h2>
+
+        <ul class="li_wrap">
+            <li>
+                <a href="/01_rippleEffect-click.html" target="_blank" class="prac01">
+                    #Click_Ripple Effect
+                </a>
+            </li>
+            <li>
+                <a href="/01_rippleEffect-hover.html" target="_blank" class="prac02">
+                    #Hover_Ripple Effect
+                </a>
+            </li>
+            <li>
+                <a href="/02_textSlide-1.html" target="_blank" class="prac03">
+                    #TextSlide_01
+                </a>
+            </li>
+            <li>
+                <a href="/02_textSlide.html" target="_blank" class="prac04">
+                    #TextSlide_02
+                </a>
+            </li>
+            <li>
+                <a href="/03_stickyFolder-Y.html" target="_blank" class="prac05">
+                    #StickyFolder-Y
+                </a>
+            </li>
+            <li>
+                <a href="/04_sortable_list.html" target="_blank" class="prac06">
+                    #SortableList
+                </a>
+            </li>
+            <li>
+                <a href="/05_hoverEffect.html" target="_blank" class="prac07">
+                    #HoverEffect_01
+                </a>
+            </li>
+            <li>
+                <a href="/05_hoverEffext-1.html" target="_blank" class="prac08">
+                    #HoverEffect_02
+                </a>
+            </li>
+            <li>
+                <a href="/06_mousehover-nav.html" target="_blank" class="prac09">
+                    #MouseHoverNav
+                </a>
+            </li>
+            <li>
+                <a href="/06_mousehover-txt.html" target="_blank" class="prac10">
+                    #MouseHoverText
+                </a>
+            </li>
+            <li>
+                <a href="/07_lerp.html" target="_blank" class="prac11">
+                    #LinearInterpolation
+                </a>
+            </li>
+            <li>
+                <a href="/08_cursorEffect.html" target="_blank" class="prac12">
+                    #CursorEffect
+                </a>
+            </li>
+            <li>
+                <a href="/09_canvas_scrathEvent.html" target="_blank" class="prac13">
+                    #ScrathEvent
+                </a>
+            </li>
+            <li>
+                <a href="/10_keyframes.html" target="_blank" class="prac14">
+                    #Keyframes
+                </a>
+            </li>
+            <li>
+                <a href="/11_shape_triangle,cir(conic-gradient).html" target="_blank" class="prac15">
+                    #Shape
+                </a>
+            </li>
+            <li>
+                <a href="/12_aos.html" target="_blank" class="prac16">
+                    #AOS
+                </a>
+            </li>
+            <li>
+                <a href="/13_imgChange,srcChange.html" target="_blank" class="prac17">
+                    #ImgSrcChange
+                </a>
+            </li>
+            <li>
+                <a href="/14_swiper-slideUP_ex.html" target="_blank" class="prac18">
+                    #Swiper, SlideUp
+                </a>
+            </li>
+            <li>
+                <a href="/15_popOver.html" target="_blank" class="prac19">
+                    #Popover( );
+                </a>
+            </li>
+            <li>
+                <a href="/16.marquee-keyframesAni.html" target="_blank" class="prac20">
+                    #Marquee_keyframes
+                </a>
+            </li>
+            <li>
+                <a href="/16.marquee-marqueeJS.html" target="_blank" class="prac21">
+                    #Marquee_JS
+                </a>
+            </li>
+            <li>
+                <a href="/17_alingText.html" target="_blank" class="prac22">
+                    #TextAlign
+                </a>
+            </li>
+            <li>
+                <a href="/18_dashedLine.html" target="_blank" class="prac23">
+                    #DashedLine
+                </a>
+            </li>
+            <li>
+                <a href="/19_videoCustom.html" target="_blank" class="prac24">
+                    #VideoCustom
+                </a>
+            </li>
+            <li>
+                <a href="/20_tailwind_peer,group.html" target="_blank" class="prac25">
+                    #Tailwind_peer/group
+                </a>
+            </li>
+            <li>
+                <a href="/21_Accordion-js.html" target="_blank" class="prac26">
+                    #Accordion
+                </a>
+            </li>
+            <li>
+                <a href="/22_pop24h.html" target="_blank" class="prac27">
+                    #Popup(24H)
+                </a>
+            </li>
+            <li>
+                <a href="/27_lib-full-calendar.html" target="_blank" class="prac28">
+                    #FullCalendar
+                </a>
+            </li>
+            <li>
+                <a href="/28_lib-chart.html" target="_blank" class="prac28">
+                    #ChartJS
+                </a>
+            </li>
+        </ul>
     </div>
+    
+    <script>
+        // ani효과
+        
+    </script>
 </body>
 </html>
