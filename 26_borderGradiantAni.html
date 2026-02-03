@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BorderGradiantAni</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        .card {
+            border: solid 4px transparent;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50.8%, -50%);
+            width: calc(100% - 70px);
+            max-width: 1000px;
+            max-height: 444px;
+            background: #fff;
+            overflow: visible;
+            background: linear-gradient(0deg, transparent, transparent);
+            border-radius: 14px;
+        }
+        .card::before, .card::after {
+            content: "";
+            position: absolute;
+            left: -4px;
+            top: -4px;
+            background: linear-gradient(45deg, #0538ff, #00b7ff, #17edae, #0538ff);
+            background-size: 400%;
+            width: calc(100% + 8px);
+            height: calc(100% + 8px);
+            z-index: -1;
+            animation: steam 20s linear infinite;
+            border-radius: 16px;
+        }
+        
+        @keyframes steam {
+            0% {
+                background-position: 0 0;
+            }
+            50% {
+                background-position: 400% 0;
+            }
+            100% {
+                background-position: 0 0;
+            }
+        }
+        .card-inner {
+            position: relative;
+            z-index: 1;
+            border-radius: inherit;
+            background: #fff;
+            overflow: hidden;
+            padding: 150px 50px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 외곽 라인( 그라데이션 ani 가상요소 ) -->
+    <div class="card">
+        <!-- 내부 텍스트 영역 -->
+        <div class="card-inner">
+            <p>Gradiant Border Ani</p>
+        </div>
+    </div>
+</body>
+</html>
